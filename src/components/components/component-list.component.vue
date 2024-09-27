@@ -40,12 +40,6 @@ export default {
 
 <template>
   <div>
-    <input
-        type="text"
-        v-model="searchQuery"
-        placeholder="Buscar componentes..."
-        @input="filterComponents"
-    />
     <div class="card-container" aria-label="country list">
       <component-item
           v-for="component in filteredComponents"
@@ -57,9 +51,5 @@ export default {
 </template>
 
 <style scoped>
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
+
 </style>

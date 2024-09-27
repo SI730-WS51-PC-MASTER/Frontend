@@ -1,9 +1,9 @@
 export class Image {
     constructor(
-        id = 0,
-        imageUrl = ''
+        main = '', // URL de la imagen principal
+        secondary = [] // Array de URLs para imágenes secundarias
     ) {
-        this.id = id;
-        this.imageUrl = imageUrl;
+        this.main = main;
+        this.secondary = secondary;
     }
 }

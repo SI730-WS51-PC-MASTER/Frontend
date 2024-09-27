@@ -14,25 +14,45 @@ export default {
 </script>
 
 <template>
+  <div class="component-list">
   <div class="component-card">
-    <img v-if="component.image" :src="component.image.imageUrl" alt="Component image" />
-    <h3>{{ component.name }}</h3>
-    <p>Price: {{ component.price }}</p>
+    <img
+        v-if="component.image"
+        :src="component.image.imageUrl"
+        alt="Component image"
+        class="component-image"
+    />
+    <div class="component-info">
+      <h3 class="component-title">{{ component.name }}</h3>
+      <p class="component-price">${{ component.price }}.00</p>
 
-    <!-- Mostrar estrellas basado en el rating -->
-    <div class="ratings">
-      <span v-for="n in 5" :key="n" class="star">
-        <i :class="n <= component.rating ? 'filled-star' : 'empty-star'">★</i>
-      </span>
+      <div class="component-rating">
+  <span v-for="n in 5" :key="n" class="star">
+    <i :class="{'filled-star': n <= component.ratings, 'empty-star': n > component.ratings}">★</i>
+  </span>
+      </div>
+      <!-- Mostrar el estado del stock -->
+      <p v-if="component.stock > 10" class="available component-status">Available</p>
+      <p v-else-if="component.stock > 0" class="short component-status">Short</p>
+      <p v-else class="unavailable component-status">Unavailable</p>
     </div>
-
-    <!-- Mostrar el estado del stock -->
-    <p v-if="component.stock > 10" class="available">Available</p>
-    <p v-else-if="component.stock > 0" class="short">Short</p>
-    <p v-else class="unavailable">Unavailable</p>
+    <div class="component-actions">
+      <!-- Aquí puedes añadir los iconos de acción -->
+      <i class="fa fa-edit"></i> <!-- Icono de editar -->
+      <img src="@/assets/icons/me-gusta.png" />
+      <img src="@/assets/icons/compartir.png" />
+    </div>
+  </div>
   </div>
 </template>
 <style>
+.component-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 10px;
+}
 body {
   background: linear-gradient(145deg, #2b0035, #1c2d4b); /* Fondo degradado morado oscuro */
   color: #ffffff; /* Color de texto blanco por defecto */
@@ -88,7 +108,11 @@ body {
   flex-direction: column;
   gap: 15px;
 }
-
+.component-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .filter-options label {
   font-size: 14px;
   color: #fff;
@@ -130,11 +154,6 @@ body {
 
 .badge:hover {
   background-color: #ff55aa; /* Efecto hover en los badges */
-}
-
-/* Sección derecha con lista de componentes */
-.component-section {
-  width: 65%;
 }
 
 .component-section h2 {
@@ -182,16 +201,20 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s ease-in-out;
   color: #fff;
+  min-height: 150px; /* Ajusta la altura mínima para uniformidad */
 }
 
-.component-card:hover {
-  transform: scale(1.03);
-}
 
 .component-info {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex-grow: 1; /* Permite que la sección de info ocupe el espacio restante */
+}
+
+
+.component-card:hover {
+  transform: scale(1.03);
 }
 
 .component-title {
@@ -211,9 +234,17 @@ body {
 }
 
 .star {
-  font-size: 20px;
-  color: #ffcc00; /* Estrellas doradas */
+  font-size: 20px; /* Ajusta según sea necesario */
 }
+
+.filled-star {
+  color: gold; /* O cualquier color que desees */
+}
+
+.empty-star {
+  color: lightgray; /* O cualquier color que desees */
+}
+
 
 .component-status {
   background-color: transparent;
@@ -237,5 +268,4 @@ body {
 .component-actions i:hover {
   color: #ff55aa;
 }
-
 </style>

@@ -9,7 +9,10 @@ export class Component{
         stock = 0,
         provider_id = '',
         image = new Image(),
-        ratings = 0
+        ratings = 0,
+        categories = new Categories(),
+        attributes = new Atributes(),
+        country = ''
 
     ) {
         this.id = id;
@@ -20,5 +23,7 @@ export class Component{
         this.provider_id = provider_id;
         this.image = image;
         this.ratings = ratings;
+        this.categories = categories;
+        this.country = country;
     }
 }

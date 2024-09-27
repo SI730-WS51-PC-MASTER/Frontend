@@ -1,15 +1,71 @@
 <script>
-import ComponentList from "../components/component-list.component.vue"; // Ajusta la ruta según sea necesario
-import { ComponentService } from "../services/component.service.js";
-
+import ComponentList from "../components/component-list.component.vue";
+import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
 export default {
   name: "AllComponents",
   components: { ComponentList },
   data() {
     return {
       components: [],
+      searchQuery: '',
+      filteredComponents: [],
+      selectedCountry: '',
+      minPrice: null,
+      maxPrice: null,
     };
   },
+  created() {
+    const componentService = new ComponentService();
+    componentService.getAll().then(response => {
+      this.components = response.data;
+      this.filteredComponents = this.components; // Inicialmente, mostrar todos los componentes
+      console.log("Response from JSON server:", response.data);
+    });
+  },
+  computed: {
+    filteredComponents() {
+      return this.components.filter(component => {
+        const matchesName = component.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+        const matchesPrice = (!this.minPrice || component.price >= this.minPrice) &&
+            (!this.maxPrice || component.price <= this.maxPrice);
+        const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
+        return matchesName && matchesPrice && matchesCountry;
+      });
+    }
+  },
+  methods: {
+    sortByPriceAsc() {
+      this.components.sort((a, b) => a.price - b.price);
+    },
+    sortByPriceDesc() {
+      this.components.sort((a, b) => b.price - a.price);
+    },
+    sortByRatingAsc() {
+      this.components.sort((a, b) => a.ratings - b.ratings);
+    },
+    sortByRatingDesc() {
+      this.components.sort((a, b) => b.ratings - a.ratings);
+    },
+    filterByPrice() {
+      // Lógica de filtrado de precios
+      this.filteredComponents = this.components.filter(component => {
+        const price = component.price;
+        return (
+            (this.minPrice === null || price >= this.minPrice) &&
+            (this.maxPrice === null || price <= this.maxPrice)
+        );
+      });
+    }
+  },
+  mounted() {
+    console.log(this.filteredComponents);
+    this.filteredComponents = this.components;
+  },
+  watch: {
+    minPrice: 'filterByPrice',
+    maxPrice: 'filterByPrice',
+  },
+
 };
 </script>
 
@@ -30,37 +86,45 @@ export default {
     <div class="filter-section">
       <h2>Find a component</h2>
       <div class="search-bar">
-        <input type="text" placeholder="Search">
-        <button><i class="fas fa-search"></i></button>
+        <input
+            type="text"
+            v-model="searchQuery"
+            placeholder="Buscar componentes..."
+        />
       </div>
       <h2>Choose your options</h2>
       <div class="filter-options">
         <label for="price">Precio</label>
-        <input type="number" placeholder="Mínimo">
-        <input type="number" placeholder="Máximo">
+        <input type="number" v-model="minPrice" placeholder="Mínimo" />
+        <input type="number" v-model="maxPrice" placeholder="Máximo" />
 
-        <label for="country">Pais - Busqueda</label>
-        <select id="country">
-          <option value="default">Select a country</option>
-          <option value="usa">USA</option>
-          <option value="canada">Canada</option>
-          <!-- Agregar más países -->
+        <label for="country">País</label>
+        <select v-model="selectedCountry">
+          <option value="">Todos</option>
+          <option value="USA">USA</option>
+          <option value="Taiwan">Taiwan</option>
+          <!-- Agrega más países según sea necesario -->
         </select>
+
 
         <!-- Badges de categorías -->
         <div class="filter-badges">
-          <div class="badge">Trabajo</div>
-          <div class="badge">Juegos</div>
-          <div class="badge">Diseño</div>
+          <div class="badge" @click="filterByCategory('Trabajo')">Trabajo</div>
+          <div class="badge" @click="filterByCategory('Juegos')">Juegos</div>
+          <div class="badge" @click="filterByCategory('Diseño')">Diseño</div>
         </div>
+
 
         <!-- Badges de componentes -->
         <div class="filter-badges">
-          <div class="badge">Processors</div>
-          <div class="badge">RAM Memories</div>
-          <div class="badge">Motherboards</div>
-          <div class="badge">Graphics Cards</div>
+          <div class="badge" @click="filterByType('Processors')">Processors</div>
+          <div class="badge" @click="filterByType('RAM Memories')">RAM Memories</div>
+          <div class="badge" @click="filterByType('Motherboards')">Motherboards</div>
+          <div class="badge" @click="filterByType('Graphics Cards')">Graphics Cards</div>
+          <div class="badge" @click="filterByType('Storage')">Storage</div>
+          <div class="badge" @click="filterByType('Peripheral')">Peripheral</div>
         </div>
+
       </div>
     </div>
 
@@ -68,15 +132,45 @@ export default {
     <div class="component-section">
       <h2>Enumerate by</h2>
       <div class="sort-buttons">
-        <button>Lower Price</button>
-        <button>Higher Price</button>
-        <button>More stars</button>
-        <button>Less stars</button>
+        <button @click="sortByPriceAsc">Lower Price</button>
+        <button @click="sortByPriceDesc">Higher Price</button>
+        <button @click="sortByRatingAsc">Less stars</button>
+        <button @click="sortByRatingDesc">More stars</button>
       </div>
-      
       <div class="component-list">
-        <component-list :components="components" />
-        <!-- Repetir las cards para más componentes -->
+        <div
+            class="component-card"
+            v-for="component in filteredComponents"
+            :key="component.id">
+          <img
+              v-if="component.image"
+              :src="component.image.main"
+              alt="Component image"
+              class="component-image"
+          />
+          <div class="component-info">
+            <h3 class="component-title">{{ component.name }}</h3>
+            <p class="component-price">${{ component.price }}.00</p>
+
+              <!-- Mostrar estrellas basado en el rating -->
+            <div class="component-rating">
+  <span v-for="n in 5" :key="n" class="star">
+    <i :class="n <= (component.ratings >= 0 ? Math.min(component.ratings, 5) : 0) ? 'filled-star' : 'empty-star'">★</i>
+  </span>
+            </div>
+
+            <!-- Mostrar el estado del stock -->
+            <p v-if="component.stock > 10" class="available component-status">Available</p>
+            <p v-else-if="component.stock > 0" class="short component-status">Short</p>
+            <p v-else class="unavailable component-status">Unavailable</p>
+          </div>
+          <div class="component-actions">
+            <!-- Aquí puedes añadir los iconos de acción -->
+            <i class="fa fa-edit"></i> <!-- Icono de editar -->
+            <img src="@/assets/icons/me-gusta.png" />
+            <img src="@/assets/icons/compartir.png" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -252,4 +346,16 @@ body {
 .component-actions i:hover {
   color: #ff55aa;
 }
+.star {
+  font-size: 20px; /* Ajusta según sea necesario */
+}
+
+.filled-star {
+  color: gold; /* O cualquier color que desees */
+}
+
+.empty-star {
+  color: lightgray; /* O cualquier color que desees */
+}
+
 </style>
