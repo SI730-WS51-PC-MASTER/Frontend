@@ -8,25 +8,6 @@ export default {
 </script>
 <template>
   <div class="home">
-    <header class="home-header">
-      <!-- Settings, Announcements, Translation icons -->
-      <div class="icons-left">
-        <img src="@/assets/icons/settings.png" alt="Settings" />
-        <img src="@/assets/icons/announcements.png" alt="Announcements" />
-        <img src="@/assets/icons/translation.png" alt="Translation" />
-      </div>
-      <h1>Don't know which components for your PC to choose?</h1>
-      <div class="buttons">
-        <button class="build-button">Start Building your PC</button>
-        <button class="find-button">Find your component</button>
-        <button class="guide-button">Get Hardware Guidance</button>
-      </div>
-      <!-- User Icon -->
-      <div class="user-icon">
-        <img src="@/assets/icons/user.png" alt="User" />
-      </div>
-    </header>
-
     <section class="content">
       <div class="best-sellers">
         <h2>Best Sellers</h2>
