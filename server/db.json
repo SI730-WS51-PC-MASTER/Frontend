@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "id": 1,
+      "name": "Component 1",
+      "description": "High performance component",
+      "price": 100,
+      "stock": 10,
+      "provider_id": 1,
+      "image": {
+        "id": 1,
+        "imageUrl": "path_to_image1.jpg"
+      },
+      "ratings" : 5
+    },
+    {
+      "id": 2,
+      "name": "Component 2",
+      "description": "Reliable component",
+      "price": 200,
+      "stock": 11,
+      "provider_id": 2,
+      "image": {
+        "id": 2,
+        "imageUrl": "path_to_image2.jpg"
+      },
+      "ratings" : 3
+    },
+    {
+      "id": 3,
+      "name": "Component 3",
+      "description": "Medium performance component",
+      "price": 70,
+      "stock": 0,
+      "provider_id": 1,
+      "image": {
+        "id": 1,
+        "imageUrl": "path_to_image1.jpg"
+      },
+      "ratings" : 3
+    }
+  ]
+}
+
