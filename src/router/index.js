@@ -7,7 +7,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/home',                    name: 'home', component: HomeComponent, meta: { title: 'Home'}},
-        { path: '/component', name: 'component', component: ViewComponent, meta: { title: 'All Components' }},
+        { path: '/components', name: 'components', component: ViewComponent, meta: { title: 'All Components' }},
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent }
     ]
 });
