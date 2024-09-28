@@ -24,7 +24,7 @@ export default {
       </template>
 
       <template #center>
-        <div clas="flex items-center gap-2">
+        <div class="flex items-center gap-2">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
 
           <div class="flex justify-content-center gap-2 buttons-container">
@@ -45,7 +45,6 @@ export default {
       <template #end>
         <i class="pi pi-user" style="font-size: 2.5rem"></i>
       </template>
-
     </pv-toolbar>
 
   </header>

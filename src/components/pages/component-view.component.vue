@@ -102,17 +102,6 @@ export default {
 </script>
 
 <template>
-  <div class="navbar">
-    <div class="icons">
-      <img src="@/assets/icons/settings.png" alt="Settings" />
-      <img src="@/assets/icons/announcements.png" alt="Announcements" />
-      <img src="@/assets/icons/translation.png" alt="Translation" />
-    </div>
-    <div class="user-icon">
-      <img src="@/assets/icons/user.png" alt="User" />
-    </div>
-  </div>
-
   <div class="container">
     <!-- Sección de filtros -->
     <div class="filter-section">
