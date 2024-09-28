@@ -2,11 +2,14 @@ import {createRouter, createWebHistory} from "vue-router";
 import HomeComponent from "../public/pages/home.component.vue";
 import NotFoundComponent from "../public/pages/not-found.component.vue";
 
+import ShoppingCartComponent from "@/orders/pages/shopping-cart.component.vue";
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/home',                    name: 'home', component: HomeComponent, meta: { title: 'Home'}},
         { path: '/',                        redirect: '/home'},
+        { path: '/shopping-cart', name: 'shopping-cart', component: ShoppingCartComponent },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent }
     ]
 });
