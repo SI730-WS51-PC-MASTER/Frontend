@@ -1,3 +1,4 @@
+<script>
 import LanguageSwitcher from "@/public/components/language-switcher.component.vue";
 
 export default {
