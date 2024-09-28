@@ -8,6 +8,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/home',                    name: 'home', component: HomeComponent, meta: { title: 'Home'}},
+        { path: '/technical-support', name: 'technical-support', component: TechnicalSupportComponent, meta: { title: 'Guidance'}},
         { path: '/',                        redirect: '/home'},
         { path: '/shopping-cart', name: 'shopping-cart', component: ShoppingCartComponent },
         { path: '/components', name: 'components', component: ViewComponent, meta: { title: 'All Components' }},
