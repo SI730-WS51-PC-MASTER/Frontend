@@ -11,7 +11,6 @@ export default {
 <template>
   <pv-toast/>
   <pv-confirm-dialog/>
-
   <header>
     <pv-toolbar class="mb-4 toolbar">
       <template #start>
@@ -20,13 +19,10 @@ export default {
           <i class="pi pi-megaphone" style="font-size: 2rem"></i>
           <language-switcher/>
         </div>
-
       </template>
-
       <template #center>
-        <div class="flex items-center gap-2">
+        <div clas="flex items-center gap-2">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
-
           <div class="flex justify-content-center gap-2 buttons-container">
             <router-link to='build'>
               <pv-button :label="$t('bttn-1')" severity="danger" style="color: #ffffff"/>
@@ -39,16 +35,12 @@ export default {
             </router-link>
           </div>
         </div>
-
       </template>
-
       <template #end>
         <i class="pi pi-user" style="font-size: 2.5rem"></i>
       </template>
     </pv-toolbar>
-
   </header>
-
   <main>
     <div id="app">
       <router-view></router-view>
