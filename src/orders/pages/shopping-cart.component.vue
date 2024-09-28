@@ -27,23 +27,13 @@ export default {
 
       </pv-card>
 
-
-
-      <div class="flex w-full">
-        <shopping-cart-add-and-edit/>
-      </div>
     </div>
 
-
-
-
-
+    <div class="">
+      <shopping-cart-add-and-edit/>
+    </div>
 
   </div>
-
-
-
-
 
 </template>
 
