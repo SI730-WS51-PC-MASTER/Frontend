@@ -27,7 +27,7 @@ export default {
             <router-link to='build'>
               <pv-button :label="$t('bttn-1')" severity="danger" style="color: #ffffff"/>
             </router-link>
-            <router-link to='component'>
+            <router-link to='components'>
               <pv-button :label="$t('bttn-2')" severity="info" style="color: #ffffff"/>
             </router-link>
             <router-link to='guidance'>

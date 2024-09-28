@@ -3,12 +3,12 @@ import HomeComponent from "../public/pages/home.component.vue";
 import ViewComponent from "../components/pages/component-view.component.vue";
 import NotFoundComponent from "../public/pages/not-found.component.vue";
 import ShoppingCartComponent from "@/orders/pages/shopping-cart.component.vue";
-
+import TechnicalSupportComponent from "@/technical-support/pages/technical-support-component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/home',                    name: 'home', component: HomeComponent, meta: { title: 'Home'}},
-        { path: '/technical-support', name: 'technical-support', component: TechnicalSupportComponent, meta: { title: 'Guidance'}},
+        { path: '/guidance', name: 'guidance', component: TechnicalSupportComponent, meta: { title: 'Guidance'}},
         { path: '/',                        redirect: '/home'},
         { path: '/shopping-cart', name: 'shopping-cart', component: ShoppingCartComponent },
         { path: '/components', name: 'components', component: ViewComponent, meta: { title: 'All Components' }},
