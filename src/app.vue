@@ -1,36 +1,9 @@
-<script>
-import Toolbar from "primevue/toolbar";
-
-export default{
-  name:'App',
-  components: {
-    Toolbar,
-  },
-  data() {
-    return {
-      wishlist: [],
-    };
-  },
-  methods: {
-    addToWishlist(product) {
-      if (!this.wishlist.some((item) => item.id === product.id)) {
-        this.wishlist.push(product);
-      }
-    },
-    removeFromWishlist(product) {
-      this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
-    },
-  },
-};
+<script setup>
 </script>
 
 <template>
-  <!--<div id="app">
-    <router-view></router-view>
-  </div>-->
   <div id="app">
-    <Toolbar :wishlist="wishlist" />
-    <router-view :wishlist="wishlist" @add-to-wishlist="addToWishlist" @remove-from-wishlist="removeFromWishlist" />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -63,5 +36,3 @@ header {
   }
 }
 </style>
-
-

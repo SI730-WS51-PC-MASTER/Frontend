@@ -80,7 +80,6 @@
       "stock": 150,
       "provider_id": 3,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 5,
@@ -104,7 +103,6 @@
       "stock": 80,
       "provider_id": 4,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 4,
@@ -128,7 +126,6 @@
       "stock": 200,
       "provider_id": 5,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 4,
@@ -152,7 +149,6 @@
       "stock": 60,
       "provider_id": 6,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 5,
@@ -176,7 +172,6 @@
       "stock": 200,
       "provider_id": 7,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 4,
@@ -200,7 +195,6 @@
       "stock": 500,
       "provider_id": 8,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 4,
@@ -223,7 +217,6 @@
       "stock": 300,
       "provider_id": 9,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 4,
@@ -247,7 +240,6 @@
       "stock": 150,
       "provider_id": 10,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 5,
@@ -270,7 +262,6 @@
       "stock": 250,
       "provider_id": 11,
       "image": {
-        "main": "",
         "secondary": []
       },
       "ratings": 4,
