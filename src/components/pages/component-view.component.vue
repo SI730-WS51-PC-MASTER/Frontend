@@ -1,18 +1,20 @@
 <script>
 import ComponentList from "../components/component-list.component.vue";
 import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
+import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
 export default {
   name: "AllComponents",
-  components: { ComponentList },
+  components: {WishlistAddAndRemoveComponent, ComponentList },
   data() {
     return {
-      components: [],
+      components: [ComponentList, WishlistAddAndRemoveComponent],
       searchQuery: '',
       filteredComponents: [],
       selectedCountry: '',
       selectedCategory: '',
       minPrice: null,
       maxPrice: null,
+      wishlist: [],
     };
   },
   created() {
@@ -21,6 +23,7 @@ export default {
       this.components = response.data;
       this.filteredComponents = this.components; // Inicialmente, mostrar todos los componentes
       console.log("Response from JSON server:", response.data);
+      this.filteredComponents = this.components;
     });
   },
   computed: {
@@ -87,17 +90,25 @@ export default {
             console.error("Error cargando los componentes:", error);
           });
     }*/
+    addToWishlist(product) {
+      // Verifica si el producto ya está en la lista
+      if (!this.wishlist.some(item => item.id === product.id)) {
+        this.wishlist.push(product);
+      }
+    },
+    removeFromWishlist(product) {
+      this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
+    },
+    mounted() {
+      console.log(this.filteredComponents);
+      this.filteredComponents = this.components;
+      /*this.loadComponents();*/
+    },
+    watch: {
+      minPrice: 'filterByPrice',
+      maxPrice: 'filterByPrice',
+    },
   },
-  mounted() {
-    console.log(this.filteredComponents);
-    this.filteredComponents = this.components;
-    /*this.loadComponents();*/
-  },
-  watch: {
-    minPrice: 'filterByPrice',
-    maxPrice: 'filterByPrice',
-  },
-
 };
 </script>
 
@@ -184,6 +195,13 @@ export default {
             <p v-if="component.stock > 10" class="available component-status">Available</p>
             <p v-else-if="component.stock > 0" class="short component-status">Short</p>
             <p v-else class="unavailable component-status">Unavailable</p>
+            <!-- Agregar componente `WishlistAddAndRemoveComponent` -->
+            <WishlistAddAndRemoveComponent
+                :component="component"
+                :wishlist="wishlist"
+                @add-to-wishlist="addToWishlist"
+                @remove-from-wishlist="removeFromWishlist"
+            />
           </div>
           <div class="component-actions">
             <!-- Aquí puedes añadir los iconos de acción -->
