@@ -4,6 +4,11 @@ export default {
   name: "Home",
   components: {
   },
+  methods: {
+    goToComponents() {
+      this.$router.push({name: 'components'});
+    }
+  }
 };
 </script>
 <template>
@@ -88,9 +93,9 @@ export default {
 }
 
 .home-header {
-  background-color: #2c003e;
+  background-color: #FF1B6B4D;
   color: white;
-  padding: 20px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
