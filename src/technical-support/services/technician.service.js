@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
 export class TechnicianService {
-    resourceEndpoint = "/technicians";
+    resourceEndpoint = "https://my-json-server.typicode.com/OscarGAV/technical-support-json-server/technicians";
 
     getAll() {
         console.log(`Fetching from ${this.resourceEndpoint}`);
