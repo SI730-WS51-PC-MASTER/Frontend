@@ -2,9 +2,10 @@
 import Toolbar from "../../public/components/toolbar.component.vue";
 import ComponentList from "../components/component-list.component.vue";
 import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
+import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
 export default {
   name: "AllComponents",
-  components: { ComponentList, Toolbar },
+  components: { ComponentList, Toolbar, WishlistAddAndRemoveComponent },
   data() {
     return {
       components: [],
@@ -14,13 +15,14 @@ export default {
       selectedCategory: '',
       minPrice: null,
       maxPrice: null,
+      wishlist: [],
     };
   },
   created() {
     const componentService = new ComponentService();
     componentService.getAll().then(response => {
       this.components = response.data;
-      this.filteredComponents = this.components; // Inicialmente, mostrar todos los componentes
+      this.filteredComponents = this.components;
       console.log("Response from JSON server:", response.data);
     });
   },
@@ -31,9 +33,7 @@ export default {
         const matchesPrice = (!this.minPrice || component.price >= this.minPrice) &&
             (!this.maxPrice || component.price <= this.maxPrice);
         const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
-        //const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
-        //const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
-        return /*matchesCategory && matchesType &&*/ matchesName && matchesPrice && matchesCountry;
+        return matchesName && matchesPrice && matchesCountry;
       });
     }
   },
@@ -59,35 +59,16 @@ export default {
             (this.maxPrice === null || price <= this.maxPrice)
         );
       });
-    },/*
-    filterByCategory(category) {
-      console.log("Categoría seleccionada:", category);
-      this.selectedCategory = category;
-      this.applyFilters();
     },
-    filterByType(type) {
-      console.log("Tipo seleccionado:", type);
-      this.selectedType = type;
-      this.applyFilters();
+    addToWishlist(product) {
+      // Verifica si el producto ya está en la lista
+      if (!this.wishlist.some(item => item.id === product.id)) {
+        this.wishlist.push(product);
+      }
     },
-    applyFilters() {
-      this.filteredComponents = this.components.filter(component => {
-        const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
-        const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
-        return matchesCategory && matchesType;
-      });
+    removeFromWishlist(product) {
+      this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
     },
-    loadComponents() {
-      fetch('http://localhost:3000/components')
-          .then(response => response.json())
-          .then(data => {
-            this.components = data.components;
-            this.filteredComponents = data.components; // Mostrar todos al principio
-          })
-          .catch(error => {
-            console.error("Error cargando los componentes:", error);
-          });
-    }*/
   },
   mounted() {
     console.log(this.filteredComponents);
@@ -103,16 +84,6 @@ export default {
 </script>
 
 <template>
-  <!--<div class="navbar">
-    <div class="icons">
-      <img src="@/assets/icons/settings.png" alt="Settings" />
-      <img src="@/assets/icons/announcements.png" alt="Announcements" />
-      <img src="@/assets/icons/translation.png" alt="Translation" />
-    </div>
-    <div class="user-icon">
-      <img src="@/assets/icons/user.png" alt="User" />
-    </div>
-  </div>-->
   <Toolbar />
   <div class="container">
     <!-- Sección de filtros -->
@@ -196,6 +167,13 @@ export default {
             <p v-if="component.stock > 10" class="available component-status">Available</p>
             <p v-else-if="component.stock > 0" class="short component-status">Short</p>
             <p v-else class="unavailable component-status">Unavailable</p>
+            <!-- Agregar componente `WishlistAddAndRemoveComponent` -->
+            <WishlistAddAndRemoveComponent
+                :component="component"
+                :wishlist="wishlist"
+                @add-to-wishlist="addToWishlist"
+                @remove-from-wishlist="removeFromWishlist"
+            />
           </div>
           <div class="component-actions">
             <!-- Aquí puedes añadir los iconos de acción -->

@@ -13,7 +13,8 @@ export class Component{
         ratings = 0,
         categories = new Categories(),
         attributes = new Atributes(),
-        country = ''
+        country = '',
+        quantity = 0
 
     ) {
         this.id = id;
@@ -26,5 +27,6 @@ export class Component{
         this.ratings = ratings;
         this.categories = categories;
         this.country = country;
+        this.quantity = quantity;
     }
 }

@@ -1,7 +1,12 @@
 <script>
 export default {
-  name: "toolbar"
-}
+  name: "toolbar",
+  methods: {
+    goToWishlist() {
+      this.$router.push({ name: 'wishlist' });
+    },
+  },
+};
 </script>
 
 <template>
@@ -10,7 +15,7 @@ export default {
       <img src="@/assets/icons/settings.png" alt="Settings" class="toolbar-icon" />
       <img src="@/assets/icons/announcements.png" alt="Announcements" class="toolbar-icon" />
       <img src="@/assets/icons/translation.png" alt="Translation" class="toolbar-icon" />
-      <img src="@/assets/icons/lista-deseos.png" alt="ListaDeseos" class="toolbar-icon" />
+      <img src="@/assets/icons/lista-deseos.png" alt="ListaDeseos" class="toolbar-icon" @click="goToWishlist"/>
     </div>
     <div class="toolbar-section user">
       <img src="@/assets/icons/user.png" alt="User" class="toolbar-icon" />

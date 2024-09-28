@@ -1,69 +1,62 @@
-<!--<script>
-export default {
-  name: "wishlist-agregate-and-remove"
-}
-</script>
-
-<template>
-
-</template>
-
-<style scoped>
-
-</style>-->
-
-<template>
-  <div class="product-card">
-    <img :src="product.image" alt="product image">
-    <h3>{{ product.name }}</h3>
-    <p>\${{ product.price }}</p>
-    <button @click="toggleWishlist">
-      {{ isInWishlist ? 'Remove' : 'Add to Wishlist' }}
-    </button>
-    <div class="quantity">
-      <button @click="updateQuantity(-1)">-</button>
-      <span>{{ product.quantity }} Units</span>
-      <button @click="updateQuantity(1)">+</button>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
+  name: "WishlistAddAndRemoveComponent",
   props: {
-    product: Object,
-    wishlist: Array,
+    component: {
+      type: Object,
+      required: true,
+    },
+    wishlist: {
+      type: Array,
+      required: true,
+    },
   },
   computed: {
     isInWishlist() {
-      return this.wishlist.some(item => item.id === this.product.id);
+      return this.wishlist.some((item) => item.id === this.component.id);
     },
   },
   methods: {
     toggleWishlist() {
       if (this.isInWishlist) {
-        this.$emit('remove-from-wishlist', this.product);
+        this.$emit("remove-from-wishlist", this.component);
       } else {
-        this.$emit('add-to-wishlist', this.product);
+        this.$emit("add-to-wishlist", this.component);
       }
     },
     updateQuantity(amount) {
-      if (this.product.quantity + amount > 0) {
-        this.product.quantity += amount;
-        this.$emit('update-quantity', this.product);
+      if (this.component.quantity + amount > 0) {
+        this.component.quantity += amount;
+        this.$emit("update-quantity", this.component);
+      } else {
+        this.component.quantity = 1;
       }
     },
   },
 };
 </script>
 
+<template>
+  <div class="component-card">
+    <button @click="toggleWishlist" class="addButton">
+      {{ isInWishlist ? 'Remove' : 'Add to Wishlist' }}
+    </button>
+    <div class="quantity">
+      <button @click="updateQuantity(-1)">-</button>
+      <span>{{ component.quantity }} Units</span>
+      <button @click="updateQuantity(1)">+</button>
+    </div>
+  </div>
+</template>
+
 <style scoped>
-.product-card {
-  border: 1px solid #ccc;
-  padding: 16px;
+.component-card {
+  width: 250px;
+  height: auto;
+  padding: 10px;
+  margin: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  box-shadow: none;
 }
 .quantity {
   display: flex;
@@ -76,6 +69,12 @@ export default {
   color: white;
   padding: 4px 8px;
 }
+
+.addButton {
+  background-color: transparent;
+  border: 1px solid #ff0077;
+  border-radius: 10px;
+  color: #ff0077;
+  padding: 5px 10px;
+}
 </style>
-
-

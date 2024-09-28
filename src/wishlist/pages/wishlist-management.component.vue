@@ -35,12 +35,16 @@ export default {
 
 <script>
 export default {
+  name: "WishlistManagement",
   props: {
-    wishlist: Array,
+    wishlist: {
+      type: Array,
+      required: true,
+    },
   },
   methods: {
     removeFromWishlist(product) {
-      this.$emit('remove-from-wishlist', product);
+      this.$emit('remove-from-wishlist', product); // Emite evento para eliminar desde la raíz
     },
   },
 };
