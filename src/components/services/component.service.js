@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
 export class ComponentService {
-    resourceEndpoint = 'http://localhost:3000/components';
+    resourceEndpoint = 'https://my-json-server.typicode.com/AlexlmL/dbserver_PCMaster/components';
 
     getAll() {
         console.log(this.resourceEndpoint);

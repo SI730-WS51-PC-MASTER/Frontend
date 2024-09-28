@@ -10,6 +10,7 @@ export default {
       searchQuery: '',
       filteredComponents: [],
       selectedCountry: '',
+      selectedCategory: '',
       minPrice: null,
       maxPrice: null,
     };
@@ -29,7 +30,9 @@ export default {
         const matchesPrice = (!this.minPrice || component.price >= this.minPrice) &&
             (!this.maxPrice || component.price <= this.maxPrice);
         const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
-        return matchesName && matchesPrice && matchesCountry;
+        //const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
+        //const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
+        return /*matchesCategory && matchesType &&*/ matchesName && matchesPrice && matchesCountry;
       });
     }
   },
@@ -55,11 +58,40 @@ export default {
             (this.maxPrice === null || price <= this.maxPrice)
         );
       });
-    }
+    },/*
+    filterByCategory(category) {
+      console.log("Categoría seleccionada:", category);
+      this.selectedCategory = category;
+      this.applyFilters();
+    },
+    filterByType(type) {
+      console.log("Tipo seleccionado:", type);
+      this.selectedType = type;
+      this.applyFilters();
+    },
+    applyFilters() {
+      this.filteredComponents = this.components.filter(component => {
+        const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
+        const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
+        return matchesCategory && matchesType;
+      });
+    },
+    loadComponents() {
+      fetch('http://localhost:3000/components')
+          .then(response => response.json())
+          .then(data => {
+            this.components = data.components;
+            this.filteredComponents = data.components; // Mostrar todos al principio
+          })
+          .catch(error => {
+            console.error("Error cargando los componentes:", error);
+          });
+    }*/
   },
   mounted() {
     console.log(this.filteredComponents);
     this.filteredComponents = this.components;
+    /*this.loadComponents();*/
   },
   watch: {
     minPrice: 'filterByPrice',

@@ -80,7 +80,7 @@
       "stock": 150,
       "provider_id": 3,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/k5Z1JCnv/ram.png",
         "secondary": []
       },
       "ratings": 5,
@@ -104,7 +104,7 @@
       "stock": 80,
       "provider_id": 4,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/V6rhn67h/placa-madre.webp",
         "secondary": []
       },
       "ratings": 4,
@@ -128,7 +128,7 @@
       "stock": 200,
       "provider_id": 5,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/kgCdCxjg/ssd.webp",
         "secondary": []
       },
       "ratings": 4,
@@ -152,7 +152,7 @@
       "stock": 60,
       "provider_id": 6,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/x1vF3h30/fuente-de-poder.webp",
         "secondary": []
       },
       "ratings": 5,
@@ -176,7 +176,7 @@
       "stock": 200,
       "provider_id": 7,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/25vjGzX1/teclado.webp",
         "secondary": []
       },
       "ratings": 4,
@@ -200,7 +200,7 @@
       "stock": 500,
       "provider_id": 8,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/rF8dptZQ/mouse.webp",
         "secondary": []
       },
       "ratings": 4,
@@ -223,7 +223,7 @@
       "stock": 300,
       "provider_id": 9,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/GpNY8hT9/monitor.webp",
         "secondary": []
       },
       "ratings": 4,
@@ -247,7 +247,7 @@
       "stock": 150,
       "provider_id": 10,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/HxhMMWJV/altavoces.jpg",
         "secondary": []
       },
       "ratings": 5,
@@ -270,7 +270,7 @@
       "stock": 250,
       "provider_id": 11,
       "image": {
-        "main": "",
+        "main": "https://i.postimg.cc/qvPZs03D/webcam.webp",
         "secondary": []
       },
       "ratings": 4,
