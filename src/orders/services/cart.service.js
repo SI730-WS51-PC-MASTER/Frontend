@@ -1,7 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
 export class cartService {
-    resourceEndpoint = "http://localhost:3000/cart";
+    resourceEndpoint = "https://my-json-server.typicode.com/diego5m/todeploy/cart";
 
     getAll() {
         return http.get(this.resourceEndpoint);
