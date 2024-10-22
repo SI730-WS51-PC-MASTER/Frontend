@@ -1,9 +1,7 @@
 import http from "../../shared/services/http-common.js";
 
-export class WishlistService {
-    resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-interaction/wishlist";
-
-    //resourceEndpoint = "http://localhost:3000/wishlist"
+export class ReviewService {
+    resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-interaction";
 
     getAll() {
         return http.get(this.resourceEndpoint);

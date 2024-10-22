@@ -285,8 +285,153 @@
       },
       "country": "Taiwan"
     }
+  ],
+  "wishlist": [
+    {
+      "id": 3,
+      "name": "Tarjeta Barata 3",
+      "description": "Medium performance component",
+      "price": 170,
+      "stock": 0,
+      "provider_id": 1,
+      "image": {
+        "main": "https://i.postimg.cc/0yNh9Pgb/C-mo-entender-las-especificaciones-de-la-tarjeta-gr-fica-3.jpg",
+        "secondary": []
+      },
+      "ratings": 4,
+      "categories": {
+        "type": "Graphic Card",
+        "subType": "Diseño"
+      },
+      "attributes": {
+        "memory": "2GB",
+        "type": "GDDR5",
+        "clockSpeed": "1200 MHz",
+        "color": "Red"
+      },
+      "country": "Taiwan"
+    },
+    {
+      "id": 4,
+      "name": "RAM 16GB DDR4",
+      "description": "High-speed RAM for gaming and multitasking.",
+      "price": 80,
+      "stock": 150,
+      "provider_id": 3,
+      "image": {
+        "main": "https://i.postimg.cc/k5Z1JCnv/ram.png",
+        "secondary": []
+      },
+      "ratings": 5,
+      "categories": {
+        "type": "RAM",
+        "subType": "Juegos"
+      },
+      "attributes": {
+        "memory": "16GB",
+        "type": "DDR4",
+        "clockSpeed": "3200 MHz",
+        "color": "Black"
+      },
+      "country": "USA"
+    },
+    {
+      "id": 5,
+      "name": "Placa madre ATX",
+      "description": "Motherboard for high performance builds.",
+      "price": 120,
+      "stock": 80,
+      "provider_id": 4,
+      "image": {
+        "main": "https://i.postimg.cc/V6rhn67h/placa-madre.webp",
+        "secondary": []
+      },
+      "ratings": 4,
+      "categories": {
+        "type": "Motherboard",
+        "subType": "Trabajo"
+      },
+      "attributes": {
+        "formFactor": "ATX",
+        "socket": "LGA 1151",
+        "memorySupport": "Max 64GB",
+        "color": "Black"
+      },
+      "country": "USA"
+    }
+  ],
+  "reviewsTechnicalSupport": [
+    {
+      "id": 1,
+      "rating": 5,
+      "comment": "Excelente atención, resolvieron el problema rápidamente.",
+      "user_name": "JohnDoe",
+      "technical_support": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO"
+    },
+    {
+      "id": 2,
+      "rating": 4,
+      "comment": "Buen servicio, pero tardaron en responder.",
+      "user_name": "JaneSmith",
+      "technical_support": "CAMILA NICOLE RODRIGUEZ VENEGAS"
+    },
+    {
+      "id": 3,
+      "rating": 3,
+      "comment": "El técnico era amable, pero no solucionó el problema al instante.",
+      "user_name": "MikeTech",
+      "technical_support": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO"
+    },
+    {
+      "id": 4,
+      "rating": 2,
+      "comment": "La asistencia fue lenta y no resolvieron mi problema.",
+      "user_name": "AliceUser",
+      "technical_support": "JOSE GABRIEL APARCANA DEL CARPIO"
+    },
+    {
+      "id": 5,
+      "rating": 5,
+      "comment": "Servicio rápido y eficiente. Muy recomendado.",
+      "user_name": "DavidClient",
+      "technical_support": "RENZO SEBASTIÁN VENTOSILLA TAIPE"
+    }
+  ],
+  "reviewsComponent": [
+    {
+      "id": 1,
+      "rating": 5,
+      "comment": "Este procesador es increíble, el rendimiento es excelente.",
+      "user_name": "CarlosTech",
+      "component_name": "AMD Ryzen 9 5900X"
+    },
+    {
+      "id": 2,
+      "rating": 4,
+      "comment": "La tarjeta gráfica es buena, pero se calienta un poco.",
+      "user_name": "AliceBuilds",
+      "component_name": "NVIDIA RTX 3080"
+    },
+    {
+      "id": 3,
+      "rating": 3,
+      "comment": "El disco duro es rápido, pero el almacenamiento es limitado.",
+      "user_name": "JohnDoe",
+      "component_name": "Samsung 970 EVO 500GB"
+    },
+    {
+      "id": 4,
+      "rating": 5,
+      "comment": "Memoria RAM excelente, sin problemas de rendimiento.",
+      "user_name": "JaneSmith",
+      "component_name": "Corsair Vengeance 16GB DDR4"
+    },
+    {
+      "id": 5,
+      "rating": 2,
+      "comment": "La fuente de poder dejó de funcionar en menos de un mes.",
+      "user_name": "DavidClient",
+      "component_name": "EVGA 600W Power Supply"
+    }
   ]
 }
-
-
-

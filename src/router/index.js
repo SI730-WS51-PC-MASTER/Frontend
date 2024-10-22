@@ -4,6 +4,7 @@ import ViewComponent from "../components/pages/component-view.component.vue";
 import NotFoundComponent from "../public/pages/not-found.component.vue";
 import ShoppingCartComponent from "@/orders/pages/shopping-cart.component.vue";
 import TechnicalSupportComponent from "@/technical-support/pages/technical-support-component.vue";
+import WishlistManagementComponent from "@/wishlist/pages/wishlist-management.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -12,6 +13,7 @@ const router = createRouter({
         { path: '/',                        redirect: '/home'},
         { path: '/shopping-cart', name: 'shopping-cart', component: ShoppingCartComponent },
         { path: '/components', name: 'components', component: ViewComponent, meta: { title: 'All Components' }},
+        { path: '/wishlist', name: 'wishlist', component: WishlistManagementComponent, meta: { title: 'Wishlist'} },
         { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundComponent }
     ]
 });

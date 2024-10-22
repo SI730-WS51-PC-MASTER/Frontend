@@ -1,6 +1,11 @@
 <script>
+import CreateAndEdit from '../../shared/components/create-and-edit.component.vue';
+
 export default {
   name: "WishlistAddAndRemoveComponent",
+  components: {
+    CreateAndEdit,
+  },
   props: {
     component: {
       type: Object,
@@ -10,6 +15,11 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      showEditDialog: false,
+    };
   },
   computed: {
     isInWishlist() {
@@ -32,6 +42,17 @@ export default {
         this.component.quantity = 1;
       }
     },
+    openEditDialog() {
+      this.showEditDialog = true;
+    },
+    onEditSave(updatedEntity) {
+      this.showEditDialog = false;
+      // Aquí puedes manejar la lógica para actualizar la entidad según tus necesidades
+      console.log('Guardado', updatedEntity);
+    },
+    onCancelEdit() {
+      this.showEditDialog = false;
+    },
   },
 };
 </script>
@@ -46,6 +67,15 @@ export default {
       <span>{{ component.quantity }} Units</span>
       <button @click="updateQuantity(1)">+</button>
     </div>
+
+    <CreateAndEdit
+        :entity="component"
+        :entityName="'Component'"
+        :edit="true"
+        :visible="showEditDialog"
+        @saved="onEditSave"
+        @canceled="onCancelEdit"
+    />
   </div>
 </template>
 

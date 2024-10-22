@@ -1,16 +1,41 @@
-<!--<script>
+<script>
+import { WishlistService } from "../services/wishlist.service.js";
+
 export default {
-  name: "wishlist-management"
-}
+  name: "WishlistManagement",
+  data() {
+    return {
+      wishlist: [],
+    };
+  },
+  methods: {
+    removeFromWishlist(product) {
+      const wishlistService = new WishlistService();
+      wishlistService.delete(product.id)
+          .then(() => {
+            this.wishlist = this.wishlist.filter((p) => p.id !== product.id);
+            this.$emit('remove-from-wishlist', product);
+          })
+          .catch((error) => {
+            console.error("Error removing product:", error);
+          });
+    },
+    fetchWishlist() {
+      const wishlistService = new WishlistService(); // Crear la instancia
+      wishlistService.getAll()
+          .then((response) => {
+            this.wishlist = response.data;
+          })
+          .catch((error) => {
+            console.error("Error fetching wishlist:", error);
+          });
+    },
+  },
+  mounted() {
+    this.fetchWishlist();
+  },
+};
 </script>
-
-<template>
-
-</template>
-
-<style scoped>
-
-</style>-->
 
 <template>
   <div class="wishlist-container">
@@ -32,23 +57,6 @@ export default {
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "WishlistManagement",
-  props: {
-    wishlist: {
-      type: Array,
-      required: true,
-    },
-  },
-  methods: {
-    removeFromWishlist(product) {
-      this.$emit('remove-from-wishlist', product); // Emite evento para eliminar desde la raíz
-    },
-  },
-};
-</script>
 
 <style scoped>
 .wishlist-container {
@@ -73,5 +81,12 @@ export default {
   border: none;
 }
 </style>
+
+
+
+
+
+
+
 
 

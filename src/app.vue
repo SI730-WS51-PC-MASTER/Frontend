@@ -4,7 +4,12 @@ import LanguageSwitcher from "@/public/components/language-switcher.component.vu
 export default {
   name: 'app',
   components: { LanguageSwitcher },
-  title: 'PC'
+  title: 'PC',
+  methods: {
+    goToWishlist() {
+      //this.$router.push({name: 'wishlist'});
+    }
+  }
 }
 </script>
 
@@ -17,11 +22,14 @@ export default {
         <div class="flex align-items-center gap-3">
           <i class="pi pi-cog" style="font-size: 2rem"></i>
           <i class="pi pi-megaphone" style="font-size: 2rem"></i>
+          <router-link to='wishlist'>
+          <i class="pi pi-heart-fill" style="font-size: 2rem" @click="goToWishlist"></i>
+          </router-link>
           <language-switcher/>
         </div>
       </template>
       <template #center>
-        <div clas="flex items-center gap-2">
+        <div class="flex items-center gap-2">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
           <div class="flex justify-content-center gap-2 buttons-container">
             <router-link to='build'>
@@ -86,6 +94,13 @@ header {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+  }
+
+  .toolbar-icon {
+    margin: 0 10px;
+    height: 30px;
+    cursor: pointer;
+    //margin-left: auto;
   }
 }
 </style>

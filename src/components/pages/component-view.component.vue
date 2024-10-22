@@ -2,6 +2,7 @@
 import ComponentList from "../components/component-list.component.vue";
 import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
 import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
+import { WishlistService } from "@/wishlist/services/wishlist.service.js";
 export default {
   name: "AllComponents",
   components: {WishlistAddAndRemoveComponent, ComponentList },
@@ -25,6 +26,7 @@ export default {
       console.log("Response from JSON server:", response.data);
       this.filteredComponents = this.components;
     });
+    this.loadWishlist();
   },
   computed: {
     filteredComponents() {
@@ -90,19 +92,47 @@ export default {
             console.error("Error cargando los componentes:", error);
           });
     }*/
+    loadWishlist() {
+      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
+      wishlistService.getAll().then((response) => {
+        this.wishlist = response.data;
+      }).catch((error) => {
+        console.error("Error loading wishlist:", error);
+      });
+    },
     addToWishlist(product) {
-      // Verifica si el producto ya está en la lista
-      if (!this.wishlist.some(item => item.id === product.id)) {
-        this.wishlist.push(product);
+      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
+      const existsInWishlist = this.wishlist.some((item) => item.id === product.id);
+
+      if (!existsInWishlist) {
+        wishlistService.create(product).then((response) => {
+          this.wishlist.push(response.data);
+          console.log("Product added to wish list:", response.data);
+        }).catch((error) => {
+          console.error("Error adding to wishlist:", error);
+        });
       }
     },
     removeFromWishlist(product) {
-      this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
+      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
+      wishlistService.delete(product.id).then(() => {
+        this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
+        console.log("Product removed from wishlist");
+      }).catch((error) => {
+        console.error("Error removing from wishlist:", error);
+      });
     },
+
+    updateQuantity(product) {
+      console.log("Updating product quantity:", product);
+    },
+
     mounted() {
       console.log(this.filteredComponents);
       this.filteredComponents = this.components;
       /*this.loadComponents();*/
+
+
     },
     watch: {
       minPrice: 'filterByPrice',
