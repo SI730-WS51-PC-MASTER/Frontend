@@ -1,7 +1,8 @@
 import http from "../../shared/services/http-common.js";
 
 export class ReviewService {
-    resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-interaction";
+    resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-review/reviewsComponent";
+    //resourceEndpoint = "http://localhost:3000/reviewsComponent";
 
     getAll() {
         return http.get(this.resourceEndpoint);
@@ -9,6 +10,10 @@ export class ReviewService {
 
     getById(id) {
         return http.get(`${this.resourceEndpoint}/${id}`);
+    }
+
+    getByComponentId(componentId) {
+        return http.get(`${this.resourceEndpoint}?component_id=${componentId}`);
     }
 
     create(Resource) {

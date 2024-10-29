@@ -401,37 +401,106 @@
     {
       "id": 1,
       "rating": 5,
-      "comment": "Este procesador es increíble, el rendimiento es excelente.",
-      "user_name": "CarlosTech",
-      "component_name": "AMD Ryzen 9 5900X"
+      "comment": "Excelente rendimiento, aunque es cara.",
+      "user_name": "Juan Pérez",
+      "component_id": 1,
+      "component_name": "Tarjeta cara"
     },
     {
       "id": 2,
       "rating": 4,
-      "comment": "La tarjeta gráfica es buena, pero se calienta un poco.",
-      "user_name": "AliceBuilds",
-      "component_name": "NVIDIA RTX 3080"
+      "comment": "Buena relación calidad-precio.",
+      "user_name": "Ana Gómez",
+      "component_id": 2,
+      "component_name": "Tarjeta media"
     },
     {
       "id": 3,
       "rating": 3,
-      "comment": "El disco duro es rápido, pero el almacenamiento es limitado.",
-      "user_name": "JohnDoe",
-      "component_name": "Samsung 970 EVO 500GB"
+      "comment": "Cumple su función, pero es algo básica.",
+      "user_name": "Luis Sánchez",
+      "component_id": 3,
+      "component_name": "Tarjeta Barata 3"
     },
     {
       "id": 4,
       "rating": 5,
-      "comment": "Memoria RAM excelente, sin problemas de rendimiento.",
-      "user_name": "JaneSmith",
-      "component_name": "Corsair Vengeance 16GB DDR4"
+      "comment": "Memoria rápida y sin problemas de compatibilidad.",
+      "user_name": "Carlos Medina",
+      "component_id": 4,
+      "component_name": "RAM 16GB DDR4"
     },
     {
       "id": 5,
-      "rating": 2,
-      "comment": "La fuente de poder dejó de funcionar en menos de un mes.",
-      "user_name": "DavidClient",
-      "component_name": "EVGA 600W Power Supply"
+      "rating": 4,
+      "comment": "Perfecta para gaming y trabajos pesados.",
+      "user_name": "Marta García",
+      "component_id": 5,
+      "component_name": "Placa madre ATX"
+    },
+    {
+      "id": 6,
+      "rating": 5,
+      "comment": "Muy rápida, gran capacidad.",
+      "user_name": "Fernando López",
+      "component_id": 6,
+      "component_name": "SSD 1TB"
+    },
+    {
+      "id": 7,
+      "rating": 4,
+      "comment": "Buena potencia, sin ruido.",
+      "user_name": "Gabriela Herrera",
+      "component_id": 7,
+      "component_name": "Fuente de poder 750W"
+    },
+    {
+      "id": 8,
+      "rating": 5,
+      "comment": "Muy cómodo para escribir, excelente iluminación.",
+      "user_name": "Raúl Mendez",
+      "component_id": 8,
+      "component_name": "Teclado mecánico RGB"
+    },
+    {
+      "id": 9,
+      "rating": 3,
+      "comment": "Funciona bien, pero es algo pequeño.",
+      "user_name": "Silvia Rivera",
+      "component_id": 9,
+      "component_name": "Mouse óptico"
+    },
+    {
+      "id": 10,
+      "rating": 4,
+      "comment": "Imagen nítida y colores vivos.",
+      "user_name": "Andrés Fernández",
+      "component_id": 10,
+      "component_name": "Monitor 24 Full HD"
+    },
+    {
+      "id": 11,
+      "rating": 4,
+      "comment": "Buen sonido para el precio.",
+      "user_name": "Laura Sánchez",
+      "component_id": 11,
+      "component_name": "Altavoces 2.1"
+    },
+    {
+      "id": 12,
+      "rating": 4,
+      "comment": "Buena calidad de imagen, ideal para videollamadas.",
+      "user_name": "Roberto Jiménez",
+      "component_id": 12,
+      "component_name": "Webcam HD"
+    },
+    {
+      "id": 13,
+      "rating": 1,
+      "comment": "Mal rendimiento y es muy cara.",
+      "user_name": "Pedro",
+      "component_id": 1,
+      "component_name": ""
     }
   ]
 }
