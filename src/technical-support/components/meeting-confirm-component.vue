@@ -1,15 +1,15 @@
 <!-- meeting-confirm-component.vue -->
 <template>
   <div>
-    <button @click="showModal = true">Schedule Meeting</button>
+    <button class="show-modal" @click="showModal = true">Schedule Meeting</button>
 
     <div v-if="showModal" class="modal-overlay">
       <div class="modal-content">
-        <h3 class="modal-title">YOUR REQUEST HAS BEEN SUBMITTED</h3>
-        <p class="modal-subtitle">TAKE A BREATH, A TECHNICIAN WILL ATTEND YOU</p>
+        <h3 class="modal-title">YOUR REQUEST IS IN PROCESS TO BE SUBMITTED</h3>
+        <p class="modal-subtitle">PLEASE SELECT CONFIRM TO CONTINUE</p>
         <div class="modal-buttons">
-          <button @click="confirmMeeting">Confirm</button>
-          <button @click="showModal = false">Cancel</button>
+          <button @click="confirm">Confirm</button>
+          <button @click="cancel">Cancel</button>
         </div>
       </div>
     </div>
@@ -17,14 +17,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
 
 const showModal = ref(false);
+const props = defineProps(['technician', 'serviceType']);
+const emit = defineEmits(['confirm', 'cancel']);
 
-const confirmMeeting = () => {
-  // Handle the confirmation logic here
+const confirm = () => {
   console.log('Meeting confirmed!');
-  showModal.value = false; // Close the modal after confirmation
+  emit('confirm', { technician: props.technician, serviceType: props.serviceType });
+  showModal.value = false;
+};
+
+const cancel = () => {
+  emit('cancel');
+  showModal.value = false;
 };
 </script>
 
@@ -71,4 +78,42 @@ const confirmMeeting = () => {
   border-radius: 5px;
   margin-bottom: 20px;
 }
+
+.modal-buttons {
+  display: flex; /* Usa flexbox para alinear los botones */
+  justify-content: center; /* Centra los botones */
+  gap: 15px; /* Espacio entre los botones */
+}
+
+.modal-buttons button {
+  padding: 12px 24px; /* Aumentar padding para agrandar los botones */
+  font-size: 1rem; /* Aumentar tamaño de fuente de los botones */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados para los botones */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Añadir transición para efecto al pasar el ratón */
+}
+
+.modal-buttons button:hover {
+  background-color: #007bff; /* Color de fondo al pasar el ratón */
+  color: white; /* Cambia el color del texto al pasar el ratón */
+}
+
+.show-modal {
+  margin-top: 20px;
+  padding: 12px 24px; /* Aumentar padding para agrandar los botones */
+  font-size: 1rem; /* Aumentar tamaño de fuente de los botones */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados para los botones */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s; /* Añadir transición para efecto al pasar el ratón */
+}
+
+.show-modal:hover {
+  background-color: #007bff; /* Color de fondo al pasar el ratón */
+  color: white; /* Cambia el color del texto al pasar el ratón */
+}
+
+
+
 </style>
