@@ -2,8 +2,7 @@
 import { TechnicianService } from '../services/technician.service.js';
 import { Technician } from '../model/technician.entity.js';
 import { TechnicalSupportService } from "@/technical-support/services/technical-support.service.js";
-//import { TechnicalSupport } from "@/technical-support/model/technical-support.js";
-import MeetingConfirmComponent from '../components/meeting-confirm-component.vue';
+import MeetingConfirmComponent from '../components/technician-service-confirmation.component.vue';
 
 export default {
   name: 'GetHardwareGuidance',
@@ -48,8 +47,10 @@ export default {
       const supportType = serviceType || "zoom help meeting";
       const newSupport = {
         supportType,
-        date: new Date().toISOString(),
-        technicianId: technician.id // Add technicianId here
+        dateOfRequest: new Date().toISOString(),
+        technicianId: technician.id, // Add technicianId here
+        startDate: new Date().toISOString(),
+        endDate: new Date().toISOString()
       };
 
       console.log('Data to be sent in POST request:', newSupport);
@@ -66,8 +67,10 @@ export default {
     async handleGeneralRequest(serviceType) {
       const newSupport = {
         supportType: serviceType,
-        date: new Date().toISOString(),
-        technicianId: null // No technician ID for general requests
+        dateOfRequest: new Date().toISOString(),
+        technicianId: null, // No technician ID for general requests
+        startDate: new Date().toISOString(),
+        endDate: new Date().toISOString()
       };
 
       console.log('Data to be sent in POST request for general request:', newSupport);

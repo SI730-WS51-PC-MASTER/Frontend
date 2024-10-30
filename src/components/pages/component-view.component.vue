@@ -38,8 +38,8 @@ export default {
         const matchesPrice = (!this.minPrice || component.price >= this.minPrice) &&
             (!this.maxPrice || component.price <= this.maxPrice);
         const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
-        //const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
-        //const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
+        //const matchesCategory = this.selectedCategory ? component.technicalSupports.type === this.selectedCategory : true;
+        //const matchesType = this.selectedType ? component.technicalSupports.subType === this.selectedType : true;
         return /*matchesCategory && matchesType &&*/ matchesName && matchesPrice && matchesCountry;
       });
     }
@@ -67,9 +67,9 @@ export default {
         );
       });
     },/*
-    filterByCategory(category) {
-      console.log("Categoría seleccionada:", category);
-      this.selectedCategory = category;
+    filterByCategory(technicalSupport) {
+      console.log("Categoría seleccionada:", technicalSupport);
+      this.selectedCategory = technicalSupport;
       this.applyFilters();
     },
     filterByType(type) {
@@ -79,8 +79,8 @@ export default {
     },
     applyFilters() {
       this.filteredComponents = this.components.filter(component => {
-        const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
-        const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
+        const matchesCategory = this.selectedCategory ? component.technicalSupports.type === this.selectedCategory : true;
+        const matchesType = this.selectedType ? component.technicalSupports.subType === this.selectedType : true;
         return matchesCategory && matchesType;
       });
     },

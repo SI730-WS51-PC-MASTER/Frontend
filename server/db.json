@@ -12,7 +12,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Juegos"
       },
@@ -36,7 +36,7 @@
         "secondary": []
       },
       "ratings": 3,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Trabajo"
       },
@@ -60,7 +60,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Diseño"
       },
@@ -84,7 +84,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "RAM",
         "subType": "Juegos"
       },
@@ -108,7 +108,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Motherboard",
         "subType": "Trabajo"
       },
@@ -132,7 +132,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Storage",
         "subType": "Trabajo"
       },
@@ -156,7 +156,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "Power Supply",
         "subType": "Juegos"
       },
@@ -180,7 +180,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Juegos"
       },
@@ -204,7 +204,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Trabajo"
       },
@@ -227,7 +227,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Monitor",
         "subType": "Diseño"
       },
@@ -251,7 +251,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Diseño"
       },
@@ -274,7 +274,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Trabajo"
       },
@@ -299,7 +299,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Diseño"
       },
@@ -323,7 +323,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "RAM",
         "subType": "Juegos"
       },
@@ -347,7 +347,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Motherboard",
         "subType": "Trabajo"
       },
@@ -503,7 +503,7 @@
       "component_name": ""
     }
   ],
-    "technicians": [
+  "technicians": [
     {
       "id": 1,
       "name": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO",
@@ -542,40 +542,52 @@
   ],
   "technical-support": [
     {
-      "id": 1,
-      "supportType": "zoom help meeting",
-      "date": "2024-10-29T22:48:45Z",
-      "technicianId": ""
+      "id": 1730281839226,
+      "dateOfRequest": "2024-10-30T09:50:45.889Z",
+      "startDate": "2024-10-30T09:50:45.889Z",
+      "endDate": "2024-10-31T05:00:00.000Z",
+      "supportType": "home service",
+      "technicianId": null
     },
     {
-      "id": 2,
-      "supportType": "zoom help meeting",
-      "date": "2024-10-29T21:35:40Z",
-      "technicianId": ""
+      "supportType": "home service",
+      "dateOfRequest": "2024-10-30T09:53:53.568Z",
+      "technicianId": null,
+      "startDate": "2024-10-30T09:53:53.568Z",
+      "endDate": "2024-10-30T09:53:53.568Z",
+      "id": 1730281839227
     },
     {
       "supportType": "zoom help meeting",
-      "date": "2024-10-30T05:00:39.201Z",
+      "dateOfRequest": "2024-10-30T09:53:54.093Z",
+      "technicianId": null,
+      "startDate": "2024-10-30T09:53:54.093Z",
+      "endDate": "2024-10-30T09:53:54.093Z",
+      "id": 1730281839228
+    },
+    {
+      "supportType": "home service",
+      "dateOfRequest": "2024-10-30T09:58:38.500Z",
       "technicianId": 2,
-      "id": 3
-    },
-    {
-      "supportType": "home service",
-      "date": "2024-10-30T05:00:41.434Z",
-      "technicianId": null,
-      "id": 4
-    },
-    {
-      "supportType": "home service",
-      "date": "2024-10-30T05:00:44.737Z",
-      "technicianId": null,
-      "id": 5
+      "startDate": "2024-10-30T09:58:38.500Z",
+      "endDate": "2024-10-30T09:58:38.500Z",
+      "id": 1730281839229
     },
     {
       "supportType": "zoom help meeting",
-      "date": "2024-10-30T05:00:59.450Z",
-      "technicianId": null,
-      "id": 6
+      "dateOfRequest": "2024-10-30T18:35:49.382Z",
+      "technicianId": 2,
+      "startDate": "2024-10-30T18:35:49.382Z",
+      "endDate": "2024-10-30T18:35:49.382Z",
+      "id": 1730281839230
+    },
+    {
+      "supportType": "home service",
+      "dateOfRequest": "2024-10-30T18:36:09.576Z",
+      "technicianId": 1,
+      "startDate": "2024-10-30T18:36:09.576Z",
+      "endDate": "2024-10-30T18:36:09.576Z",
+      "id": 1730281839231
     }
   ]
 }

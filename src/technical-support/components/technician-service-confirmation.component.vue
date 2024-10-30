@@ -1,4 +1,4 @@
-<!-- meeting-confirm-component.vue -->
+<!-- technician-service-confirmation.component.vue -->
 <template>
   <div>
     <button class="show-modal" @click="showModal = true">Schedule Meeting</button>
@@ -113,7 +113,5 @@ const cancel = () => {
   background-color: #007bff; /* Color de fondo al pasar el ratón */
   color: white; /* Cambia el color del texto al pasar el ratón */
 }
-
-
 
 </style>

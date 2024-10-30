@@ -8,6 +8,9 @@ export default {
   methods: {
     goToWishlist() {
       //this.$router.push({name: 'wishlist'});
+    },
+    goToTechnicalSupport() {
+      //this.$router.push({name: 'technicalSupport'});
     }
   }
 }
@@ -21,7 +24,9 @@ export default {
       <template #start>
         <div class="flex align-items-center gap-4">
           <i class="pi pi-cog" style="font-size: 2rem"></i>
-          <i class="pi pi-megaphone" style="font-size: 2rem"></i>
+          <router-link to='view-your-request-for-guidance-submitted'>
+            <i class="pi pi-megaphone" style="font-size: 2rem" @click="goToTechnicalSupport"></i>
+          </router-link>
           <router-link to='wishlist'>
           <i class="pi pi-heart-fill" style="font-size: 2rem" @click="goToWishlist"></i>
           </router-link>
@@ -38,7 +43,7 @@ export default {
             <router-link to='components'>
               <pv-button :label="$t('bttn-2')" severity="info" style="color: #ffffff"/>
             </router-link>
-            <router-link to='guidance'>
+            <router-link to='get-guidance'>
               <pv-button :label="$t('bttn-3')" severity="warn" style="color: #ffffff"/>
             </router-link>
           </div>
