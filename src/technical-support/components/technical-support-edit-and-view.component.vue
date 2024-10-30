@@ -29,7 +29,7 @@ export default {
   <create-and-edit
       :entity="item"
       :visible="visible"
-      entity-name="TechnicalSupport"
+      entity-name="Technical Support"
       @cancel-requested="onCancelRequested"
       @save-requested="onSaveRequested">
     <template #content>

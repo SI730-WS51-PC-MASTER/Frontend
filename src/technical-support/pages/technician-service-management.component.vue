@@ -15,6 +15,7 @@ export default {
       technicianService: new TechnicianService(),
       technicalSupportService: new TechnicalSupportService(),
       showConfirmPopup: false,
+      showGeneralRequestConfirmPopup: false,
       selectedTechnician: null,
       selectedServiceType: ""
     };
@@ -61,12 +62,15 @@ export default {
       } catch (error) {
         console.error('Error creating technical support:', error);
       }
-
       this.showConfirmPopup = false;
     },
-    async handleGeneralRequest(serviceType) {
+    openGeneralRequestConfirmPopup(serviceType) {
+      this.selectedServiceType = serviceType;
+      this.showGeneralRequestConfirmPopup = true; // Open the confirmation popup
+    },
+    async handleGeneralRequestConfirm() {
       const newSupport = {
-        supportType: serviceType,
+        supportType: this.selectedServiceType,
         dateOfRequest: new Date().toISOString(),
         technicianId: null, // No technician ID for general requests
         startDate: new Date().toISOString(),
@@ -81,9 +85,11 @@ export default {
       } catch (error) {
         console.error('Error creating general technical support:', error);
       }
+      this.showGeneralRequestConfirmPopup = false; // Close the popup after submission
     },
     cancelMeeting() {
       this.showConfirmPopup = false;
+      this.showGeneralRequestConfirmPopup = false;
     }
   }
 };
@@ -141,11 +147,19 @@ export default {
         :serviceType="selectedServiceType"
     />
 
+    <MeetingConfirmComponent
+        v-if="showGeneralRequestConfirmPopup"
+        @confirm="handleGeneralRequestConfirm"
+        @cancel="cancelMeeting"
+        :technician="null"
+        :serviceType="selectedServiceType"
+    />
+
     <section class="all-technicians">
       <h2>Send request to any <br> Technician</h2>
       <div class="flex-column">
-        <button class="service-button" @click="handleGeneralRequest('home service')">Request Home Service</button>
-        <button class="service-button" @click="handleGeneralRequest('zoom help meeting')">Request Zoom Meeting</button>
+        <button class="service-button" @click="openGeneralRequestConfirmPopup('home service')">Request Home Service</button>
+        <button class="service-button" @click="openGeneralRequestConfirmPopup('zoom help meeting')">Request Zoom Meeting</button>
       </div>
     </section>
   </div>

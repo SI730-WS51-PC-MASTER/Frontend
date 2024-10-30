@@ -141,21 +141,25 @@ export default {
                   v-on:delete-selected-items-requested="onDeleteSelectedItems($event)">
       <template #custom-columns>
         <!--technicalSupport.id-->
-        <pv-column :sortable="true" field="id" header="Id" style="min-width: 12rem"/>
+        <pv-column :sortable="true" field="id" header="ID" style="min-width: 12rem"/>
         <!--technicalSupport.supportType-->
         <pv-column :sortable="true" field="supportType" header="Service" style="min-width: 12rem"/>
         <!--technicalSupport.startDate-->
-        <pv-column :sortable="true" header="Start Date" style="min-width: 12rem">
+        <pv-column :sortable="true" field="startDate" header="Start Date" style="min-width: 12rem">
           <template #body="slotProps">{{ formatDate(slotProps.data.startDate) }}</template>
         </pv-column>
         <!--technicalSupport.endDate-->
-        <pv-column :sortable="true" header="End Date" style="min-width: 12rem">
+        <pv-column :sortable="true" field="endDate" header="End Date" style="min-width: 12rem">
           <template #body="slotProps">{{ formatDate(slotProps.data.endDate) }}</template>
         </pv-column>
         <!--technicalSupport.dateOfRequest-->
-        <pv-column :sortable="true" header="Date Of Request" style="min-width: 12rem">
+        <pv-column :sortable="true" field="dateOfRequest" header="Request Date" style="min-width: 12rem">
           <template #body="slotProps">{{ formatDate(slotProps.data.dateOfRequest) }}</template>
         </pv-column>
+        <!--technicalSupport.technicianId-->
+        <pv-column :sortable="true" field="technicianId" header="Technician ID" style="min-width: 12rem"/>
+        <!--technicianName-->
+        <!-- -->
       </template>
 
     </data-manager>
