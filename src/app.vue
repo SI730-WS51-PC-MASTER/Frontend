@@ -19,17 +19,17 @@ export default {
   <header>
     <pv-toolbar class="mb-4 toolbar">
       <template #start>
-        <div class="flex align-items-center gap-3">
+        <div class="flex align-items-center gap-4">
           <i class="pi pi-cog" style="font-size: 2rem"></i>
           <i class="pi pi-megaphone" style="font-size: 2rem"></i>
           <router-link to='wishlist'>
           <i class="pi pi-heart-fill" style="font-size: 2rem" @click="goToWishlist"></i>
           </router-link>
-          <language-switcher/>
+          <!--<i class="pi pi-user" style="font-size: 2.5rem"></i>-->
         </div>
       </template>
       <template #center>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-column items-center">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
           <div class="flex justify-content-center gap-2 buttons-container">
             <router-link to='build'>
@@ -45,7 +45,7 @@ export default {
         </div>
       </template>
       <template #end>
-        <i class="pi pi-user" style="font-size: 2.5rem"></i>
+        <language-switcher/>
       </template>
     </pv-toolbar>
   </header>
@@ -59,48 +59,69 @@ export default {
 
 
 <style scoped>
-.toolbar{
-  width: 100%;
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Toolbar */
+.toolbar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem;
-  background-color: #2c003e;
 }
 
-.buttons-container pv-button{
-  color: #ffffff;
+/* Estilos para los íconos */
+.pi {
+  transition: transform 0.3s;
 }
 
-header {
-  line-height: 1.5;
+.pi:hover {
+  transform: scale(1.1);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+/* Contenedor de botones */
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas más pequeñas */
+  justify-content: center;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+/* Media Queries */
+@media (max-width: 600px) {
+  .toolbar {
+    flex-direction: column; /* Apila los elementos verticalmente en pantallas pequeñas */
+    align-items: flex-start; /* Alinea los elementos al inicio */
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .buttons-container {
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones */
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  header h1 {
+    font-size: 1.5rem; /* Reduce el tamaño de fuente para pantallas pequeñas */
   }
 
-  .toolbar-icon {
-    margin: 0 10px;
-    height: 30px;
-    cursor: pointer;
-    //margin-left: auto;
+  .pi {
+    font-size: 1.5rem; /* Reduce el tamaño de los íconos */
   }
 }
+
+@media (max-width: 300px) {
+  header h1 {
+    font-size: 1.2rem; /* Ajuste adicional para pantallas muy pequeñas */
+  }
+
+  .pi {
+    font-size: 1.2rem; /* Ajusta aún más los íconos */
+  }
+
+  .buttons-container {
+    margin: 0.5rem 0; /* Reduce el margen entre los botones */
+  }
+}
+
 </style>
