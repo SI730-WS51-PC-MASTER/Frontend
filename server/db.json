@@ -502,5 +502,80 @@
       "component_id": 1,
       "component_name": ""
     }
+  ],
+    "technicians": [
+    {
+      "id": 1,
+      "name": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO",
+      "status": true,
+      "stars": 4.3,
+      "img": "https://i.postimg.cc/MHv88VtV/tecnico-1-removebg-preview-1.png"
+    },
+    {
+      "id": 2,
+      "name": "CAMILA NICOLE RODRIGUEZ VENEGAS",
+      "status": true,
+      "stars": 4.2,
+      "img": "https://i.postimg.cc/J72L5Y4q/tecnico-2-removebg-preview-1.png"
+    },
+    {
+      "id": 3,
+      "name": "JOSE GABRIEL APARCANA DEL CARPIO",
+      "status": false,
+      "stars": 4.1,
+      "img": "https://i.postimg.cc/C5XpM56t/tecnico-3-removebg-preview-1.png"
+    },
+    {
+      "id": 4,
+      "name": "RENZO SEBASTIÁN VENTOSILLA TAIPE",
+      "status": false,
+      "stars": 4.1,
+      "img": "https://i.postimg.cc/m21GX3PG/tecnico-4-removebg-preview-1.png"
+    },
+    {
+      "id": 5,
+      "name": "PABLO ENRIQUE CAPILAR MENDOZA",
+      "status": false,
+      "stars": 4,
+      "img": ""
+    }
+  ],
+  "technical-support": [
+    {
+      "id": 1,
+      "supportType": "zoom help meeting",
+      "date": "2024-10-29T22:48:45Z",
+      "technicianId": ""
+    },
+    {
+      "id": 2,
+      "supportType": "zoom help meeting",
+      "date": "2024-10-29T21:35:40Z",
+      "technicianId": ""
+    },
+    {
+      "supportType": "zoom help meeting",
+      "date": "2024-10-30T05:00:39.201Z",
+      "technicianId": 2,
+      "id": 3
+    },
+    {
+      "supportType": "home service",
+      "date": "2024-10-30T05:00:41.434Z",
+      "technicianId": null,
+      "id": 4
+    },
+    {
+      "supportType": "home service",
+      "date": "2024-10-30T05:00:44.737Z",
+      "technicianId": null,
+      "id": 5
+    },
+    {
+      "supportType": "zoom help meeting",
+      "date": "2024-10-30T05:00:59.450Z",
+      "technicianId": null,
+      "id": 6
+    }
   ]
 }
