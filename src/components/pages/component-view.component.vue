@@ -154,7 +154,7 @@ export default {
     watch: {
       minPrice: 'filterByPrice',
       maxPrice: 'filterByPrice',
-    },
+    }
   },
 };
 </script>
@@ -264,7 +264,7 @@ export default {
     <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
       <div class="modal-content">
         <button class="close-button" @click="closeReview">&times;</button>
-        <ReviewComponentManagement :component-id="selectedComponentId" />
+        <ReviewComponentManagement :component-id="selectedComponentId"/>
       </div>
     </div>
   </div>
@@ -459,7 +459,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.85); /* Fondo más oscuro */
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;

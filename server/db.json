@@ -366,13 +366,15 @@
       "rating": 5,
       "comment": "Excelente atención, resolvieron el problema rápidamente.",
       "user_name": "JohnDoe",
+      "technical_support_id": 1,
       "technical_support": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO"
     },
     {
       "id": 2,
       "rating": 4,
-      "comment": "Buen servicio, pero tardaron en responder.",
+      "comment": "Buen servicio, pero tarda en responder.",
       "user_name": "JaneSmith",
+      "technical_support_id": 2,
       "technical_support": "CAMILA NICOLE RODRIGUEZ VENEGAS"
     },
     {
@@ -380,6 +382,7 @@
       "rating": 3,
       "comment": "El técnico era amable, pero no solucionó el problema al instante.",
       "user_name": "MikeTech",
+      "technical_support_id": 1,
       "technical_support": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO"
     },
     {
@@ -387,6 +390,7 @@
       "rating": 2,
       "comment": "La asistencia fue lenta y no resolvieron mi problema.",
       "user_name": "AliceUser",
+      "technical_support_id": 3,
       "technical_support": "JOSE GABRIEL APARCANA DEL CARPIO"
     },
     {
@@ -394,7 +398,16 @@
       "rating": 5,
       "comment": "Servicio rápido y eficiente. Muy recomendado.",
       "user_name": "DavidClient",
+      "technical_support_id": 4,
       "technical_support": "RENZO SEBASTIÁN VENTOSILLA TAIPE"
+    },
+    {
+      "id": 6,
+      "rating": 2,
+      "comment": "No respondió el llamado.",
+      "user_name": "Pedro",
+      "technical_support_id": 2,
+      "technical_support": ""
     }
   ],
   "reviewsComponent": [

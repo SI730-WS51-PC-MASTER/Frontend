@@ -3,11 +3,13 @@ import { TechnicianService } from '../services/technician.service.js';
 import { Technician } from '../model/technician.entity.js';
 import { TechnicalSupportService } from "@/technical-support/services/technical-support.service.js";
 import MeetingConfirmComponent from '../components/technician-service-confirmation.component.vue';
+import ReviewTechnicalManagementComponent from "@/review/components/review-technical-management.component.vue";
 
 export default {
   name: 'GetHardwareGuidance',
   components: {
     MeetingConfirmComponent,
+    ReviewTechnicalManagementComponent
   },
   data() {
     return {
@@ -17,7 +19,9 @@ export default {
       showConfirmPopup: false,
       showGeneralRequestConfirmPopup: false,
       selectedTechnician: null,
-      selectedServiceType: ""
+      selectedServiceType: "",
+      showReview: false,
+      selectedTechnicalId: null,
     };
   },
   async created() {
@@ -90,7 +94,21 @@ export default {
     cancelMeeting() {
       this.showConfirmPopup = false;
       this.showGeneralRequestConfirmPopup = false;
-    }
+    },
+    openReview(technical_support_id) {
+      console.log("Component ID in openReview:", technical_support_id);
+      if (technical_support_id !== undefined && technical_support_id !== null) {
+        this.selectedTechnicalId = technical_support_id;
+        this.showReview = true;
+        console.log("selectedTechnicalId:", this.selectedTechnicalId);
+      } else {
+        console.error("technical_support_id is undefined in openReview");
+      }
+    },
+    closeReview() {
+      this.showReview = false;
+      this.selectedTechnicalId = null;
+    },
   }
 };
 </script>
@@ -110,6 +128,7 @@ export default {
             :key="technician.id"
             class="technician-card"
             :header="technician.name"
+            @click="openReview(technician.id)"
         >
           <!-- technician Image -->
           <template #title>
@@ -162,6 +181,14 @@ export default {
         <button class="service-button" @click="openGeneralRequestConfirmPopup('zoom help meeting')">Request Zoom Meeting</button>
       </div>
     </section>
+
+    <!-- Modal para mostrar las opiniones -->
+    <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
+      <div class="modal-content">
+        <button class="close-button" @click="closeReview">&times;</button>
+        <ReviewTechnicalManagementComponent :technicalSupportId="selectedTechnicalId" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -363,5 +390,46 @@ export default {
     flex-direction: column;
     gap: 5px;
   }
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo más oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #1a001f; /* Fondo púrpura oscuro para el modal */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  color: #fff; /* Texto en blanco */
+  border: 2px solid #e600ac; /* Borde rosa brillante */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  color: #e600ac; /* Color del botón de cerrar a juego */
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #ff66cc; /* Efecto de hover más claro en el botón de cerrar */
 }
 </style>

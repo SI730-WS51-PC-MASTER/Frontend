@@ -37,6 +37,9 @@ export default {
         <div class="flex flex-column items-center">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
           <div class="flex justify-content-center gap-2 buttons-container">
+            <router-link to='home'>
+              <pv-button :label="$t('bttn-4')" severity="peace" style="color: #ffffff"/>
+            </router-link>
             <router-link to='build'>
               <pv-button :label="$t('bttn-1')" severity="danger" style="color: #ffffff"/>
             </router-link>

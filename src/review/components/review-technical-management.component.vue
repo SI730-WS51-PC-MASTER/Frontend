@@ -1,10 +1,11 @@
 <script>
-import { ReviewComponent } from "@/review/model/review-component.entity.js";
-import { ReviewComponentService } from "@/review/services/review-component.service.js";
+import {ReviewTechnicalService} from "@/review/services/review-technical.service.js";
+import {ReviewTechnicalSupport} from "@/review/model/review-technical-support.entity.js";
+
 export default {
-  name: "review-component-management",
+  name: "review-technical-management",
   props: {
-    componentId: {
+    technicalSupportId: {
       type: [Number],
       required: true,
     },
@@ -12,32 +13,32 @@ export default {
   data() {
     return {
       reviews: [],
-      newReview: new ReviewComponent(),
+      newReview: new ReviewTechnicalSupport(),
       editingReview: null,
     };
   },
   mounted() {
-    //console.log('In mounted hook, componentId:', this.componentId);
-    if (this.componentId) {
+    //console.log('In mounted hook, technicalSupportId:', this.technicalSupportId);
+    if (this.technicalSupportId) {
       this.fetchReviews();
     } else {
-      console.error("componentId is undefined in mounted hook");
+      console.error("technicalSupportId is undefined in mounted hook");
     }
   },
   watch: {
-    componentId(newVal) {
+    technicalSupportId(newVal) {
       if (newVal) {
-        console.log('componentId changed:', newVal);
+        console.log('technicalSupportId changed:', newVal);
         this.fetchReviews();
       }
     },
   },
   methods: {
     async fetchReviews() {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ReviewTechnicalService();
       try {
-        console.log("Fetching reviews for component ID:", this.componentId);
-        const response = await reviewService.getByComponentId(this.componentId);
+        console.log("Fetching reviews for technical Support ID:", this.technicalSupportId);
+        const response = await reviewService.getByComponentId(this.technicalSupportId);
         this.reviews = Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error("Error fetching reviews:", error);
@@ -47,7 +48,7 @@ export default {
 
     // Guardar o actualizar opinión
     async saveReview() {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ReviewTechnicalService();
       if (this.editingReview) {
         // Actualizar opinión existente
         try {
@@ -59,7 +60,7 @@ export default {
         }
       } else {
         // Crear una nueva opinión
-        this.newReview.component_id = this.componentId; // Asignar el ID del componente
+        this.newReview.technical_support_id = this.technicalSupportId; // Asignar el ID del componente
         try {
           await reviewService.create(this.newReview);
           await this.fetchReviews();
@@ -84,7 +85,7 @@ export default {
 
     // Eliminar una opinión
     async deleteReview(id) {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ReviewTechnicalService();
       try {
         await reviewService.delete(id);
         await this.fetchReviews();
@@ -95,16 +96,15 @@ export default {
 
     // Restablecer el formulario de opinión
     resetForm() {
-      this.newReview = new ReviewComponent();
+      this.newReview = new ReviewTechnicalSupport();
     }
-
-  },
-};
+  }
+}
 </script>
 
 <template>
   <div class="review-management">
-    <h3>Opinions for Component ID: {{ componentId }}</h3>
+    <h3>Opinions for Technician ID: {{ technicalSupportId }}</h3>
 
     <!-- Listado de Opiniones -->
     <div v-if="reviews && reviews.length" class="review-list">

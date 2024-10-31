@@ -3,10 +3,10 @@ import { TechnicalSupport } from "@/technical-support/model/technical-support.en
 import { TechnicalSupportService } from "@/technical-support/services/technical-support.service.js";
 import DataManager from "../../shared/components/data-manager.component.vue";
 import TechnicalSupportItemCreateAndEditDialog from "../components/technical-support-edit-and-view.component.vue";
-
 export default {
   name: "technical-support-management",
-  components: {TechnicalSupportItemCreateAndEditDialog, DataManager},
+  components: {
+    TechnicalSupportItemCreateAndEditDialog, DataManager},
   data() {
     return {
       title: {singular: "TechnicalSupport", plural: "Technical Support Services"},
