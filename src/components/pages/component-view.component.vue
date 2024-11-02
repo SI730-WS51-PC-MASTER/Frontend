@@ -3,9 +3,15 @@ import ComponentList from "../components/component-list.component.vue";
 import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
 import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
 import { WishlistService } from "@/wishlist/services/wishlist.service.js";
+
+// Shopping cart
+import AddCartButton from "@/orders/components/add-cart-button.vue";
+import { cartService } from "@/orders/services/cart.service.js";
+import { Cart } from "@/orders/model/cart.entity.js";
+
 export default {
   name: "AllComponents",
-  components: {WishlistAddAndRemoveComponent, ComponentList },
+  components: {WishlistAddAndRemoveComponent, ComponentList, AddCartButton },
   data() {
     return {
       components: [ComponentList, WishlistAddAndRemoveComponent],
@@ -16,6 +22,10 @@ export default {
       minPrice: null,
       maxPrice: null,
       wishlist: [],
+
+      //Cart service
+      cartsApi: new cartService(),
+      newCart: new Cart({}),
     };
   },
   created() {
@@ -138,6 +148,29 @@ export default {
       minPrice: 'filterByPrice',
       maxPrice: 'filterByPrice',
     },
+
+    //Add component in shopping cart
+    async submitShoppingCart(compId) {
+
+      if (compId == null){
+        console.error('Error getting componentId')
+
+      } else {
+
+        this.newCart = new Cart({
+          componentId: compId,
+          userId: this.cartsApi.getUserContext(), quantity: 1});
+
+        try {
+          this.cartsApi.create(this.newCart).then((response) => {
+            console.log("Product added to cart", compId);
+          })
+        } catch (error) {
+          console.error('Error en carrito de compras')
+        }
+      }
+
+    }
   },
 };
 </script>
@@ -232,6 +265,12 @@ export default {
                 @add-to-wishlist="addToWishlist"
                 @remove-from-wishlist="removeFromWishlist"
             />
+
+            <!-- Add component to shopping cart -->
+            <div>
+              <add-cart-button @button-click="submitShoppingCart(component.id)"></add-cart-button>
+            </div>
+
           </div>
           <div class="component-actions">
             <!-- Aquí puedes añadir los iconos de acción -->
