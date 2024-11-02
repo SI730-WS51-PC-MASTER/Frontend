@@ -63,9 +63,10 @@ export default {
 </script>
 
 <template>
-  <pv-toast/>
-  <pv-confirm-dialog/>
-  <h3>Manage {{ title.plural }}</h3>
+  <!-- ESTAS DOS CABECERAS ESTABAN BUGEANDO MI COMPONENTE XD, SI ALGUIEN LAS USA ME AVISA-->
+  <!--<pv-toast/>-->
+  <!--<pv-confirm-dialog/>-->
+  <h2>Manage {{ title.plural }}</h2>
 
   <!-- Toolbar section -->
   <pv-toolbar class="mb-4">
@@ -105,5 +106,7 @@ export default {
 </template>
 
 <style scoped>
-
+h2 {
+  text-align: center;
+}
 </style>
