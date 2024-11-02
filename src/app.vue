@@ -19,17 +19,19 @@ export default {
   <header>
     <pv-toolbar class="mb-4 toolbar">
       <template #start>
-        <div class="flex align-items-center gap-3">
-          <i class="pi pi-cog" style="font-size: 2rem"></i>
-          <i class="pi pi-megaphone" style="font-size: 2rem"></i>
+        <div class="flex align-items-center gap-3 start-buttons">
+          <i class="pi pi-cog"></i>
+          <router-link to='shopping-cart'>
+          <i class="pi pi-shopping-cart"></i>
+          </router-link>
           <router-link to='wishlist'>
-          <i class="pi pi-heart-fill" style="font-size: 2rem" @click="goToWishlist"></i>
+          <i class="pi pi-heart-fill" @click="goToWishlist"></i>
           </router-link>
           <language-switcher/>
         </div>
       </template>
       <template #center>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-column items-center gap-2">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
           <div class="flex justify-content-center gap-2 buttons-container">
             <router-link to='build'>
@@ -64,6 +66,11 @@ export default {
   display: flex;
   padding: 1rem;
   background-color: #2c003e;
+}
+
+.start-buttons i {
+  font-size: 1.5rem;
+  color: #ffffff;
 }
 
 .buttons-container pv-button{

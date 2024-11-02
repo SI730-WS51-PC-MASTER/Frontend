@@ -433,5 +433,37 @@
       "user_name": "DavidClient",
       "component_name": "EVGA 600W Power Supply"
     }
+  ],
+  "shopping-cart": [
+    {
+      "id": 1,
+      "componentId": 2,
+      "userId": 2,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "componentId": 3,
+      "userId": 3,
+      "quantity": 1
+    },
+    {
+      "id": 6,
+      "componentId": 1,
+      "userId": 0,
+      "quantity": 1
+    },
+    {
+      "id": 7,
+      "componentId": 2,
+      "userId": 0,
+      "quantity": 1
+    },
+    {
+      "id": 8,
+      "componentId": 6,
+      "userId": 0,
+      "quantity": 1
+    }
   ]
 }
