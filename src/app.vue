@@ -24,12 +24,15 @@ export default {
       <template #start>
         <div class="flex align-items-center gap-4 start-buttons">
           <!--<i class="pi pi-cog" style="font-size: 2rem"></i>-->
+          <!--Icon to guidance-->
           <router-link to='view-your-request-for-guidance-submitted'>
-            <i class="pi pi-megaphone" style="font-size: 2rem" @click="goToTechnicalSupport"></i>
+            <i class="pi pi-megaphone" @click="goToTechnicalSupport"></i>
           </router-link>
+          <!--Icon to wish list-->
           <router-link to='wishlist'>
-          <i class="pi pi-heart-fill" style="font-size: 2rem" @click="goToWishlist"></i>
+            <i class="pi pi-heart-fill" @click="goToWishlist"></i>
           </router-link>
+          <!--Icon to cart-->
           <router-link to='shopping-cart'>
             <i class="pi pi-shopping-cart"></i>
           </router-link>

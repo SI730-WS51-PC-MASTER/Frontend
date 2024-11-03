@@ -21,7 +21,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    let baseTitle = 'ACME Learning Center';
+    let baseTitle = 'PC Master';
     document.title = `${baseTitle} | ${to.meta['title']}`;
     next();
 })
