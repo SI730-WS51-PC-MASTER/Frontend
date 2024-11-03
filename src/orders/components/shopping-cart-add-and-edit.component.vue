@@ -29,6 +29,7 @@ export default {
     this.getComponentsData()
     this.getCartData();
     this.getCartLength();
+    this.calculatePrice();
 
   },
 
@@ -40,6 +41,7 @@ export default {
       componentService.getAll().then(response => {
         this.components = response.data;
         //console.log("Response: ", this.components);
+        this.calculatePrice();
       });
     },
 
@@ -94,13 +96,13 @@ export default {
 
     onDeleteItem(cartId) {
 
-      if(cartId == null) {
+      if(cartId === null) {
         console.error("Item not found");
       }
 
       try {
         this.cartsApi.delete(cartId).then((response) => {
-          console.log('Item deleted:', response);
+          //console.log('Item deleted:', response);
         })
       } catch (error) {
         console.error("Error deleting item:", error);
@@ -108,6 +110,7 @@ export default {
 
       this.getCartData();
       this.getCartLength();
+      this.calculatePrice();
     }
   }
 }
