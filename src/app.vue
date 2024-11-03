@@ -23,31 +23,32 @@ export default {
     <pv-toolbar class="mb-4 toolbar">
       <template #start>
         <div class="flex align-items-center gap-4 start-buttons">
-          <i class="pi pi-cog" style="font-size: 2rem"></i>
+          <!--<i class="pi pi-cog" style="font-size: 2rem"></i>-->
           <router-link to='view-your-request-for-guidance-submitted'>
             <i class="pi pi-megaphone" style="font-size: 2rem" @click="goToTechnicalSupport"></i>
           </router-link>
-          <router-link to='shopping-cart'>
-          <i class="pi pi-shopping-cart"></i>
-          </router-link>
           <router-link to='wishlist'>
           <i class="pi pi-heart-fill" style="font-size: 2rem" @click="goToWishlist"></i>
+          </router-link>
+          <router-link to='shopping-cart'>
+            <i class="pi pi-shopping-cart"></i>
           </router-link>
           <!--<i class="pi pi-user" style="font-size: 2.5rem"></i>-->
         </div>
       </template>
       <template #center>
-        <div class="flex flex-column items-center gap-2">
+        <div class="flex flex-column items-center gap-1">
           <h1 class="text-center"> {{ $t('phrase') }} </h1>
-          <div class="flex justify-content-center gap-2 buttons-container">
-            <router-link to='home'>
-              <pv-button :label="$t('bttn-4')" severity="peace" style="color: #ffffff"/>
-            </router-link>
+          <div class="flex justify-content-center gap-3 buttons-container">
+            <!--
             <router-link to='build'>
               <pv-button :label="$t('bttn-1')" severity="danger" style="color: #ffffff"/>
-            </router-link>
+            </router-link>-->
             <router-link to='components'>
               <pv-button :label="$t('bttn-2')" severity="info" style="color: #ffffff"/>
+            </router-link>
+            <router-link to='home'>
+              <pv-button :label="$t('bttn-4')" severity="peace" style="color: #ffffff"/>
             </router-link>
             <router-link to='get-guidance'>
               <pv-button :label="$t('bttn-3')" severity="warn" style="color: #ffffff"/>

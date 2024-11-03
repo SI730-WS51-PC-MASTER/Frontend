@@ -38,7 +38,7 @@ export default {
 
         </template>
         <template #footer>
-          <router-link to='guidance'>
+          <router-link to='get-guidance'>
             <pv-button class="action-buttons" :label="$t('bttn-3')" severity="danger"/>
           </router-link>
         </template>
