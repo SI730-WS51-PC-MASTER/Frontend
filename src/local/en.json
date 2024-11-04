@@ -3,5 +3,15 @@
   "bttn-1": "Start Building your PC",
   "bttn-2": "Find your Component",
   "bttn-3": "Get Hardware Guidance",
-  "shoppingtitle": "Shopping Cart"
+  "bttn-4": "Home",
+
+
+  "orders": {
+    "shoppingtitle": "Products added",
+    "bttn1": "Compare with others",
+    "bttn2" : "Purchase",
+    "totalPrice": "Total Price",
+    "products": "Total amount",
+    "summary": "Selection summary"
+  }
 }

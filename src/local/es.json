@@ -3,6 +3,15 @@
   "bttn-1": "Comience a armar su PC",
   "bttn-2": "Encuentre sus componentes",
   "bttn-3": "Obtenga orientación sobre Hardware",
-  "shoppingtitle": "Carrito de compra"
+  "bttn-4": "Inicio",
 
+
+  "orders": {
+    "shoppingtitle": "Productos añadidos",
+    "bttn1": "Comparar componentes",
+    "bttn2" : "Comprar",
+    "totalPrice": "Precio Total",
+    "products": "Cantidad total",
+    "summary": "Resumen de selección"
+  }
 }

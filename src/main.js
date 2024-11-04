@@ -40,6 +40,7 @@ import Toast from "primevue/toast";
 
 import router from "./router/index.js";
 import SelectButton from "primevue/selectbutton";
+import DatePicker from "primevue/datepicker";
 
 // Create app instance
 
@@ -84,7 +85,8 @@ app.component('pv-button', Button)
     .component('pv-tag', Tag)
     .component('pv-textarea', Textarea)
     .component('pv-toolbar', Toolbar)
-    .component('pv-toast', Toast);
+    .component('pv-toast', Toast)
+    .component('pv-date-picker', DatePicker);
 
 // Mount app
 app.mount('#app');

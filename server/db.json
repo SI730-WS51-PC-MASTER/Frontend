@@ -12,7 +12,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Juegos"
       },
@@ -36,7 +36,7 @@
         "secondary": []
       },
       "ratings": 3,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Trabajo"
       },
@@ -60,7 +60,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Graphic Card",
         "subType": "Diseño"
       },
@@ -84,7 +84,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "RAM",
         "subType": "Juegos"
       },
@@ -108,7 +108,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Motherboard",
         "subType": "Trabajo"
       },
@@ -132,7 +132,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Storage",
         "subType": "Trabajo"
       },
@@ -156,7 +156,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "Power Supply",
         "subType": "Juegos"
       },
@@ -180,7 +180,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Juegos"
       },
@@ -204,7 +204,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Trabajo"
       },
@@ -227,7 +227,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Monitor",
         "subType": "Diseño"
       },
@@ -251,7 +251,7 @@
         "secondary": []
       },
       "ratings": 5,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Diseño"
       },
@@ -274,7 +274,7 @@
         "secondary": []
       },
       "ratings": 4,
-      "categories": {
+      "technicalSupports": {
         "type": "Peripheral",
         "subType": "Trabajo"
       },
@@ -285,8 +285,354 @@
       },
       "country": "Taiwan"
     }
+  ],
+  "wishlist": [
+    {
+      "id": 3,
+      "name": "Tarjeta Barata 3",
+      "description": "Medium performance component",
+      "price": 170,
+      "stock": 0,
+      "provider_id": 1,
+      "image": {
+        "main": "https://i.postimg.cc/0yNh9Pgb/C-mo-entender-las-especificaciones-de-la-tarjeta-gr-fica-3.jpg",
+        "secondary": []
+      },
+      "ratings": 4,
+      "technicalSupports": {
+        "type": "Graphic Card",
+        "subType": "Diseño"
+      },
+      "attributes": {
+        "memory": "2GB",
+        "type": "GDDR5",
+        "clockSpeed": "1200 MHz",
+        "color": "Red"
+      },
+      "country": "Taiwan"
+    },
+    {
+      "id": 4,
+      "name": "RAM 16GB DDR4",
+      "description": "High-speed RAM for gaming and multitasking.",
+      "price": 80,
+      "stock": 150,
+      "provider_id": 3,
+      "image": {
+        "main": "https://i.postimg.cc/k5Z1JCnv/ram.png",
+        "secondary": []
+      },
+      "ratings": 5,
+      "technicalSupports": {
+        "type": "RAM",
+        "subType": "Juegos"
+      },
+      "attributes": {
+        "memory": "16GB",
+        "type": "DDR4",
+        "clockSpeed": "3200 MHz",
+        "color": "Black"
+      },
+      "country": "USA"
+    },
+    {
+      "id": 5,
+      "name": "Placa madre ATX",
+      "description": "Motherboard for high performance builds.",
+      "price": 120,
+      "stock": 80,
+      "provider_id": 4,
+      "image": {
+        "main": "https://i.postimg.cc/V6rhn67h/placa-madre.webp",
+        "secondary": []
+      },
+      "ratings": 4,
+      "technicalSupports": {
+        "type": "Motherboard",
+        "subType": "Trabajo"
+      },
+      "attributes": {
+        "formFactor": "ATX",
+        "socket": "LGA 1151",
+        "memorySupport": "Max 64GB",
+        "color": "Black"
+      },
+      "country": "USA"
+    }
+  ],
+  "reviewsTechnicalSupport": [
+    {
+      "id": 1,
+      "rating": 5,
+      "comment": "Excelente atención, resolvieron el problema rápidamente.",
+      "user_name": "JohnDoe",
+      "technical_support_id": 1,
+      "technical_support": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO"
+    },
+    {
+      "id": 2,
+      "rating": 4,
+      "comment": "Buen servicio, pero tarda en responder.",
+      "user_name": "JaneSmith",
+      "technical_support_id": 2,
+      "technical_support": "CAMILA NICOLE RODRIGUEZ VENEGAS"
+    },
+    {
+      "id": 3,
+      "rating": 3,
+      "comment": "El técnico era amable, pero no solucionó el problema al instante.",
+      "user_name": "MikeTech",
+      "technical_support_id": 1,
+      "technical_support": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO"
+    },
+    {
+      "id": 4,
+      "rating": 2,
+      "comment": "La asistencia fue lenta y no resolvieron mi problema.",
+      "user_name": "AliceUser",
+      "technical_support_id": 3,
+      "technical_support": "JOSE GABRIEL APARCANA DEL CARPIO"
+    },
+    {
+      "id": 5,
+      "rating": 5,
+      "comment": "Servicio rápido y eficiente. Muy recomendado.",
+      "user_name": "DavidClient",
+      "technical_support_id": 4,
+      "technical_support": "RENZO SEBASTIÁN VENTOSILLA TAIPE"
+    },
+    {
+      "id": 6,
+      "rating": 2,
+      "comment": "No respondió el llamado.",
+      "user_name": "Pedro",
+      "technical_support_id": 2,
+      "technical_support": ""
+    }
+  ],
+  "reviewsComponent": [
+    {
+      "id": 1,
+      "rating": 5,
+      "comment": "Excelente rendimiento, aunque es cara.",
+      "user_name": "Juan Pérez",
+      "component_id": 1,
+      "component_name": "Tarjeta cara"
+    },
+    {
+      "id": 2,
+      "rating": 4,
+      "comment": "Buena relación calidad-precio.",
+      "user_name": "Ana Gómez",
+      "component_id": 2,
+      "component_name": "Tarjeta media"
+    },
+    {
+      "id": 3,
+      "rating": 3,
+      "comment": "Cumple su función, pero es algo básica.",
+      "user_name": "Luis Sánchez",
+      "component_id": 3,
+      "component_name": "Tarjeta Barata 3"
+    },
+    {
+      "id": 4,
+      "rating": 5,
+      "comment": "Memoria rápida y sin problemas de compatibilidad.",
+      "user_name": "Carlos Medina",
+      "component_id": 4,
+      "component_name": "RAM 16GB DDR4"
+    },
+    {
+      "id": 5,
+      "rating": 4,
+      "comment": "Perfecta para gaming y trabajos pesados.",
+      "user_name": "Marta García",
+      "component_id": 5,
+      "component_name": "Placa madre ATX"
+    },
+    {
+      "id": 6,
+      "rating": 5,
+      "comment": "Muy rápida, gran capacidad.",
+      "user_name": "Fernando López",
+      "component_id": 6,
+      "component_name": "SSD 1TB"
+    },
+    {
+      "id": 7,
+      "rating": 4,
+      "comment": "Buena potencia, sin ruido.",
+      "user_name": "Gabriela Herrera",
+      "component_id": 7,
+      "component_name": "Fuente de poder 750W"
+    },
+    {
+      "id": 8,
+      "rating": 5,
+      "comment": "Muy cómodo para escribir, excelente iluminación.",
+      "user_name": "Raúl Mendez",
+      "component_id": 8,
+      "component_name": "Teclado mecánico RGB"
+    },
+    {
+      "id": 9,
+      "rating": 3,
+      "comment": "Funciona bien, pero es algo pequeño.",
+      "user_name": "Silvia Rivera",
+      "component_id": 9,
+      "component_name": "Mouse óptico"
+    },
+    {
+      "id": 10,
+      "rating": 4,
+      "comment": "Imagen nítida y colores vivos.",
+      "user_name": "Andrés Fernández",
+      "component_id": 10,
+      "component_name": "Monitor 24 Full HD"
+    },
+    {
+      "id": 11,
+      "rating": 4,
+      "comment": "Buen sonido para el precio.",
+      "user_name": "Laura Sánchez",
+      "component_id": 11,
+      "component_name": "Altavoces 2.1"
+    },
+    {
+      "id": 12,
+      "rating": 4,
+      "comment": "Buena calidad de imagen, ideal para videollamadas.",
+      "user_name": "Roberto Jiménez",
+      "component_id": 12,
+      "component_name": "Webcam HD"
+    },
+    {
+      "id": 13,
+      "rating": 1,
+      "comment": "Mal rendimiento y es muy cara.",
+      "user_name": "Pedro",
+      "component_id": 1,
+      "component_name": ""
+    }
+  ],
+  "technicians": [
+    {
+      "id": 1,
+      "name": "ERNESTO VILLANUEVA RAMIREZ DEL PRADO",
+      "status": true,
+      "stars": 4.3,
+      "img": "https://i.postimg.cc/MHv88VtV/tecnico-1-removebg-preview-1.png"
+    },
+    {
+      "id": 2,
+      "name": "CAMILA NICOLE RODRIGUEZ VENEGAS",
+      "status": true,
+      "stars": 4.2,
+      "img": "https://i.postimg.cc/J72L5Y4q/tecnico-2-removebg-preview-1.png"
+    },
+    {
+      "id": 3,
+      "name": "JOSE GABRIEL APARCANA DEL CARPIO",
+      "status": false,
+      "stars": 4.1,
+      "img": "https://i.postimg.cc/C5XpM56t/tecnico-3-removebg-preview-1.png"
+    },
+    {
+      "id": 4,
+      "name": "RENZO SEBASTIÁN VENTOSILLA TAIPE",
+      "status": false,
+      "stars": 4.1,
+      "img": "https://i.postimg.cc/m21GX3PG/tecnico-4-removebg-preview-1.png"
+    },
+    {
+      "id": 5,
+      "name": "PABLO ENRIQUE CAPILAR MENDOZA",
+      "status": false,
+      "stars": 4,
+      "img": ""
+    }
+  ],
+  "technical-support": [
+    {
+      "id": 1730281839226,
+      "dateOfRequest": "2024-10-30T09:50:45.889Z",
+      "startDate": "2024-10-30T09:50:45.889Z",
+      "endDate": "2024-10-31T05:00:00.000Z",
+      "supportType": "home service",
+      "technicianId": null
+    },
+    {
+      "supportType": "home service",
+      "dateOfRequest": "2024-10-30T09:53:53.568Z",
+      "technicianId": null,
+      "startDate": "2024-10-30T09:53:53.568Z",
+      "endDate": "2024-10-30T09:53:53.568Z",
+      "id": 1730281839227
+    },
+    {
+      "supportType": "zoom help meeting",
+      "dateOfRequest": "2024-10-30T09:53:54.093Z",
+      "technicianId": null,
+      "startDate": "2024-10-30T09:53:54.093Z",
+      "endDate": "2024-10-30T09:53:54.093Z",
+      "id": 1730281839228
+    },
+    {
+      "supportType": "home service",
+      "dateOfRequest": "2024-10-30T09:58:38.500Z",
+      "technicianId": 2,
+      "startDate": "2024-10-30T09:58:38.500Z",
+      "endDate": "2024-10-30T09:58:38.500Z",
+      "id": 1730281839229
+    },
+    {
+      "supportType": "zoom help meeting",
+      "dateOfRequest": "2024-10-30T18:35:49.382Z",
+      "technicianId": 2,
+      "startDate": "2024-10-30T18:35:49.382Z",
+      "endDate": "2024-10-30T18:35:49.382Z",
+      "id": 1730281839230
+    },
+    {
+      "supportType": "home service",
+      "dateOfRequest": "2024-10-30T18:36:09.576Z",
+      "technicianId": 1,
+      "startDate": "2024-10-30T18:36:09.576Z",
+      "endDate": "2024-10-30T18:36:09.576Z",
+      "id": 1730281839231
+    }
+  ],
+  "shopping-cart": [
+    {
+      "id": 1,
+      "componentId": 2,
+      "userId": 2,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "componentId": 3,
+      "userId": 3,
+      "quantity": 1
+    },
+    {
+      "id": 6,
+      "componentId": 1,
+      "userId": 0,
+      "quantity": 1
+    },
+    {
+      "id": 7,
+      "componentId": 2,
+      "userId": 0,
+      "quantity": 1
+    },
+    {
+      "id": 8,
+      "componentId": 6,
+      "userId": 0,
+      "quantity": 1
+    }
   ]
 }
-
-
-

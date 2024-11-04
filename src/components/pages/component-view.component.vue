@@ -2,12 +2,20 @@
 import ComponentList from "../components/component-list.component.vue";
 import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
 import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
+import { WishlistService } from "@/wishlist/services/wishlist.service.js";
+import ReviewComponentManagement from "@/review/components/review-component-management.component.vue";
+
+// Shopping cart
+import AddCartButton from "@/orders/components/add-cart-button.vue";
+import { cartService } from "@/orders/services/cart.service.js";
+import { Cart } from "@/orders/model/cart.entity.js";
+
 export default {
   name: "AllComponents",
-  components: {WishlistAddAndRemoveComponent, ComponentList },
+  components: {ReviewComponentManagement, WishlistAddAndRemoveComponent, ComponentList, AddCartButton },
   data() {
     return {
-      components: [ComponentList, WishlistAddAndRemoveComponent],
+      components: [ComponentList, WishlistAddAndRemoveComponent, ReviewComponentManagement],
       searchQuery: '',
       filteredComponents: [],
       selectedCountry: '',
@@ -15,6 +23,12 @@ export default {
       minPrice: null,
       maxPrice: null,
       wishlist: [],
+      showReview: false,
+      selectedComponentId: null,
+
+      //Cart service
+      cartsApi: new cartService(),
+      newCart: new Cart({}),
     };
   },
   created() {
@@ -25,6 +39,7 @@ export default {
       console.log("Response from JSON server:", response.data);
       this.filteredComponents = this.components;
     });
+    this.loadWishlist();
   },
   computed: {
     filteredComponents() {
@@ -33,8 +48,8 @@ export default {
         const matchesPrice = (!this.minPrice || component.price >= this.minPrice) &&
             (!this.maxPrice || component.price <= this.maxPrice);
         const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
-        //const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
-        //const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
+        //const matchesCategory = this.selectedCategory ? component.technicalSupports.type === this.selectedCategory : true;
+        //const matchesType = this.selectedType ? component.technicalSupports.subType === this.selectedType : true;
         return /*matchesCategory && matchesType &&*/ matchesName && matchesPrice && matchesCountry;
       });
     }
@@ -62,9 +77,9 @@ export default {
         );
       });
     },/*
-    filterByCategory(category) {
-      console.log("Categoría seleccionada:", category);
-      this.selectedCategory = category;
+    filterByCategory(technicalSupport) {
+      console.log("Categoría seleccionada:", technicalSupport);
+      this.selectedCategory = technicalSupport;
       this.applyFilters();
     },
     filterByType(type) {
@@ -74,8 +89,8 @@ export default {
     },
     applyFilters() {
       this.filteredComponents = this.components.filter(component => {
-        const matchesCategory = this.selectedCategory ? component.categories.type === this.selectedCategory : true;
-        const matchesType = this.selectedType ? component.categories.subType === this.selectedType : true;
+        const matchesCategory = this.selectedCategory ? component.technicalSupports.type === this.selectedCategory : true;
+        const matchesType = this.selectedType ? component.technicalSupports.subType === this.selectedType : true;
         return matchesCategory && matchesType;
       });
     },
@@ -90,24 +105,89 @@ export default {
             console.error("Error cargando los componentes:", error);
           });
     }*/
+    openReview(component_id) {
+      console.log("Component ID in openReview:", component_id);
+      if (component_id !== undefined && component_id !== null) {
+        this.selectedComponentId = component_id;
+        this.showReview = true;
+        console.log("selectedComponentId:", this.selectedComponentId);
+      } else {
+        console.error("component_id is undefined in openReview");
+      }
+    },
+    closeReview() {
+      this.showReview = false;
+      this.selectedComponentId = null;
+    },
+    loadWishlist() {
+      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
+      wishlistService.getAll().then((response) => {
+        this.wishlist = response.data;
+      }).catch((error) => {
+        console.error("Error loading wishlist:", error);
+      });
+    },
     addToWishlist(product) {
-      // Verifica si el producto ya está en la lista
-      if (!this.wishlist.some(item => item.id === product.id)) {
-        this.wishlist.push(product);
+      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
+      const existsInWishlist = this.wishlist.some((item) => item.id === product.id);
+
+      if (!existsInWishlist) {
+        wishlistService.create(product).then((response) => {
+          this.wishlist.push(response.data);
+          console.log("Product added to wish list:", response.data);
+        }).catch((error) => {
+          console.error("Error adding to wishlist:", error);
+        });
       }
     },
     removeFromWishlist(product) {
-      this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
+      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
+      wishlistService.delete(product.id).then(() => {
+        this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
+        console.log("Product removed from wishlist");
+      }).catch((error) => {
+        console.error("Error removing from wishlist:", error);
+      });
     },
+
+    updateQuantity(product) {
+      console.log("Updating product quantity:", product);
+    },
+
     mounted() {
       console.log(this.filteredComponents);
       this.filteredComponents = this.components;
       /*this.loadComponents();*/
+
+
     },
     watch: {
       minPrice: 'filterByPrice',
       maxPrice: 'filterByPrice',
     },
+
+    //Add component in shopping cart
+    async submitShoppingCart(compId) {
+
+      if (compId == null){
+        console.error('Error getting componentId')
+
+      } else {
+
+        this.newCart = new Cart({
+          componentId: compId,
+          userId: this.cartsApi.getUserContext(), quantity: 1});
+
+        try {
+          this.cartsApi.create(this.newCart).then((response) => {
+            console.log("Product added to cart", compId);
+          })
+        } catch (error) {
+          console.error('Error en carrito de compras')
+        }
+      }
+
+    }
   },
 };
 </script>
@@ -179,6 +259,7 @@ export default {
               :src="component.image.main"
               alt="Component image"
               class="component-image"
+              @click="openReview(component.id)"
           />
           <div class="component-info">
             <h3 class="component-title">{{ component.name }}</h3>
@@ -202,6 +283,12 @@ export default {
                 @add-to-wishlist="addToWishlist"
                 @remove-from-wishlist="removeFromWishlist"
             />
+
+            <!-- Add component to shopping cart -->
+            <div>
+              <add-cart-button @button-click="submitShoppingCart(component.id)"></add-cart-button>
+            </div>
+
           </div>
           <div class="component-actions">
             <!-- Aquí puedes añadir los iconos de acción -->
@@ -210,6 +297,13 @@ export default {
             <img src="@/assets/icons/compartir.png" />
           </div>
         </div>
+      </div>
+    </div>
+    <!-- Modal para mostrar las opiniones -->
+    <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
+      <div class="modal-content">
+        <button class="close-button" @click="closeReview">&times;</button>
+        <ReviewComponentManagement :component-id="selectedComponentId"/>
       </div>
     </div>
   </div>
@@ -386,15 +480,56 @@ body {
   color: #ff55aa;
 }
 .star {
-  font-size: 20px; /* Ajusta según sea necesario */
+  font-size: 20px;
 }
 
 .filled-star {
-  color: gold; /* O cualquier color que desees */
+  color: gold;
 }
 
 .empty-star {
-  color: lightgray; /* O cualquier color que desees */
+  color: lightgray;
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #1a001f; /* Fondo púrpura oscuro para el modal */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  color: #fff; /* Texto en blanco */
+  border: 2px solid #e600ac; /* Borde rosa brillante */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  color: #e600ac; /* Color del botón de cerrar a juego */
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #ff66cc; /* Efecto de hover más claro en el botón de cerrar */
 }
 
 </style>
