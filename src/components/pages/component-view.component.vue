@@ -256,7 +256,7 @@ export default {
             :key="component.id">
           <img
               v-if="component.image"
-              :src="component.image.main"
+              :src="component.image"
               alt="Component image"
               class="component-image"
               @click="openReview(component.id)"
