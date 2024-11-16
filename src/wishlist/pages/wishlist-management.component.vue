@@ -19,9 +19,9 @@ export default {
           .catch((error) => {
             console.error("Error removing product:", error);
           });
-    },
+  },
     fetchWishlist() {
-      const wishlistService = new WishlistService(); // Crear la instancia
+      const wishlistService = new WishlistService();
       wishlistService.getAll()
           .then((response) => {
             this.wishlist = response.data;
@@ -42,13 +42,10 @@ export default {
     <h2>Products added</h2>
     <div v-if="wishlist.length">
       <div v-for="product in wishlist" :key="product.id" class="wishlist-item">
-        <img :src="product.image" alt="product image">
         <h3>{{ product.name }}<br><br></h3>
         <div>
-          <p>Precio unitario: ${{ product.price }}</p>
-          <p>{{ product.quantity }} Units</p>
+          <p class="product-quantity">{{ product.quantity }} Units</p>
           <button @click="removeFromWishlist(product)">Remove</button>
-          <button>Buy now</button>
         </div>
       </div>
     </div>
@@ -79,6 +76,9 @@ export default {
   background-color: #ff4081;
   color: white;
   border: none;
+}
+.product-quantity {
+  margin-left: 15px;
 }
 </style>
 

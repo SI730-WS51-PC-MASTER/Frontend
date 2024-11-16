@@ -47,7 +47,6 @@ export default {
     },
     onEditSave(updatedEntity) {
       this.showEditDialog = false;
-      // Aquí puedes manejar la lógica para actualizar la entidad según tus necesidades
       console.log('Guardado', updatedEntity);
     },
     onCancelEdit() {
