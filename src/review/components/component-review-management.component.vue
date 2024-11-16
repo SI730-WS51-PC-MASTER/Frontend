@@ -1,8 +1,8 @@
 <script>
-import { ReviewComponent } from "@/review/model/review-component.entity.js";
-import { ReviewComponentService } from "@/review/services/review-component.service.js";
+import {ComponentReview} from "@/review/model/component-review.entity.js";
+import { ComponentReviewService } from "@/review/services/component-review.service.js";
 export default {
-  name: "review-component-management",
+  name: "component-review-management",
   props: {
     componentId: {
       type: [Number],
@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       reviews: [],
-      newReview: new ReviewComponent(),
+      newReview: new ComponentReview(),
       editingReview: null,
     };
   },
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     async fetchReviews() {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ComponentReviewService();
       try {
         console.log("Fetching reviews for component ID:", this.componentId);
         const response = await reviewService.getByComponentId(this.componentId);
@@ -47,7 +47,7 @@ export default {
 
     // Guardar o actualizar opinión
     async saveReview() {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ComponentReviewService();
       if (this.editingReview) {
         // Actualizar opinión existente
         try {
@@ -84,7 +84,7 @@ export default {
 
     // Eliminar una opinión
     async deleteReview(id) {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ComponentReviewService();
       try {
         await reviewService.delete(id);
         await this.fetchReviews();
@@ -95,7 +95,7 @@ export default {
 
     // Restablecer el formulario de opinión
     resetForm() {
-      this.newReview = new ReviewComponent();
+      this.newReview = new ComponentReview();
     }
 
   },

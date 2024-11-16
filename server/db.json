@@ -358,7 +358,7 @@
       "quantity": 2
     }
   ],
-  "reviewsTechnicalSupport": [
+  "technicalSupportReviews": [
     {
       "id": 1,
       "rating": 5,
@@ -408,7 +408,7 @@
       "technical_support": ""
     }
   ],
-  "reviewsComponent": [
+  "componentReviews": [
     {
       "id": 1,
       "rating": 5,

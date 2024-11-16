@@ -1,9 +1,9 @@
 <script>
-import {ReviewTechnicalService} from "@/review/services/review-technical.service.js";
-import {ReviewTechnicalSupport} from "@/review/model/review-technical-support.entity.js";
+import {TechnicalReviewService} from "@/review/services/technical-review.service.js";
+import {TechnicalSupportReview} from "@/review/model/technical-support-review.entity.js";
 
 export default {
-  name: "review-technical-management",
+  name: "technical-review-management",
   props: {
     technicalSupportId: {
       type: [Number],
@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       reviews: [],
-      newReview: new ReviewTechnicalSupport(),
+      newReview: new TechnicalSupportReview(),
       editingReview: null,
     };
   },
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     async fetchReviews() {
-      const reviewService = new ReviewTechnicalService();
+      const reviewService = new TechnicalReviewService();
       try {
         console.log("Fetching reviews for technical Support ID:", this.technicalSupportId);
         const response = await reviewService.getByComponentId(this.technicalSupportId);
@@ -48,7 +48,7 @@ export default {
 
     // Guardar o actualizar opinión
     async saveReview() {
-      const reviewService = new ReviewTechnicalService();
+      const reviewService = new TechnicalReviewService();
       if (this.editingReview) {
         // Actualizar opinión existente
         try {
@@ -85,7 +85,7 @@ export default {
 
     // Eliminar una opinión
     async deleteReview(id) {
-      const reviewService = new ReviewTechnicalService();
+      const reviewService = new TechnicalReviewService();
       try {
         await reviewService.delete(id);
         await this.fetchReviews();
@@ -96,7 +96,7 @@ export default {
 
     // Restablecer el formulario de opinión
     resetForm() {
-      this.newReview = new ReviewTechnicalSupport();
+      this.newReview = new TechnicalSupportReview();
     }
   }
 }

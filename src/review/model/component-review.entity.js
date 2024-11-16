@@ -1,17 +1,17 @@
-export class ReviewTechnicalSupport {
+export class ComponentReview {
     constructor(
         id = 0,
         rating= 0,
         comment = '',
         user_name = '',
-        technical_support_id = 0,
-        technical_support = ''
+        component_id = 0,
+        component_name = ''
     ) {
         this.id = id;
         this.rating = rating;
         this.comment = comment;
         this.user_name = user_name;
-        this.technical_support_id = technical_support_id;
-        this.technical_support = technical_support;
+        this.component_id = component_id;
+        this.component_name = component_name;
     }
 }

@@ -3,7 +3,7 @@ import ComponentList from "../components/component-list.component.vue";
 import {ComponentService} from "@/components/services/component.service.js"; // Ajusta la ruta según sea necesario
 import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
 import { WishlistService } from "@/wishlist/services/wishlist.service.js";
-import ReviewComponentManagement from "@/review/components/review-component-management.component.vue";
+import ComponentReviewManagement from "@/review/components/component-review-management.component.vue";
 
 // Shopping cart
 import AddCartButton from "@/orders/components/add-cart-button.vue";
@@ -12,10 +12,10 @@ import { Cart } from "@/orders/model/cart.entity.js";
 
 export default {
   name: "AllComponents",
-  components: {ReviewComponentManagement, WishlistAddAndRemoveComponent, ComponentList, AddCartButton },
+  components: {ComponentReviewManagement, WishlistAddAndRemoveComponent, ComponentList, AddCartButton },
   data() {
     return {
-      components: [ComponentList, WishlistAddAndRemoveComponent, ReviewComponentManagement],
+      components: [ComponentList, WishlistAddAndRemoveComponent, ComponentReviewManagement],
       searchQuery: '',
       filteredComponents: [],
       selectedCountry: '',
@@ -303,7 +303,7 @@ export default {
     <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
       <div class="modal-content">
         <button class="close-button" @click="closeReview">&times;</button>
-        <ReviewComponentManagement :component-id="selectedComponentId"/>
+        <ComponentReviewManagement :component-id="selectedComponentId"/>
       </div>
     </div>
   </div>

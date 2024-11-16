@@ -3,13 +3,13 @@ import { TechnicianService } from '../services/technician.service.js';
 import { Technician } from '../model/technician.entity.js';
 import { TechnicalSupportService } from "@/technical-support/services/technical-support.service.js";
 import MeetingConfirmComponent from '../components/technician-service-confirmation.component.vue';
-import ReviewTechnicalManagementComponent from "@/review/components/review-technical-management.component.vue";
+import TechnicalReviewManagementComponent from "@/review/components/technical-review-management.component.vue";
 
 export default {
   name: 'GetHardwareGuidance',
   components: {
     MeetingConfirmComponent,
-    ReviewTechnicalManagementComponent
+    TechnicalReviewManagementComponent
   },
   data() {
     return {
@@ -186,7 +186,7 @@ export default {
     <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
       <div class="modal-content">
         <button class="close-button" @click="closeReview">&times;</button>
-        <ReviewTechnicalManagementComponent :technicalSupportId="selectedTechnicalId" />
+        <TechnicalReviewManagementComponent :technicalSupportId="selectedTechnicalId" />
       </div>
     </div>
   </div>

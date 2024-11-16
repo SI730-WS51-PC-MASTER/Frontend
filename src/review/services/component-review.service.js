@@ -1,8 +1,8 @@
 import http from "../../shared/services/http-common.js";
 
-export class ReviewComponentService {
-    resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-review/reviewsComponent";
-    //resourceEndpoint = "http://localhost:3000/reviewsComponent";
+export class ComponentReviewService {
+    resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-review/componentReviews";
+    //resourceEndpoint = "http://localhost:3000/componentReviews";
 
     getAll() {
         return http.get(this.resourceEndpoint);
