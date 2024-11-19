@@ -20,6 +20,9 @@ export default {
       //filteredComponents: [],
       selectedCountry: '',
       selectedCategory: '',
+      selectedCategoryType: '',
+      selectedCategorySubType: '',
+      selectedCategoryBrand: '',
       minPrice: 0,
       maxPrice: 10000,
       wishlist: [],
@@ -46,7 +49,10 @@ export default {
         //console.log("matchesPrice:", matchesPrice, "para", component.price);
         const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
         //console.log("matchesCountry:", matchesCountry, "para", component.country);
-        return matchesName && matchesPrice && matchesCountry;
+        const matchesCategoryType = !this.selectedCategoryType || component.category_type === this.selectedCategoryType;
+        const matchesCategorySubType = !this.selectedCategorySubType || component.category_subType === this.selectedCategorySubType;
+        const matchesCategoryBrand = !this.selectedCategoryBrand || component.category_brand === this.selectedCategoryBrand;
+        return matchesName && matchesPrice && matchesCountry && matchesCategoryType && matchesCategorySubType && matchesCategoryBrand;
       });
       //console.log("Componentes filtrados:", result);
       return result;
@@ -204,49 +210,69 @@ export default {
 
 <template>
   <div class="container">
-    <!-- Sección de filtros -->
-    <div class="filter-section">
-      <h2>Find a component</h2>
-      <div class="search-bar">
-        <input
-            type="text"
-            v-model="searchQuery"
-            placeholder="Buscar componentes..."
-        />
-      </div>
-      <h2>Choose your options</h2>
-      <div class="filter-options">
-        <label for="price">Precio</label>
-        <input type="number" v-model="minPrice" placeholder="Mínimo" />
-        <input type="number" v-model="maxPrice" placeholder="Máximo" />
-
-        <label for="country">País</label>
-        <select v-model="selectedCountry">
-          <option value="">Todos</option>
-          <option value="Estados Unidos">Estados Unidos</option>
-          <option value="Taiwan">Taiwan</option>
-          <!-- Agrega más países según sea necesario -->
-        </select>
-
-        <!-- Badges de categorías -->
-        <div class="filter-badges">
-          <div class="badge" @click="filterByCategory_brand('Trabajo')">Trabajo</div>
-          <div class="badge" @click="filterByCategory_brand('Juegos')">Juegos</div>
-          <div class="badge" @click="filterByCategory_brand('Diseño')">Diseño</div>
+    <!-- Contenedor para las secciones de filtros -->
+    <div class="filter-and-components">
+      <!-- Sección de filtros -->
+      <div class="filter-section">
+        <h2>Find a component</h2>
+        <div class="search-bar">
+          <input
+              type="text"
+              v-model="searchQuery"
+              placeholder="Buscar componentes..."
+          />
         </div>
+        <h2>Choose your options</h2>
+        <div class="filter-options">
+          <label for="price">Precio</label>
+          <input type="number" v-model="minPrice" placeholder="Mínimo" />
+          <input type="number" v-model="maxPrice" placeholder="Máximo" />
 
-        <!-- Badges de componentes -->
-        <div class="filter-badges">
-          <div class="badge" @click="filterByCategory_type('Processors')">Processors</div>
-          <div class="badge" @click="filterByCategory_type('RAM Memories')">RAM Memories</div>
-          <div class="badge" @click="filterByCategory_type('Motherboards')">Motherboards</div>
-          <div class="badge" @click="filterByCategory_type('Graphics Cards')">Graphics Cards</div>
-          <div class="badge" @click="filterByCategory_type('Storage')">Storage</div>
-          <div class="badge" @click="filterByCategory_type('Peripheral')">Peripheral</div>
+          <label for="country">País</label>
+          <select v-model="selectedCountry">
+            <option value="">Todos</option>
+            <option value="Estados Unidos">Estados Unidos</option>
+            <option value="Taiwan">Taiwan</option>
+            <option value="South Korea">Corea del Sur</option>
+            <option value="Japan">Japón</option>
+            <option value="Netherlands">Países Bajos</option>
+          </select>
+
+          <div class="filter-options">
+            <label for="categoryType">Tipo</label>
+            <select v-model="selectedCategoryType">
+              <option value="">Todos</option>
+              <option value="Tablets">Tabletas</option>
+              <option value="Smartphones">Smartphones</option>
+              <option value="Wearables">Wearables</option>
+              <option value="Audio">Audio</option>
+              <option value="Smart Home">Hogar inteligente</option>
+            </select>
+
+            <label for="categorySubType">SubTipo</label>
+            <select v-model="selectedCategorySubType">
+              <option value="">Todos</option>
+              <option value="iPad">iPad</option>
+              <option value="5G">5G</option>
+              <option value="Noise Cancelling">Cancelación de Ruido</option>
+              <option value="Portable Speaker">Altavoz Portátil</option>
+              <option value="Smart Bulb">Bombilla Inteligente</option>
+            </select>
+
+            <label for="categoryBrand">Marca</label>
+            <select v-model="selectedCategoryBrand">
+              <option value="">Todas</option>
+              <option value="Apple">Apple</option>
+              <option value="Samsung">Samsung</option>
+              <option value="Sony">Sony</option>
+              <option value="JBL">JBL</option>
+              <option value="Philips">Philips</option>
+            </select>
+          </div>
         </div>
-
       </div>
     </div>
+
     <!-- Sección de componentes -->
     <div class="component-section">
       <h2>Enumerate by</h2>
@@ -271,173 +297,79 @@ export default {
           <div class="component-info">
             <h3 class="component-title">{{ component.name }}</h3>
             <p class="component-price">${{ component.price }}.00</p>
-              <!-- Mostrar estrellas basado en el rating -->
             <div class="component-rating">
-  <span v-for="n in 5" :key="n" class="star">
-    <i :class="n <= (component.ratings >= 0 ? Math.min(component.ratings, 5) : 0) ? 'filled-star' : 'empty-star'">★</i>
-  </span>
+              <span v-for="n in 5" :key="n" class="star">
+                <i :class="n <= (component.ratings >= 0 ? Math.min(component.ratings, 5) : 0) ? 'filled-star' : 'empty-star'">★</i>
+              </span>
             </div>
-            <!-- Mostrar el estado del stock -->
             <p v-if="component.stock > 10" class="available component-status">Available</p>
             <p v-else-if="component.stock > 0" class="short component-status">Short</p>
             <p v-else class="unavailable component-status">Unavailable</p>
-            <!-- Agregar componente `WishlistAddAndRemoveComponent` -->
             <WishlistAddAndRemoveComponent
                 :component="component"
                 :wishlist="wishlist"
                 @add-to-wishlist="addToWishlist"
                 @remove-from-wishlist="removeFromWishlist"
             />
-            <!-- Add component to shopping cart -->
             <div>
               <add-cart-button @button-click="submitShoppingCart(component.componentId)"></add-cart-button>
             </div>
           </div>
           <div class="component-actions">
-            <!-- Aquí puedes añadir los iconos de acción -->
-            <i class="fa fa-edit"></i> <!-- Icono de editar -->
+            <i class="fa fa-edit"></i>
             <img src="@/assets/icons/me-gusta.png" />
             <img src="@/assets/icons/compartir.png" />
           </div>
         </div>
       </div>
     </div>
-    <!-- Modal para mostrar las opiniones -->
-    <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
-      <div class="modal-content">
-        <button class="close-button" @click="closeReview">&times;</button>
-        <ComponentReviewManagement :component-id="selectedComponentId"/>
-      </div>
+  </div>
+
+  <!-- Modal para mostrar las opiniones -->
+  <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
+    <div class="modal-content">
+      <button class="close-button" @click="closeReview">&times;</button>
+      <ComponentReviewManagement :component-id="selectedComponentId"/>
     </div>
   </div>
 </template>
 
 <style scoped>
-.navbar {
-  background-color: #FF1B6B4D;
-  color: white;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.icons {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.user-icon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-body {
-  background: linear-gradient(145deg, #FF1B6B4D 30%, #45CAFF33 70%); /* Degradado personalizado */
-  color: #ffffff; /* Color de texto blanco por defecto */
-  font-family: 'Arial', sans-serif;
-}
-
 .container {
-  display: flex;
-  gap: 30px;
+  display: flex; /* Espacio entre ambas secciones */
+  align-items: flex-start; /* Alinea ambas secciones en la parte superior */
   padding: 20px;
+  gap: 10px;
+  border: none;
+  box-sizing: border-box;
 }
 
-/* Sección izquierda para buscar componentes y opciones */
+.filter-and-components {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+}
+
 .filter-section {
-  width: 30%;
-  background: linear-gradient(145deg, #FF1B6B4D 30%, #45CAFF33 70%); /* Degradado personalizado */
+  width: 49%; /* Ambas secciones ocupan casi la mitad del ancho */
+  background: linear-gradient(145deg, #FF1B6B4D 30%, #45CAFF33 70%);
   border-radius: 15px;
+  box-sizing: border-box;
+  border: none;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-.filter-section h2 {
-  color: #fff; /* Color blanco para los títulos principales */
-  font-weight: bold;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-.search-bar input {
-  border: none;
-  width: 100%;
-  padding-left: 10px;
-  font-size: 16px;
-}
-
-.search-bar button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.filter-options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.filter-options label {
-  font-size: 14px;
-  color: #fff;
-  margin-bottom: 5px;
-}
-
-.filter-options input[type="text"],
-.filter-options input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-}
-
-.filter-options select {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #333;
-  color: #fff;
-}
-
-.filter-badges {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  background-color: #ff0077; /* Color rosa neón */
-  color: #fff;
-  border-radius: 20px;
-  padding: 5px 15px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.badge:hover {
-  background-color: #ff55aa; /* Efecto hover en los badges */
-}
-
-/* Sección derecha con lista de componentes */
 .component-section {
-  width: 65%;
+  flex-grow: 1; /* Permite que la sección de componentes crezca dentro de un rango controlado */
+  max-width: 600px;
+  width: 49%;
+  box-sizing: border-box;
+  border: none;
+  display: flex;
+  flex-direction: column; /* Para que la lista de componentes y las opciones de sort se apilen verticalmente */
 }
 
 .component-section h2 {
@@ -445,94 +377,50 @@ body {
   font-weight: bold;
   color: #fff;
   margin-bottom: 20px;
+  border: none;
 }
 
-/* Botones para ordenar los componentes */
+/* Aseguramos que los elementos dentro de la sección de filtros no se desborden */
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto; /* Permite desplazarse si hay muchos filtros */
+  border: none;
+  box-sizing: border-box;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%; /* Asegura que ocupe todo el ancho disponible en su contenedor */
+  max-width: 400px; /* Máximo ancho, puedes ajustarlo según sea necesario */
+  box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+}
+
+.search-bar input {
+  border: none;
+  width: 100%;
+  padding-left: 10px;
+  font-size: 16px;
+  box-sizing: border-box; /* Para evitar que el padding cambie el tamaño */
+}
+
 .sort-buttons {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.sort-buttons button {
-  padding: 10px 15px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.sort-buttons button:hover {
-  background-color: #ff0077;
-}
-
-/* Lista de componentes */
+/* Estilos adicionales */
 .component-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-.component-actions i {
-  color: #00c4ff;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.component-actions i:hover {
-  color: #ff55aa;
-}
-.star {
-  font-size: 20px;
-}
-
-.filled-star {
-  color: gold;
-}
-
-.empty-star {
-  color: lightgray;
-}
-
-/* Estilos para el modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: #1a001f; /* Fondo púrpura oscuro para el modal */
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-height: 80%;
-  overflow-y: auto;
-  position: relative;
-  color: #fff; /* Texto en blanco */
-  border: 2px solid #e600ac; /* Borde rosa brillante */
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: transparent;
-  color: #e600ac; /* Color del botón de cerrar a juego */
+  box-sizing: border-box;
   border: none;
-  font-size: 30px;
-  cursor: pointer;
 }
-
-.close-button:hover {
-  color: #ff66cc; /* Efecto de hover más claro en el botón de cerrar */
-}
-
 </style>
