@@ -18,7 +18,7 @@ export default {
   <div class="component-card">
     <img
         v-if="component.image"
-        :src="component.image.imageUrl"
+        :src="component.image"
         alt="Component image"
         class="component-image"
     />

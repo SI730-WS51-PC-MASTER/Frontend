@@ -15,13 +15,13 @@ export default {
   components: {ComponentReviewManagement, WishlistAddAndRemoveComponent, ComponentList, AddCartButton },
   data() {
     return {
-      components: [ComponentList, WishlistAddAndRemoveComponent, ComponentReviewManagement],
+      components: [ComponentList, WishlistAddAndRemoveComponent, ComponentReviewManagement], //Cambien el nombre de esto en lo que lo usan porque se confunde el código a veces xdxdxdxdd
       searchQuery: '',
-      filteredComponents: [],
+      //filteredComponents: [],
       selectedCountry: '',
       selectedCategory: '',
-      minPrice: null,
-      maxPrice: null,
+      minPrice: 0,
+      maxPrice: 10000,
       wishlist: [],
       showReview: false,
       selectedComponentId: null,
@@ -32,26 +32,24 @@ export default {
     };
   },
   created() {
-    const componentService = new ComponentService();
-    componentService.getAll().then(response => {
-      this.components = response.data;
-      this.filteredComponents = this.components; // Inicialmente, mostrar todos los componentes
-      console.log("Response from JSON server:", response.data);
-      this.filteredComponents = this.components;
-    });
-    this.loadWishlist();
+    this.loadComponents();
+    //this.loadWishlist();
   },
   computed: {
     filteredComponents() {
-      return this.components.filter(component => {
+      //console.log("Componentes iniciales:", this.components);
+      const result = this.components.filter((component) => {
         const matchesName = component.name.toLowerCase().includes(this.searchQuery.toLowerCase());
-        const matchesPrice = (!this.minPrice || component.price >= this.minPrice) &&
-            (!this.maxPrice || component.price <= this.maxPrice);
+        //console.log("matchesName:", matchesName, "para", component.name);
+        const matchesPrice =
+            (!this.minPrice || component.price >= this.minPrice) && (!this.maxPrice || component.price <= this.maxPrice);
+        //console.log("matchesPrice:", matchesPrice, "para", component.price);
         const matchesCountry = !this.selectedCountry || component.country === this.selectedCountry;
-        //const matchesCategory = this.selectedCategory ? component.technicalSupports.type === this.selectedCategory : true;
-        //const matchesType = this.selectedType ? component.technicalSupports.subType === this.selectedType : true;
-        return /*matchesCategory && matchesType &&*/ matchesName && matchesPrice && matchesCountry;
+        //console.log("matchesCountry:", matchesCountry, "para", component.country);
+        return matchesName && matchesPrice && matchesCountry;
       });
+      //console.log("Componentes filtrados:", result);
+      return result;
     }
   },
   methods: {
@@ -76,7 +74,8 @@ export default {
             (this.maxPrice === null || price <= this.maxPrice)
         );
       });
-    },/*
+    },
+    /*
     filterByCategory(technicalSupport) {
       console.log("Categoría seleccionada:", technicalSupport);
       this.selectedCategory = technicalSupport;
@@ -93,18 +92,21 @@ export default {
         const matchesType = this.selectedType ? component.technicalSupports.subType === this.selectedType : true;
         return matchesCategory && matchesType;
       });
-    },
+    },*/
     loadComponents() {
-      fetch('http://localhost:3000/components')
-          .then(response => response.json())
-          .then(data => {
-            this.components = data.components;
-            this.filteredComponents = data.components; // Mostrar todos al principio
+      const componentService = new ComponentService();
+      componentService
+          .getAll()
+          .then((response) => {
+            console.log("Componentes recibidos:", response.data);
+            this.components = response.data;
+            console.log("Componentes iniciales después de la asignación:", this.components);
           })
-          .catch(error => {
-            console.error("Error cargando los componentes:", error);
+          .catch((error) => {
+            console.error("Error al obtener los componentes:", error);
+            this.components = [];
           });
-    }*/
+    },
     openReview(component_id) {
       console.log("Component ID in openReview:", component_id);
       if (component_id !== undefined && component_id !== null) {
@@ -149,23 +151,19 @@ export default {
         console.error("Error removing from wishlist:", error);
       });
     },
-
     updateQuantity(product) {
       console.log("Updating product quantity:", product);
     },
-
     mounted() {
-      console.log(this.filteredComponents);
       this.filteredComponents = this.components;
       /*this.loadComponents();*/
-
-
+      this.fetchComponents();
+      console.log(this.filteredComponents);
     },
     watch: {
       minPrice: 'filterByPrice',
       maxPrice: 'filterByPrice',
     },
-
     //Add component in shopping cart
     async submitShoppingCart(compId) {
 
@@ -187,7 +185,19 @@ export default {
         }
       }
 
-    }
+    },
+    fetchComponents() {
+      const componentService = new ComponentService();
+      componentService
+          .getAll()
+          .then((data) => {
+            console.log("Datos recibidos del servicio:", data);
+            this.components = data;
+          })
+          .catch((error) => {
+            console.error("Error al obtener los componentes:", error);
+          });
+    },
   },
 };
 </script>
@@ -213,33 +223,30 @@ export default {
         <label for="country">País</label>
         <select v-model="selectedCountry">
           <option value="">Todos</option>
-          <option value="USA">USA</option>
+          <option value="Estados Unidos">Estados Unidos</option>
           <option value="Taiwan">Taiwan</option>
           <!-- Agrega más países según sea necesario -->
         </select>
 
-
         <!-- Badges de categorías -->
         <div class="filter-badges">
-          <div class="badge" @click="filterByCategory('Trabajo')">Trabajo</div>
-          <div class="badge" @click="filterByCategory('Juegos')">Juegos</div>
-          <div class="badge" @click="filterByCategory('Diseño')">Diseño</div>
+          <div class="badge" @click="filterByCategory_brand('Trabajo')">Trabajo</div>
+          <div class="badge" @click="filterByCategory_brand('Juegos')">Juegos</div>
+          <div class="badge" @click="filterByCategory_brand('Diseño')">Diseño</div>
         </div>
-
 
         <!-- Badges de componentes -->
         <div class="filter-badges">
-          <div class="badge" @click="filterByType('Processors')">Processors</div>
-          <div class="badge" @click="filterByType('RAM Memories')">RAM Memories</div>
-          <div class="badge" @click="filterByType('Motherboards')">Motherboards</div>
-          <div class="badge" @click="filterByType('Graphics Cards')">Graphics Cards</div>
-          <div class="badge" @click="filterByType('Storage')">Storage</div>
-          <div class="badge" @click="filterByType('Peripheral')">Peripheral</div>
+          <div class="badge" @click="filterByCategory_type('Processors')">Processors</div>
+          <div class="badge" @click="filterByCategory_type('RAM Memories')">RAM Memories</div>
+          <div class="badge" @click="filterByCategory_type('Motherboards')">Motherboards</div>
+          <div class="badge" @click="filterByCategory_type('Graphics Cards')">Graphics Cards</div>
+          <div class="badge" @click="filterByCategory_type('Storage')">Storage</div>
+          <div class="badge" @click="filterByCategory_type('Peripheral')">Peripheral</div>
         </div>
 
       </div>
     </div>
-
     <!-- Sección de componentes -->
     <div class="component-section">
       <h2>Enumerate by</h2>
@@ -249,29 +256,27 @@ export default {
         <button @click="sortByRatingAsc">Less stars</button>
         <button @click="sortByRatingDesc">More stars</button>
       </div>
-      <div class="component-list">
+      <div class="component-list" :components="filteredComponents" @review="openReview">
         <div
             class="component-card"
             v-for="component in filteredComponents"
-            :key="component.id">
+            :key="component.componentId">
           <img
               v-if="component.image"
               :src="component.image"
               alt="Component image"
               class="component-image"
-              @click="openReview(component.id)"
+              @click="openReview(component.componentId)"
           />
           <div class="component-info">
             <h3 class="component-title">{{ component.name }}</h3>
             <p class="component-price">${{ component.price }}.00</p>
-
               <!-- Mostrar estrellas basado en el rating -->
             <div class="component-rating">
   <span v-for="n in 5" :key="n" class="star">
     <i :class="n <= (component.ratings >= 0 ? Math.min(component.ratings, 5) : 0) ? 'filled-star' : 'empty-star'">★</i>
   </span>
             </div>
-
             <!-- Mostrar el estado del stock -->
             <p v-if="component.stock > 10" class="available component-status">Available</p>
             <p v-else-if="component.stock > 0" class="short component-status">Short</p>
@@ -283,12 +288,10 @@ export default {
                 @add-to-wishlist="addToWishlist"
                 @remove-from-wishlist="removeFromWishlist"
             />
-
             <!-- Add component to shopping cart -->
             <div>
-              <add-cart-button @button-click="submitShoppingCart(component.id)"></add-cart-button>
+              <add-cart-button @button-click="submitShoppingCart(component.componentId)"></add-cart-button>
             </div>
-
           </div>
           <div class="component-actions">
             <!-- Aquí puedes añadir los iconos de acción -->

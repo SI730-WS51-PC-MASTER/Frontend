@@ -2,7 +2,7 @@ import {Image} from "@/components/model/image.entity.js";
 
 export class Component{
     constructor(
-        id= 0,
+        componentId= 0,
         name = '',
         description = '',
         price = 0,
@@ -18,12 +18,10 @@ export class Component{
         category_type = '',
         category_subType = '',
         category_brand= '',
-        //categories = new Categories(),
-        //attributes = new Atributes(),
         country = ''
 
     ) {
-        this.id = id;
+        this.componentId = componentId;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -36,8 +34,8 @@ export class Component{
         this.dimensions = dimensions;
         this.material = material;
         this.weight = weight;
-        this.category_type = category_brand;
-        this.category_subType = category_brand;
+        this.category_type = category_type;
+        this.category_subType = category_subType;
         this.category_brand = category_brand;
         this.country = country;
     }
