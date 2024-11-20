@@ -38,7 +38,7 @@ export default {
       const reviewService = new TechnicalReviewService();
       try {
         console.log("Fetching reviews for technical Support ID:", this.technicalSupportId);
-        const response = await reviewService.getByComponentId(this.technicalSupportId);
+        const response = await reviewService.getByTechnicalId(this.technicalSupportId);
         this.reviews = Array.isArray(response.data) ? response.data : [];
       } catch (error) {
         console.error("Error fetching reviews:", error);
@@ -49,6 +49,13 @@ export default {
     // Guardar o actualizar opinión
     async saveReview() {
       const reviewService = new TechnicalReviewService();
+
+      // Validar que el rating esté entre 1 y 5
+      if (this.newReview.rating < 1 || this.newReview.rating > 5) {
+        alert("El rating debe estar entre 1 y 5."); // Mostrar alerta
+        return; // Salir del método sin proceder
+      }
+
       if (this.editingReview) {
         // Actualizar opinión existente
         try {
@@ -60,7 +67,7 @@ export default {
         }
       } else {
         // Crear una nueva opinión
-        this.newReview.technical_support_id = this.technicalSupportId; // Asignar el ID del componente
+        this.newReview.technicalSupportId = this.technicalSupportId; // Asignar el ID del componente
         try {
           await reviewService.create(this.newReview);
           await this.fetchReviews();
@@ -109,7 +116,7 @@ export default {
     <!-- Listado de Opiniones -->
     <div v-if="reviews && reviews.length" class="review-list">
       <div v-for="review in reviews" :key="review.id" class="review-item">
-        <p><strong>{{ review.user_name }}</strong> (Rating: {{ review.rating }})</p>
+        <p><strong>{{ review.userName }}</strong> (Rating: {{ review.rating }})</p>
         <p>{{ review.comment }}</p>
         <button @click="editReview(review)">Edit</button>
         <button @click="deleteReview(review.id)">Delete</button>
@@ -120,7 +127,7 @@ export default {
     <!-- Formulario para Crear/Editar Opiniones -->
     <div class="review-form">
       <h4>{{ editingReview ? 'Edit' : 'Add' }} an Opinion</h4>
-      <input v-model="newReview.user_name" placeholder="Your name" />
+      <input v-model="newReview.userName" placeholder="Your name" />
       <input v-model.number="newReview.rating" type="number" min="1" max="5" placeholder="Rating (1-5)" />
       <textarea v-model="newReview.comment" placeholder="Write your opinion..."></textarea>
       <button @click="saveReview">{{ editingReview ? 'Update' : 'Submit' }}</button>

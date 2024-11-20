@@ -9,12 +9,12 @@ export default {
     };
   },
   methods: {
-    removeFromWishlist(product) {
+    removeFromWishlist(wishlistProduct) {
       const wishlistService = new WishlistService();
-      wishlistService.delete(product.id)
+      wishlistService.delete(wishlistProduct.id)
           .then(() => {
-            this.wishlist = this.wishlist.filter((p) => p.id !== product.id);
-            this.$emit('remove-from-wishlist', product);
+            this.wishlist = this.wishlist.filter((p) => p.id !== wishlistProduct.id);
+            this.$emit('remove-from-wishlist', wishlistProduct);
           })
           .catch((error) => {
             console.error("Error removing product:", error);
@@ -41,11 +41,11 @@ export default {
   <div class="wishlist-container">
     <h2>Products added</h2>
     <div v-if="wishlist.length">
-      <div v-for="product in wishlist" :key="product.id" class="wishlist-item">
-        <h3>{{ product.name }}<br><br></h3>
+      <div v-for="wishlistProduct in wishlist" :key="wishlistProduct.id" class="wishlist-item">
+        <h3>{{ wishlistProduct.componentName }}<br><br></h3>
         <div>
-          <p class="product-quantity">{{ product.quantity }} Units</p>
-          <button @click="removeFromWishlist(product)">Remove</button>
+          <p class="product-quantity">{{ wishlistProduct.quantityComponent }} Units</p>
+          <button @click="removeFromWishlist(wishlistProduct)">Remove</button>
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import ComponentReviewManagement from "@/review/components/component-review-mana
 import AddCartButton from "@/orders/components/add-cart-button.vue";
 import { cartService } from "@/orders/services/cart.service.js";
 import { Cart } from "@/orders/model/cart.entity.js";
+import {Wishlist} from "@/wishlist/model/wishlist.entity.js";
 
 export default {
   name: "AllComponents",
@@ -32,6 +33,10 @@ export default {
       //Cart service
       cartsApi: new cartService(),
       newCart: new Cart({}),
+
+      //Wishlist service
+      wishlistService: new WishlistService(),
+      newWishlistProduct: new Wishlist({}),
     };
   },
   created() {
@@ -113,10 +118,10 @@ export default {
             this.components = [];
           });
     },
-    openReview(component_id) {
-      console.log("Component ID in openReview:", component_id);
-      if (component_id !== undefined && component_id !== null) {
-        this.selectedComponentId = component_id;
+    openReview(componentId) {
+      console.log("Component ID in openReview:", componentId);
+      if (componentId !== undefined && componentId !== null) {
+        this.selectedComponentId = componentId;
         this.showReview = true;
         console.log("selectedComponentId:", this.selectedComponentId);
       } else {
@@ -140,7 +145,25 @@ export default {
       const existsInWishlist = this.wishlist.some((item) => item.id === product.id);
 
       if (!existsInWishlist) {
+        // Crear el objeto que se enviará al backend
+        const productToAdd = {
+          userId: this.wishlistService.getUserContext(), // Asegúrate de tener el `userId` correctamente
+          componentName: product.name, // Asumiendo que `name` es el nombre del componente
+          quantityComponents: product.quantityComponent // Asegúrate de usar `quantityComponent`
+        };
+
+
+        /*console.log("Wishlist product before sending:", productToAdd);  // Agregar esta línea
         wishlistService.create(product).then((response) => {
+          this.wishlist.push(response.data);
+          console.log("Product added to wish list:", response.data);
+        }).catch((error) => {
+          console.error("Error adding to wishlist:", error);
+        });
+        console.log("Wishlist product before sending:", productToAdd);  // Imprime para ver cómo se ve el objeto*/
+
+        // Enviar el objeto correctamente formateado al backend
+        wishlistService.create(productToAdd).then((response) => {
           this.wishlist.push(response.data);
           console.log("Product added to wish list:", response.data);
         }).catch((error) => {
@@ -148,6 +171,30 @@ export default {
         });
       }
     },
+    /*async addToWishlist(product) {
+      // Verificar si el producto ya está en la lista de deseos
+      const existsInWishlist = this.wishlist.some((item) => item.id === product.id);
+
+      if (!existsInWishlist) {
+        // Crear el objeto que se enviará al backend usando la instancia newWishlistProduct
+        this.newWishlistProduct = new Wishlist({
+          userId: this.wishlistService.getUserContext(),
+          componentName: product.name,
+          quantityComponents: product.quantityComponent
+        });
+
+        console.log("Wishlist product before sending:", this.newWishlistProduct); // Imprimir para ver cómo se ve el objeto
+
+        try {
+          // Enviar el objeto correctamente formateado al backend
+          const response = await this.wishlistService.create(this.newWishlistProduct);
+          this.wishlist.push(response.data); // Agregar el producto a la wishlist
+          console.log("Product added to wishlist:", response.data);
+        } catch (error) {
+          console.error("Error adding to wishlist:", error);
+        }
+      }
+    },*/
     removeFromWishlist(product) {
       const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
       wishlistService.delete(product.id).then(() => {
@@ -422,5 +469,46 @@ export default {
   gap: 15px;
   box-sizing: border-box;
   border: none;
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo más oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #1a001f; /* Fondo púrpura oscuro para el modal */
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  color: #fff; /* Texto en blanco */
+  border: 2px solid #e600ac; /* Borde rosa brillante */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  color: #e600ac; /* Color del botón de cerrar a juego */
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #ff66cc; /* Efecto de hover más claro en el botón de cerrar */
 }
 </style>

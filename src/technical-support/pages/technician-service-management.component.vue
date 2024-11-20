@@ -167,14 +167,14 @@ export default {
       this.showConfirmPopup = false;
       this.showGeneralRequestConfirmPopup = false;
     },
-    openReview(technical_support_id) {
-      console.log("Component ID in openReview:", technical_support_id);
-      if (technical_support_id !== undefined && technical_support_id !== null) {
-        this.selectedTechnicalId = technical_support_id;
+    openReview(technicalSupportId) {
+      console.log("Technical support ID in openReview:", technicalSupportId);
+      if (technicalSupportId !== undefined && technicalSupportId !== null) {
+        this.selectedTechnicalId = technicalSupportId;
         this.showReview = true;
         console.log("selectedTechnicalId:", this.selectedTechnicalId);
       } else {
-        console.error("technical_support_id is undefined in openReview");
+        console.error("technicalSupportId is undefined in openReview");
       }
     },
     closeReview() {

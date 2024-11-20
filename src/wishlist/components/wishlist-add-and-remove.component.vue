@@ -1,5 +1,6 @@
 <script>
 import CreateAndEdit from '../../shared/components/create-and-edit.component.vue';
+import {Wishlist} from "@/wishlist/model/wishlist.entity.js";
 
 export default {
   name: "WishlistAddAndRemoveComponent",
@@ -7,8 +8,8 @@ export default {
     CreateAndEdit,
   },
   props: {
-    component: {
-      type: Object,
+    wishlistProduct: {
+      type: Wishlist,
       required: true,
     },
     wishlist: {
@@ -17,29 +18,36 @@ export default {
     },
   },
   data() {
+    /*return {
+      showEditDialog: false,
+    };*/
     return {
+      wishlistProduct: {
+        quantityComponent: 0, // Establecer un valor inicial
+      },
+      //isInWishlist: false,
       showEditDialog: false,
     };
   },
   computed: {
     isInWishlist() {
-      return this.wishlist.some((item) => item.id === this.component.id);
+      return this.wishlist.some((item) => item.id === this.wishlistProduct.id);
     },
   },
   methods: {
     toggleWishlist() {
       if (this.isInWishlist) {
-        this.$emit("remove-from-wishlist", this.component);
+        this.$emit("remove-from-wishlist", this.wishlistProduct);
       } else {
-        this.$emit("add-to-wishlist", this.component);
+        this.$emit("add-to-wishlist", this.wishlistProduct);
       }
     },
     updateQuantity(amount) {
-      if (this.component.quantity + amount > 0) {
-        this.component.quantity += amount;
-        this.$emit("update-quantity", this.component);
+      if (this.wishlistProduct.quantityComponent + amount > 0) {
+        this.wishlistProduct.quantityComponent += amount;
+        this.$emit("update-quantity", this.wishlistProduct);
       } else {
-        this.component.quantity = 1;
+        this.wishlistProduct.quantityComponent = 1;
       }
     },
     openEditDialog() {
@@ -63,13 +71,13 @@ export default {
     </button>
     <div class="quantity">
       <button @click="updateQuantity(-1)">-</button>
-      <span>{{ component.quantity }} Units</span>
+      <span>{{ wishlistProduct.quantityComponent }} Units</span>
       <button @click="updateQuantity(1)">+</button>
     </div>
 
     <CreateAndEdit
-        :entity="component"
-        :entityName="'Component'"
+        :entity="wishlistProduct"
+        :entityName="'Wishlist'"
         :edit="true"
         :visible="showEditDialog"
         @saved="onEditSave"
