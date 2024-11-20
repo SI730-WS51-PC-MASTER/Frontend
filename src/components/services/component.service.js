@@ -3,10 +3,14 @@ import http from "../../shared/services/http-common.js";
 export class ComponentService {
 
     //resourceEndpoint = 'https://my-json-server.typicode.com/AlexlmL/dbserver_PCMaster/components';
-    resourceEndpoint = "https://localhost:44345/api/v1/component";
+    //resourceEndpoint = "https://localhost:44345/api/v1/component";
     //resourceEndpoint = "http://localhost:3000/components"
-    //Token para pruebas
-    authToken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzI2MzYyMDYsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOlsiMSIsImFlYSJdLCJpYXQiOjE3MzIwMzE0MDYsIm5iZiI6MTczMjAzMTQwNn0.j8IYA9xMcmIsN3T1V6Uo0FOs9V_CELdSxyx3neIRDvg";
+    resourceEndpoint = "http://localhost:5175/api/v1/component";
+    //Token para pruebas de alex
+    //authToken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzI2MzYyMDYsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOlsiMSIsImFlYSJdLCJpYXQiOjE3MzIwMzE0MDYsIm5iZiI6MTczMjAzMTQwNn0.j8IYA9xMcmIsN3T1V6Uo0FOs9V_CELdSxyx3neIRDvg";
+
+    /*Token de oscar*/
+    authToken = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzI2Nzc3NTksImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOlsiMSIsImFlYSJdLCJpYXQiOjE3MzIwNzI5NTksIm5iZiI6MTczMjA3Mjk1OX0.kZe5TRRngUEN8Dc9AOXrmazyAhXhT9fxaONL-hA25_4";
 
 
     getAll() {

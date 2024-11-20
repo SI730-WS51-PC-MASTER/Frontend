@@ -63,7 +63,6 @@ export default {
 </script>
 
 <template>
-  <!-- ESTAS DOS CABECERAS ESTABAN BUGEANDO MI COMPONENTE XD, SI ALGUIEN LAS USA ME AVISA-->
   <!--<pv-toast/>-->
   <!--<pv-confirm-dialog/>-->
   <h2>Manage {{ title.plural }}</h2>
@@ -71,7 +70,7 @@ export default {
   <!-- Toolbar section -->
   <pv-toolbar class="mb-4">
     <template #start>
-      <pv-button class="mr-2" icon="pi pi-plus" label="New" severity="success" @click="newItem"/>
+      <!--<pv-button class="mr-2" icon="pi pi-plus" label="New" severity="success" @click="newItem"/>-->
       <pv-button :disabled="!selectedItems || !selectedItems.length" icon="pi pi-trash" label="Delete" severity="danger"
                  @click="confirmDeleteSelected"/>
     </template>

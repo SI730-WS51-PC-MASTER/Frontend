@@ -19,7 +19,7 @@ export default {
       showConfirmPopup: false,
       showGeneralRequestConfirmPopup: false,
       selectedTechnician: null,
-      selectedServiceType: "",
+      selectedServiceType: 0,
       showReview: false,
       selectedTechnicalId: null,
     };
@@ -48,49 +48,121 @@ export default {
         alert(`${technician.name} is currently unavailable.`); // Alert for unavailable technicians
       }
     },
+
     async handleConfirm({ technician, serviceType }) {
-      const supportType = serviceType || "zoom help meeting";
-      const newSupport = {
-        supportType,
-        dateOfRequest: new Date().toISOString(),
-        technicianId: technician.id, // Add technicianId here
-        startDate: new Date().toISOString(),
-        endDate: new Date().toISOString()
-      };
-
-      console.log('Data to be sent in POST request:', newSupport);
-
       try {
-        const response = await this.technicalSupportService.create(newSupport);
-        console.log('New technical support created:', response.data);
+        // Convertir selectedServiceType a un valor booleano
+        const supportTypeBoolean = Boolean(serviceType); // Convierte 1 a true, 0 a false
+
+        // Convertir technician.id a string si no lo es
+        const technicianIdString = String(technician.id); // Asegúrate de que sea un string
+
+        // Preparar el technicalSupport para la solicitud
+        const technicalSupport = {
+          technicianId: technicianIdString, // Usar el technicianId como string
+          supportType: supportTypeBoolean, // Aquí se pasa como un valor booleano
+          dateOfRequest: new Date().toISOString(), // Fecha de solicitud
+          startDate: new Date().toISOString(), // Fecha de inicio
+          endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString() // Fecha de fin
+        };
+
+        console.log('TechnicalSupport:', technicalSupport); // Verifica que el technicalSupport esté correcto
+
+        // Enviar la solicitud a la API para crear la solicitud de soporte técnico
+        const response = await this.technicalSupportService.create(technicalSupport);
+        console.log('Technical Support Created:', response.data);
+        alert(`Technical support request created successfully for ${technician.name}.`);
+        this.showConfirmPopup = false; // Cerrar el popup de confirmación
+
       } catch (error) {
-        console.error('Error creating technical support:', error);
+        console.error('Error creating technical support:', error.response ? error.response.data : error.message);
+        alert('Failed to create technical support request. Please try again later.');
       }
-      this.showConfirmPopup = false;
     },
+
     openGeneralRequestConfirmPopup(serviceType) {
       this.selectedServiceType = serviceType;
       this.showGeneralRequestConfirmPopup = true; // Open the confirmation popup
     },
+
     async handleGeneralRequestConfirm() {
-      const newSupport = {
-        supportType: this.selectedServiceType,
-        dateOfRequest: new Date().toISOString(),
-        technicianId: null, // No technician ID for general requests
-        startDate: new Date().toISOString(),
-        endDate: new Date().toISOString()
-      };
-
-      console.log('Data to be sent in POST request for general request:', newSupport);
-
       try {
-        const response = await this.technicalSupportService.create(newSupport);
-        console.log('New general support created:', response.data);
+        // Consultar los técnicos disponibles
+        const availableTechnicians = this.technicians;
+
+        // Consultar las solicitudes existentes de soporte técnico
+        const existingRequests = await this.technicalSupportService.getAll();
+
+        // Verificar que hemos obtenido las solicitudes correctamente
+        console.log("Existing requests:", existingRequests.data);
+
+        // Filtrar los técnicos que están actualmente en uso, es decir, aquellos que ya tienen una solicitud activa
+        const techniciansInUse = existingRequests.data.map(request => parseInt(request.technicianId)); // Aseguramos que technicianId sea un número entero
+
+        // Verificar los técnicos que están en uso
+        console.log("Technicians in use:", techniciansInUse);
+
+        // Filtrar los técnicos disponibles que no están en uso
+        const availableTechniciansNotInUse = availableTechnicians.filter(tech => {
+          console.log(`Checking if technician ${tech.id} is in use: ${techniciansInUse.includes(tech.id)}`);
+          return !techniciansInUse.includes(tech.id); // Comparar como enteros
+        });
+
+        // Verificar los técnicos disponibles que no están en uso
+        console.log("Available technicians not in use:", availableTechniciansNotInUse);
+
+        // Verificar si no hay técnicos disponibles
+        if (availableTechniciansNotInUse.length === 0) {
+          alert("Todos los técnicos están ocupados. No se puede crear un nuevo soporte técnico.");
+          return; // No se crea una nueva solicitud si no hay técnicos disponibles
+        }
+
+        // Seleccionar un técnico aleatorio de los técnicos disponibles no ocupados
+        const randomTechnician = availableTechniciansNotInUse[Math.floor(Math.random() * availableTechniciansNotInUse.length)];
+
+        // Convertir selectedServiceType a booleano
+        const supportTypeBoolean = Boolean(this.selectedServiceType);
+
+        // Preparar el technical-support
+        const technicalSupport = {
+          technicianId: String(randomTechnician.id), // ID del técnico como string (en caso de necesitar enviar como string)
+          supportType: supportTypeBoolean, // Tipo de soporte como booleano
+          dateOfRequest: new Date().toISOString(), // Fecha de solicitud
+          startDate: new Date().toISOString(), // Fecha de inicio (hoy)
+          endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString() // Fecha de fin (mañana)
+        };
+
+        console.log('TechnicalSupport:', technicalSupport); // Verificar el technicalSupport
+
+        // Consultar nuevamente las solicitudes existentes para verificar si no hay conflicto con las fechas
+        const updatedRequests = await this.technicalSupportService.getAll();
+
+        // Verificar si ya existe una solicitud con el mismo technicianId y conflicto de fechas
+        const conflictRequest = updatedRequests.data.find(request =>
+            request.technicianId === technicalSupport.technicianId &&
+            new Date(request.endDate) > new Date(technicalSupport.startDate) &&
+            new Date(request.startDate) < new Date(technicalSupport.endDate)
+        );
+
+        // Si se encuentra una solicitud en conflicto, mostrar mensaje de error
+        if (conflictRequest) {
+          alert(`El servicio de soporte técnico ya existe para el técnico ${randomTechnician.name} en el rango de fechas especificado.`);
+          return;
+        }
+
+        // Si no hay conflicto, proceder con la creación del soporte técnico
+        const response = await this.technicalSupportService.create(technicalSupport);
+        console.log('Technical Support Created:', response.data);
+
+        alert(`La solicitud de soporte técnico se ha creado con éxito para ${randomTechnician.name}.`);
+        this.showGeneralRequestConfirmPopup = false; // Cerrar el popup de confirmación
+
       } catch (error) {
-        console.error('Error creating general technical support:', error);
+        console.error('Error al crear el soporte técnico:', error);
+        alert('No se pudo crear la solicitud de soporte técnico. Error: ' + error.message);
       }
-      this.showGeneralRequestConfirmPopup = false; // Close the popup after submission
     },
+
     cancelMeeting() {
       this.showConfirmPopup = false;
       this.showGeneralRequestConfirmPopup = false;
