@@ -42,17 +42,11 @@ import router from "./router/index.js";
 import SelectButton from "primevue/selectbutton";
 import DatePicker from "primevue/datepicker";
 
+import {createPinia} from "pinia";
+
 // Create app instance
 
 const app = createApp(App);
-
-// Use i18n
-
-app.use(i18n);
-
-// Use Router
-
-app.use(router);
 
 // Use PrimeVue
 
@@ -87,6 +81,17 @@ app.component('pv-button', Button)
     .component('pv-toolbar', Toolbar)
     .component('pv-toast', Toast)
     .component('pv-date-picker', DatePicker);
+
+
+// Use i18n
+app.use(i18n);
+
+// Use Router
+app.use(router);
+
+// Pinia
+const pinia = createPinia();
+app.use(pinia);
 
 // Mount app
 app.mount('#app');
