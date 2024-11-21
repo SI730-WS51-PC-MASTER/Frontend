@@ -19,7 +19,6 @@ export class cartService {
     }
 
     getAllByUserId() {
-        console.log(this.userContextId)
         return http.get(`${this.resourceEndpoint}/user/${this.userContextId}`);
     }
 
