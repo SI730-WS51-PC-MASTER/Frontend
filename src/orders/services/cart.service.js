@@ -1,7 +1,8 @@
 import http from "../../shared/services/http-common.js";
 
 export class cartService {
-    resourceEndpoint = "http://localhost:3000/shopping-cart";
+    //resourceEndpoint = "http://localhost:3000/shopping-cart";
+    resourceEndpoint = "/shopping-cart";
 
     userContextId = 0;
 
