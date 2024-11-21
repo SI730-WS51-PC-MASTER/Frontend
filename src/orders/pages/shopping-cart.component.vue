@@ -43,6 +43,12 @@ export default {
           </router-link>
         </template>
       </pv-card>
+
+      <div>
+        <router-link to='get-guidance'>
+          <i class="pi pi-ellipsis-h"></i>
+        </router-link>
+      </div>
     </div>
 
     <div class="page-mid">

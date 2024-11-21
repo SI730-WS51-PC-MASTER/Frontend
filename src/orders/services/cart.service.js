@@ -1,9 +1,10 @@
 import http from "../../shared/services/http-common.js";
+import {useAuthenticationStore} from "@/iam/services/authentication.store.js";
 
 export class cartService {
-    resourceEndpoint = "http://localhost:3000/shopping-cart";
+    resourceEndpoint = "/cart";
 
-    userContextId = 0;
+    userContextId = useAuthenticationStore().currentUserId;
 
     setUserContext(context) {
         this.userContextId = context;
@@ -18,7 +19,8 @@ export class cartService {
     }
 
     getAllByUserId() {
-        return http.get(`${this.resourceEndpoint}?userId=${this.userContextId}`);
+        console.log(this.userContextId)
+        return http.get(`${this.resourceEndpoint}/user/${this.userContextId}`);
     }
 
     getById(id) {

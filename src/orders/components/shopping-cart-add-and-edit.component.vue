@@ -82,12 +82,12 @@ export default {
     },
 
     getComponentName(componentId) {
-      const component = this.components.find(comp => comp.id === componentId);
+      const component = this.components.find(comp => comp.componentId === componentId);
       return component ? component.name : 'Componente desconocido';
     },
     getComponentImage(componentId) {
       const component = this.components.find(comp => comp.id === componentId);
-      return component && component.image ? component.image.main : ''; // Accede a component.image.main
+      return component && component.image ? component.image : ''; // Accede a component.image.main
     },
     getComponentPrice(componentId){
       const component = this.components.find(comp => comp.id === componentId);
