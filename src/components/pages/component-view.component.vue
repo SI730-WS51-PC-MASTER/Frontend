@@ -28,6 +28,7 @@ export default {
       maxPrice: 10000,
       wishlist: [],
       showReview: false,
+      quantity: 1,
       selectedComponentId: null,
 
       //Cart service
@@ -37,6 +38,7 @@ export default {
       //Wishlist service
       wishlistService: new WishlistService(),
       newWishlistProduct: new Wishlist({}),
+      quantityMap: {}, // Mapa de cantidades { [componentId]: cantidad },
     };
   },
   created() {
@@ -140,72 +142,31 @@ export default {
         console.error("Error loading wishlist:", error);
       });
     },
-    addToWishlist(product) {
-      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
-      const existsInWishlist = this.wishlist.some((item) => item.id === product.id);
+    async addToWishlist(compId) {
+      const quantity = this.quantityMap[compId] || 1; // Por defecto 1 si no se ha definido cantidad
 
-      if (!existsInWishlist) {
-        // Crear el objeto que se enviará al backend
-        const productToAdd = {
-          userId: this.wishlistService.getUserContext(), // Asegúrate de tener el `userId` correctamente
-          componentName: product.name, // Asumiendo que `name` es el nombre del componente
-          quantityComponents: product.quantityComponent // Asegúrate de usar `quantityComponent`
-        };
-
-
-        /*console.log("Wishlist product before sending:", productToAdd);  // Agregar esta línea
-        wishlistService.create(product).then((response) => {
-          this.wishlist.push(response.data);
-          console.log("Product added to wish list:", response.data);
-        }).catch((error) => {
-          console.error("Error adding to wishlist:", error);
-        });
-        console.log("Wishlist product before sending:", productToAdd);  // Imprime para ver cómo se ve el objeto*/
-
-        // Enviar el objeto correctamente formateado al backend
-        wishlistService.create(productToAdd).then((response) => {
-          this.wishlist.push(response.data);
-          console.log("Product added to wish list:", response.data);
-        }).catch((error) => {
-          console.error("Error adding to wishlist:", error);
-        });
+      if (quantity < 1) {
+        alert("La cantidad debe ser al menos 1.");
+        return;
       }
-    },
-    /*async addToWishlist(product) {
-      // Verificar si el producto ya está en la lista de deseos
-      const existsInWishlist = this.wishlist.some((item) => item.id === product.id);
 
-      if (!existsInWishlist) {
-        // Crear el objeto que se enviará al backend usando la instancia newWishlistProduct
-        this.newWishlistProduct = new Wishlist({
-          userId: this.wishlistService.getUserContext(),
-          componentName: product.name,
-          quantityComponents: product.quantityComponent
-        });
+      // Datos completos que se enviarán al backend
+      const wishlistProduct = {
+        userId: this.cartsApi.getUserContext(), // Obtiene el userId del contexto
+        componentId: compId, // ID del componente
+        quantity, // Cantidad seleccionada
+      };
 
-        console.log("Wishlist product before sending:", this.newWishlistProduct); // Imprimir para ver cómo se ve el objeto
-
-        try {
-          // Enviar el objeto correctamente formateado al backend
-          const response = await this.wishlistService.create(this.newWishlistProduct);
-          this.wishlist.push(response.data); // Agregar el producto a la wishlist
-          console.log("Product added to wishlist:", response.data);
-        } catch (error) {
-          console.error("Error adding to wishlist:", error);
-        }
-      }
-    },*/
-    removeFromWishlist(product) {
-      const wishlistService = new WishlistService(); // Crear nueva instancia del servicio
-      wishlistService.delete(product.id).then(() => {
-        this.wishlist = this.wishlist.filter((item) => item.id !== product.id);
-        console.log("Product removed from wishlist");
-      }).catch((error) => {
-        console.error("Error removing from wishlist:", error);
-      });
-    },
-    updateQuantity(product) {
-      console.log("Updating product quantity:", product);
+      // Llamar al servicio para añadir a la wishlist
+      const wishlistService = new WishlistService();
+      wishlistService.create(wishlistProduct)
+          .then(() => {
+            alert(`Producto con ID ${compId} añadido a la wishlist con cantidad ${quantity}`);
+            this.$emit("wishlist-updated"); // Notifica al padre para actualizar la lista
+          })
+          .catch((error) => {
+            console.error("Error al añadir a la wishlist:", error);
+          });
     },
     mounted() {
       this.filteredComponents = this.components;
@@ -220,14 +181,15 @@ export default {
     //Add component in shopping cart
     async submitShoppingCart(compId) {
 
-      if (compId == null){
+      if (compId == null) {
         console.error('Error getting componentId')
 
       } else {
 
         this.newCart = new Cart({
           componentId: compId,
-          userId: this.cartsApi.getUserContext(), quantity: 1});
+          userId: this.cartsApi.getUserContext(), quantity: 1
+        });
 
         try {
           this.cartsApi.create(this.newCart).then((response) => {
@@ -237,7 +199,6 @@ export default {
           console.error('Error en carrito de compras')
         }
       }
-
     },
     fetchComponents() {
       const componentService = new ComponentService();
@@ -344,6 +305,34 @@ export default {
           <div class="component-info">
             <h3 class="component-title">{{ component.name }}</h3>
             <p class="component-price">${{ component.price }}.00</p>
+            <!-- Cantidad específica para cada componente
+            <input
+                type="number"
+                v-model="quantityMap[component.componentId]"
+                min="1"
+                placeholder="Cantidad"
+            />
+            <button @click="addToWishlist(component.componentId)">
+              Add to Wishlist
+            </button>-->
+            <div class="input-button-container">
+              <!-- Input para cantidad -->
+              <input
+                  type="number"
+                  v-model="quantityMap[component.componentId]"
+                  min="1"
+                  placeholder="Cantidad"
+                  class="styled-input"
+              />
+
+              <!-- Botón para añadir a la lista de deseos -->
+              <button
+                  @click="addToWishlist(component.componentId)"
+                  class="styled-button"
+              >
+                Add to Wishlist
+              </button>
+            </div>
             <div class="component-rating">
               <span v-for="n in 5" :key="n" class="star">
                 <i :class="n <= (component.ratings >= 0 ? Math.min(component.ratings, 5) : 0) ? 'filled-star' : 'empty-star'">★</i>
@@ -352,25 +341,12 @@ export default {
             <p v-if="component.stock > 10" class="available component-status">Available</p>
             <p v-else-if="component.stock > 0" class="short component-status">Short</p>
             <p v-else class="unavailable component-status">Unavailable</p>
-            <WishlistAddAndRemoveComponent
-                :component="component"
-                :wishlist="wishlist"
-                @add-to-wishlist="addToWishlist"
-                @remove-from-wishlist="removeFromWishlist"
-            />
-            <div>
-              <add-cart-button @button-click="submitShoppingCart(component.componentId)"></add-cart-button>
+            <add-cart-button @button-click="submitShoppingCart(component.componentId)"></add-cart-button>
             </div>
-          </div>
-          <div class="component-actions">
-            <i class="fa fa-edit"></i>
-            <img src="@/assets/icons/me-gusta.png" />
-            <img src="@/assets/icons/compartir.png" />
           </div>
         </div>
       </div>
     </div>
-  </div>
 
   <!-- Modal para mostrar las opiniones -->
   <div v-if="showReview" class="modal-overlay" @click.self="closeReview">
@@ -502,13 +478,50 @@ export default {
   top: 10px;
   right: 15px;
   background: transparent;
-  color: #e600ac; /* Color del botón de cerrar a juego */
+  color: #e600ac;
   border: none;
   font-size: 30px;
   cursor: pointer;
 }
 
 .close-button:hover {
-  color: #ff66cc; /* Efecto de hover más claro en el botón de cerrar */
+  color: #ff66cc;
+}
+
+/* Estilo del input */
+.styled-input {
+  padding: 10px;
+  border: 2px solid #f08080;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
+  color: #000000;
+  background-color: #f08080;
+  transition: border-color 0.3s ease;
+}
+
+.styled-input:focus {
+  border-color: #d06060;
+}
+
+/* Estilo del botón */
+.styled-button {
+  padding: 10px 20px;
+  background-color: #f08080;
+  color: #5a1a1a;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover y active para el botón */
+.styled-button:hover {
+  background-color: #d06060; /* Color más oscuro al pasar el mouse */
+}
+
+.styled-button:active {
+  transform: scale(0.95); /* Reducir tamaño al hacer clic */
 }
 </style>

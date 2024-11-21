@@ -2,13 +2,13 @@ export class Wishlist {
     constructor({
         id = 0,
         userId = 0,
-        quantityComponent = 0,
-        componentName = "",
+        componentId = 0,
+        quantity = 0,
     })
     {
         this.id = id;
         this.userId = userId;
-        this.quantityComponent = quantityComponent;
-        this.componentName = componentName;
+        this.componentId = componentId;
+        this.quantityComponent = quantity;
     }
 }

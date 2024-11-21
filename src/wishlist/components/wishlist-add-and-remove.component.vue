@@ -1,117 +1,160 @@
 <script>
 import CreateAndEdit from '../../shared/components/create-and-edit.component.vue';
 import {Wishlist} from "@/wishlist/model/wishlist.entity.js";
+import {ComponentService} from "@/components/services/component.service.js";
+import {WishlistService} from "@/wishlist/services/wishlist.service.js";
+import {$t} from "@primeuix/styled";
 
 export default {
   name: "WishlistAddAndRemoveComponent",
   components: {
     CreateAndEdit,
   },
-  props: {
-    wishlistProduct: {
-      type: Wishlist,
-      required: true,
-    },
-    wishlist: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
-    /*return {
-      showEditDialog: false,
-    };*/
     return {
-      wishlistProduct: {
-        quantityComponent: 0, // Establecer un valor inicial
-      },
-      //isInWishlist: false,
-      showEditDialog: false,
-    };
+      wishlists: [],
+      errors: [],
+      components: [],
+      wishlistApi: new WishlistService()
+    }
   },
-  computed: {
-    isInWishlist() {
-      return this.wishlist.some((item) => item.id === this.wishlistProduct.id);
-    },
+  created() {
+    this.getComponentsData()
+    this.getWishlistData();
+    this.getCartLength();
+
   },
+
   methods: {
-    toggleWishlist() {
-      if (this.isInWishlist) {
-        this.$emit("remove-from-wishlist", this.wishlistProduct);
-      } else {
-        this.$emit("add-to-wishlist", this.wishlistProduct);
+    $t,
+
+    // Get components Data
+    getComponentsData(){
+      const componentService = new ComponentService();
+      componentService.getAll().then(response => {
+        this.components = response.data;
+        //console.log("Response: ", this.components);
+      });
+    },
+    // Get Cart Length by user
+    getCartLength() {
+      this.wishlistApi.getAllByUserId()
+          .then(response => {
+            this.cartLength = response.data.length;
+            //console.log('cart length ', this.cartLength);
+            // Emit cart quantity
+            this.$emit('quantity', this.cartLength);
+          })
+          .catch(error => {
+            this.errors.push(error)
+          })
+    },
+    getWishlistData() {
+      this.wishlistApi.getAllByUserId()
+          .then((response) => {
+            this.wishlists = response.data; // Actualiza la lista de deseos
+            this.$emit("wishlist-updated", this.wishlists); // Emite los datos para que el padre los reciba
+          })
+          .catch((error) => {
+            this.errors.push(error);
+            console.error("Error al cargar la lista de deseos:", error);
+          });
+    },
+
+    getComponentName(componentId) {
+      const component = this.components.find(comp => comp.componentId === componentId);
+      return component ? component.name : 'Componente desconocido';
+    },
+    onDeleteItem(wishlistId) {
+
+      if(wishlistId === null) {
+        console.error("Item not found");
       }
-    },
-    updateQuantity(amount) {
-      if (this.wishlistProduct.quantityComponent + amount > 0) {
-        this.wishlistProduct.quantityComponent += amount;
-        this.$emit("update-quantity", this.wishlistProduct);
-      } else {
-        this.wishlistProduct.quantityComponent = 1;
+
+      try {
+        this.wishlistApi.delete(wishlistId).then((response) => {
+          //console.log('Item deleted:', response);
+        })
+      } catch (error) {
+        console.error("Error deleting item:", error);
       }
-    },
-    openEditDialog() {
-      this.showEditDialog = true;
-    },
-    onEditSave(updatedEntity) {
-      this.showEditDialog = false;
-      console.log('Guardado', updatedEntity);
-    },
-    onCancelEdit() {
-      this.showEditDialog = false;
-    },
-  },
+
+      this.getWishlistData();
+      this.getCartLength();
+    }
+  }
 };
 </script>
 
 <template>
-  <div class="component-card">
-    <button @click="toggleWishlist" class="addButton">
-      {{ isInWishlist ? 'Remove' : 'Add to Wishlist' }}
-    </button>
-    <div class="quantity">
-      <button @click="updateQuantity(-1)">-</button>
-      <span>{{ wishlistProduct.quantityComponent }} Units</span>
-      <button @click="updateQuantity(1)">+</button>
-    </div>
+  <div>
+    <div class="int-title">{{ $t("component-card") }}</div>
 
-    <CreateAndEdit
-        :entity="wishlistProduct"
-        :entityName="'Wishlist'"
-        :edit="true"
-        :visible="showEditDialog"
-        @saved="onEditSave"
-        @canceled="onCancelEdit"
-    />
+    <div class="wishlist-container">
+      <div v-if="wishlists.length === 0">No products added to wishlist yet.</div>
+
+      <div v-for="wishlist in wishlists" :key="wishlist.id" class="cad-list">
+        <pv-card class="w-full items-card">
+          <template #header>
+            <div class="flex align-items-center gap-3 card-header">
+              <div class="flex-column card-info">
+                <div class="card-name">{{ getComponentName(wishlist.componentId) }}</div>
+                <div class="card-name"> Cantidad: {{ wishlist.quantity }}</div>
+                <pv-button
+                    class="card-action"
+                    @click="onDeleteItem(wishlist.id)"
+                    label="Remove"
+                    severity="info"
+                />
+              </div>
+            </div>
+          </template>
+        </pv-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.component-card {
-  width: 250px;
-  height: auto;
-  padding: 10px;
-  margin: 10px;
-  display: flex;
-  box-shadow: none;
-}
-.quantity {
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-}
-.quantity button {
-  background-color: #ff4081;
-  border: none;
-  color: white;
-  padding: 4px 8px;
+.int-title {
+  margin: 15px;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
 }
 
-.addButton {
-  background-color: transparent;
-  border: 1px solid #ff0077;
-  border-radius: 10px;
-  color: #ff0077;
-  padding: 5px 10px;
+.cards-container {
+  width: 100%;
+}
+
+.cad-list {
+  padding: 1rem;
+}
+
+.items-card {
+  background-color: rgba(128, 128, 128, 0.7);
+  width: 100px;
+}
+
+.card-header{
+  width: 100%;
+}
+
+.card-info{
+  width: 200px;
+  margin: 15px;
+}
+
+.card-action {
+  color: #ffffff;
+  width: 100%;
+}
+
+.card-name {
+  margin: 5px;
+  text-align: left;
+  font-size: 20px;
+  display: flex;
+
 }
 </style>

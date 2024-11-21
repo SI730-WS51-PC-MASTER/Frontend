@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-  <pv-button label="ADD" severity="danger" @click="handleClick">
+  <pv-button label="Add to shopping cart" severity="danger" @click="handleClick">
     <slot></slot> <!--To pass text inside button-->
   </pv-button>
 </template>

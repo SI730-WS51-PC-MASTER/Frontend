@@ -3,19 +3,15 @@ import http from "../../shared/services/http-common.js";
 export class ComponentReviewService {
     //resourceEndpoint = "https://my-json-server.typicode.com/zrodrigochirinos/json-server-review/componentReviews";
     //resourceEndpoint = "http://localhost:3000/componentReviews";
-    resourceEndpoint = "http://localhost:5175/api/v1/component-review";
+    resourceEndpoint = "/component-review";
 
     //Token para pruebas
-    authToken="eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzI3MjgxNjksImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOlsiMiIsImFjIl0sImlhdCI6MTczMjEyMzM2OSwibmJmIjoxNzMyMTIzMzY5fQ.D0Qmk1O0XKs_oUpDOhS4KW5Bl_RRgiX0shfJzprEp7w";
+    //authToken="eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzI3NjE0MjQsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOlsiMiIsImFkIl0sImlhdCI6MTczMjE1NjYyNCwibmJmIjoxNzMyMTU2NjI0fQ.vIjk3xZlOrrLLFJoj46RKTLxWchbc9Udud1gqS8JLvw";
 
 
 
     getAll() {
-        return http.get(this.resourceEndpoint, {
-            headers: {
-                Authorization: `Bearer ${this.authToken}`,  // Usamos el token directamente aquí
-            },
-        });
+        return http.get(this.resourceEndpoint);
     }
 
     getById(id) {
@@ -23,35 +19,19 @@ export class ComponentReviewService {
     }
 
     getByComponentId(componentId) {
-        return http.get(`${this.resourceEndpoint}/${componentId}`, {
-            headers: {
-                Authorization: `Bearer ${this.authToken}`,  // También se usa aquí
-            },
-        });
+        return http.get(`${this.resourceEndpoint}/${componentId}`);
     }
 
     create(Resource) {
-        return http.post(this.resourceEndpoint, Resource, {
-            headers: {
-                Authorization: `Bearer ${this.authToken}`,
-            },
-        });
+        return http.post(this.resourceEndpoint, Resource);
     }
 
     update(id, Resource) {
-        return http.put(`${this.resourceEndpoint}/${id}`, Resource, {
-            headers: {
-                Authorization: `Bearer ${this.authToken}`,
-            },
-        });
+        return http.put(`${this.resourceEndpoint}/${id}`, Resource);
     }
 
     delete(id) {
-        return http.delete(`${this.resourceEndpoint}/${id}`, {
-            headers: {
-                Authorization: `Bearer ${this.authToken}`,
-            },
-        });
+        return http.delete(`${this.resourceEndpoint}/${id}`);
     }
 
     findByName(name) {
