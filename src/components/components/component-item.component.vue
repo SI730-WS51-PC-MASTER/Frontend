@@ -18,7 +18,7 @@ export default {
   <div class="component-card">
     <img
         v-if="component.image"
-        :src="component.image.imageUrl"
+        :src="component.image"
         alt="Component image"
         class="component-image"
     />
@@ -39,8 +39,6 @@ export default {
     <div class="component-actions">
       <!-- Aquí puedes añadir los iconos de acción -->
       <i class="fa fa-edit"></i> <!-- Icono de editar -->
-      <img src="@/assets/icons/me-gusta.png" />
-      <img src="@/assets/icons/compartir.png" />
     </div>
   </div>
   </div>

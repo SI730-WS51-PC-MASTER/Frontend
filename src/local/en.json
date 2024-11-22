@@ -13,5 +13,17 @@
     "totalPrice": "Total Price",
     "products": "Total amount",
     "summary": "Selection summary"
+  },
+
+  "iam": {
+    "sign-in": "Sign in",
+    "sign-up": "Sign Up",
+    "username": "Username",
+    "user": "Username or email address",
+    "password": "Password",
+    "pass": "Enter your password",
+    "new": "New in PcMaster?",
+    "create": "Create an account",
+    "already": "Already have an account?"
   }
 }

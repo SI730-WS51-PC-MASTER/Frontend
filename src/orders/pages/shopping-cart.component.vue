@@ -1,6 +1,7 @@
 <script>
 import ShoppingCartAddAndEdit from "@/orders/components/shopping-cart-add-and-edit.component.vue";
 import {cartService} from "@/orders/services/cart.service.js";
+import {useAuthenticationStore} from "@/iam/services/authentication.store.js";
 
 export default {
   name: "shopping-cart",
@@ -13,6 +14,7 @@ export default {
   },
 
   methods: {
+    useAuthenticationStore,
     getQuantity(length){
       this.quantity = length
     },
@@ -32,7 +34,7 @@ export default {
         <template #header>
           <div class="pi pi-user" style="font-size: 2.5rem; margin: 30px"></div>
         </template>
-        <template #title> Name:  </template>
+        <template #title> Name: {{useAuthenticationStore().currentUsername}} </template>
         <template #content>
           <div></div>
 
@@ -43,6 +45,12 @@ export default {
           </router-link>
         </template>
       </pv-card>
+
+      <div>
+        <router-link to='order-manager'>
+          <i class="pi pi-ellipsis-h"></i>
+        </router-link>
+      </div>
     </div>
 
     <div class="page-mid">

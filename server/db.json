@@ -288,79 +288,77 @@
   ],
   "wishlist": [
     {
+      "id": 2,
+      "name": "Tarjeta media",
+      "description": "Reliable component",
+      "price": 200,
+      "stock": 1000,
+      "provider_id": 2,
+      "image": {
+        "main": "https://i.postimg.cc/bv5h7dsy/GPU-vs-tarjeta-gr-fica-edit.png",
+        "secondary": []
+      },
+      "ratings": 3,
+      "technicalSupports": {
+        "type": "Graphic Card",
+        "subType": "Trabajo"
+      },
+      "attributes": {
+        "memory": "4GB",
+        "type": "GDDR5",
+        "clockSpeed": "1500 MHz",
+        "color": "Green"
+      },
+      "country": "USA",
+      "quantity": 5
+    },
+    {
+      "id": 1,
+      "name": "Tarjeta cara",
+      "description": "High performance component",
+      "price": 1500,
+      "stock": 10,
+      "provider_id": 1,
+      "image": {
+        "main": "https://i.postimg.cc/tg3Jy3Gq/image-bb448f04792d4d239f677d3b16c144a9.png",
+        "secondary": []
+      },
+      "ratings": 5,
+      "technicalSupports": {
+        "type": "Graphic Card",
+        "subType": "Juegos"
+      },
+      "attributes": {
+        "memory": "8GB",
+        "type": "GDDR6",
+        "clockSpeed": "2000 MHz",
+        "color": "Black"
+      },
+      "country": "USA",
+      "quantity": 1
+    },
+    {
       "id": 3,
       "name": "Tarjeta Barata 3",
       "description": "Medium performance component",
       "price": 170,
       "stock": 0,
       "provider_id": 1,
-      "image": {
-        "main": "https://i.postimg.cc/0yNh9Pgb/C-mo-entender-las-especificaciones-de-la-tarjeta-gr-fica-3.jpg",
-        "secondary": []
-      },
+      "image": "https://i.postimg.cc/0yNh9Pgb/C-mo-entender-las-especificaciones-de-la-tarjeta-gr-fica-3.jpg",
       "ratings": 4,
-      "technicalSupports": {
-        "type": "Graphic Card",
-        "subType": "Diseño"
-      },
-      "attributes": {
-        "memory": "2GB",
-        "type": "GDDR5",
-        "clockSpeed": "1200 MHz",
-        "color": "Red"
-      },
-      "country": "Taiwan"
-    },
-    {
-      "id": 4,
-      "name": "RAM 16GB DDR4",
-      "description": "High-speed RAM for gaming and multitasking.",
-      "price": 80,
-      "stock": 150,
-      "provider_id": 3,
-      "image": {
-        "main": "https://i.postimg.cc/k5Z1JCnv/ram.png",
-        "secondary": []
-      },
-      "ratings": 5,
-      "technicalSupports": {
-        "type": "RAM",
-        "subType": "Juegos"
-      },
-      "attributes": {
-        "memory": "16GB",
-        "type": "DDR4",
-        "clockSpeed": "3200 MHz",
-        "color": "Black"
-      },
-      "country": "USA"
-    },
-    {
-      "id": 5,
-      "name": "Placa madre ATX",
-      "description": "Motherboard for high performance builds.",
-      "price": 120,
-      "stock": 80,
-      "provider_id": 4,
-      "image": {
-        "main": "https://i.postimg.cc/V6rhn67h/placa-madre.webp",
-        "secondary": []
-      },
-      "ratings": 4,
-      "technicalSupports": {
-        "type": "Motherboard",
-        "subType": "Trabajo"
-      },
-      "attributes": {
-        "formFactor": "ATX",
-        "socket": "LGA 1151",
-        "memorySupport": "Max 64GB",
-        "color": "Black"
-      },
-      "country": "USA"
+      "model": "GTX 1050",
+      "color": "Red",
+      "dimensions": "8.5 x 3.0 inches",
+      "material": "Plastic",
+      "weight": "1.0 lbs",
+      "category_type": "Graphic Card",
+      "category_subType": "Diseño",
+      "category_brand": "NVIDIA",
+      "country": "Taiwan",
+      "quantity": 2
     }
   ],
-  "reviewsTechnicalSupport": [
+  "technicalSupportReviews": [
     {
       "id": 1,
       "rating": 5,
@@ -410,7 +408,7 @@
       "technical_support": ""
     }
   ],
-  "reviewsComponent": [
+  "componentReviews": [
     {
       "id": 1,
       "rating": 5,

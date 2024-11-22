@@ -1,8 +1,8 @@
 <script>
-import { ReviewComponent } from "@/review/model/review-component.entity.js";
-import { ReviewComponentService } from "@/review/services/review-component.service.js";
+import {ComponentReview} from "@/review/model/component-review.entity.js";
+import { ComponentReviewService } from "@/review/services/component-review.service.js";
 export default {
-  name: "review-component-management",
+  name: "component-review-management",
   props: {
     componentId: {
       type: [Number],
@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       reviews: [],
-      newReview: new ReviewComponent(),
+      newReview: new ComponentReview(),
       editingReview: null,
     };
   },
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     async fetchReviews() {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ComponentReviewService();
       try {
         console.log("Fetching reviews for component ID:", this.componentId);
         const response = await reviewService.getByComponentId(this.componentId);
@@ -46,8 +46,8 @@ export default {
     },
 
     // Guardar o actualizar opinión
-    async saveReview() {
-      const reviewService = new ReviewComponentService();
+    /*async saveReview() {
+      const reviewService = new ComponentReviewService();
       if (this.editingReview) {
         // Actualizar opinión existente
         try {
@@ -59,7 +59,38 @@ export default {
         }
       } else {
         // Crear una nueva opinión
-        this.newReview.component_id = this.componentId; // Asignar el ID del componente
+        this.newReview.componentId = this.componentId; // Asignar el ID del componente
+        try {
+          await reviewService.create(this.newReview);
+          await this.fetchReviews();
+          this.resetForm();
+        } catch (error) {
+          console.error("Error adding review:", error);
+        }
+      }
+    },*/
+    // Guardar o actualizar opinión
+    async saveReview() {
+      const reviewService = new ComponentReviewService();
+
+      // Validar que el rating esté entre 1 y 5
+      if (this.newReview.rating < 1 || this.newReview.rating > 5) {
+        alert("El rating debe estar entre 1 y 5."); // Mostrar alerta
+        return; // Salir del método sin proceder
+      }
+
+      if (this.editingReview) {
+        // Actualizar opinión existente
+        try {
+          await reviewService.update(this.editingReview.id, this.newReview);
+          await this.fetchReviews();
+          this.cancelEdit();
+        } catch (error) {
+          console.error("Error updating review:", error);
+        }
+      } else {
+        // Crear una nueva opinión
+        this.newReview.componentId = this.componentId; // Asignar el ID del componente
         try {
           await reviewService.create(this.newReview);
           await this.fetchReviews();
@@ -69,6 +100,7 @@ export default {
         }
       }
     },
+
 
     // Editar una opinión existente
     editReview(review) {
@@ -84,7 +116,7 @@ export default {
 
     // Eliminar una opinión
     async deleteReview(id) {
-      const reviewService = new ReviewComponentService();
+      const reviewService = new ComponentReviewService();
       try {
         await reviewService.delete(id);
         await this.fetchReviews();
@@ -95,7 +127,7 @@ export default {
 
     // Restablecer el formulario de opinión
     resetForm() {
-      this.newReview = new ReviewComponent();
+      this.newReview = new ComponentReview();
     }
 
   },
@@ -109,7 +141,7 @@ export default {
     <!-- Listado de Opiniones -->
     <div v-if="reviews && reviews.length" class="review-list">
       <div v-for="review in reviews" :key="review.id" class="review-item">
-        <p><strong>{{ review.user_name }}</strong> (Rating: {{ review.rating }})</p>
+        <p><strong>{{ review.userName }}</strong> (Rating: {{ review.rating }})</p>
         <p>{{ review.comment }}</p>
         <button @click="editReview(review)">Edit</button>
         <button @click="deleteReview(review.id)">Delete</button>
@@ -120,7 +152,7 @@ export default {
     <!-- Formulario para Crear/Editar Opiniones -->
     <div class="review-form">
       <h4>{{ editingReview ? 'Edit' : 'Add' }} an Opinion</h4>
-      <input v-model="newReview.user_name" placeholder="Your name" />
+      <input v-model="newReview.userName" placeholder="Your name" />
       <input v-model.number="newReview.rating" type="number" min="1" max="5" placeholder="Rating (1-5)" />
       <textarea v-model="newReview.comment" placeholder="Write your opinion..."></textarea>
       <button @click="saveReview">{{ editingReview ? 'Update' : 'Submit' }}</button>

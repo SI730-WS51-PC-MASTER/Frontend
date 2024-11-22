@@ -1,84 +1,112 @@
 <script>
 import { WishlistService } from "../services/wishlist.service.js";
+import ShoppingCartAddAndEdit from "@/orders/components/shopping-cart-add-and-edit.component.vue";
+import WishlistAddAndRemoveComponent from "@/wishlist/components/wishlist-add-and-remove.component.vue";
 
 export default {
   name: "WishlistManagement",
+  components: {WishlistAddAndRemoveComponent},
+  /*data() {
+    return {
+      quantity: null,
+      price: 0,
+    }
+  },
+
+  methods: {
+    getQuantity(length){
+      this.quantity = length
+    },
+    getPrice(price){
+      this.price = price
+    }
+  }*/
   data() {
     return {
-      wishlist: [],
+      wishlists: [], // Lista de productos en la wishlist
+      errors: [],
     };
   },
-  methods: {
-    removeFromWishlist(product) {
-      const wishlistService = new WishlistService();
-      wishlistService.delete(product.id)
-          .then(() => {
-            this.wishlist = this.wishlist.filter((p) => p.id !== product.id);
-            this.$emit('remove-from-wishlist', product);
-          })
-          .catch((error) => {
-            console.error("Error removing product:", error);
-          });
-    },
-    fetchWishlist() {
-      const wishlistService = new WishlistService(); // Crear la instancia
-      wishlistService.getAll()
-          .then((response) => {
-            this.wishlist = response.data;
-          })
-          .catch((error) => {
-            console.error("Error fetching wishlist:", error);
-          });
-    },
+  created() {
+    this.loadWishlist();
   },
-  mounted() {
-    this.fetchWishlist();
+  methods: {
+    // Carga la lista de deseos desde el backend
+    // Maneja la actualización de la lista de deseos
+    handleWishlistUpdated(updatedWishlists) {
+      this.wishlists = updatedWishlists;
+    },
+
+    loadWishlist() {
+      const wishlistService = new WishlistService();
+      wishlistService.getAllByUserId()
+          .then((response) => {
+            this.wishlists = response.data;
+          })
+          .catch((error) => {
+            console.error("Error al cargar la lista de deseos:", error);
+            this.errors.push(error);
+          });
+    },
+
+    // Elimina un producto de la wishlist
+    removeFromWishlist(wishlistId) {
+      const wishlistService = new WishlistService();
+      wishlistService.delete(wishlistId)
+          .then(() => {
+            this.wishlists = this.wishlists.filter(item => item.id !== wishlistId);
+            alert("Producto eliminado de la lista de deseos");
+          })
+          .catch((error) => {
+            console.error("Error al eliminar de la lista de deseos:", error);
+          });
+    },
   },
 };
 </script>
 
 <template>
   <div class="wishlist-container">
-    <h2>Products added</h2>
-    <div v-if="wishlist.length">
-      <div v-for="product in wishlist" :key="product.id" class="wishlist-item">
-        <img :src="product.image" alt="product image">
-        <h3>{{ product.name }}<br><br></h3>
-        <div>
-          <p>Precio unitario: ${{ product.price }}</p>
-          <p>{{ product.quantity }} Units</p>
-          <button @click="removeFromWishlist(product)">Remove</button>
-          <button>Buy now</button>
-        </div>
-      </div>
-    </div>
-    <div v-else>
-      <p>No products added to wishlist yet.</p>
-    </div>
+    <h2>Your Wishlist</h2>
+
+    <!-- Usa el componente hijo y escucha el evento -->
+    <wishlist-add-and-remove-component
+        @wishlist-updated="handleWishlistUpdated"
+    />
   </div>
 </template>
 
+
 <style scoped>
 .wishlist-container {
-  border: 1px solid #ccc;
-  padding: 16px;
-}
-.wishlist-item {
   display: flex;
-  align-items: center;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.wishlist-item img {
-  width: 100px;
-  height: 100px;
-  margin-right: 16px;
+
+
+i {
+  color: #000000;
 }
-.wishlist-item button {
-  margin-left: 16px;
-  padding: 4px 8px;
-  background-color: #ff4081;
-  color: white;
-  border: none;
+
+a {
+  color: #000000;
+  font-size: 17px;
+}
+
+.divisor{
+  border: 1px solid #00d5ff;
+  margin: 15px;
+}
+
+.cart-summary {
+  background-color: #f8f8f8;
+  color: #001014;
+}
+
+.action-buttons {
+  color: #ffffff;
+  margin-top: 15px;
 }
 </style>
 

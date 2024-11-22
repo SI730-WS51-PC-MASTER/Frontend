@@ -6,9 +6,6 @@ export default {
   components: { LanguageSwitcher },
   title: 'PC',
   methods: {
-    goToWishlist() {
-      //this.$router.push({name: 'wishlist'});
-    },
     goToTechnicalSupport() {
       //this.$router.push({name: 'technicalSupport'});
     }
@@ -30,7 +27,7 @@ export default {
           </router-link>
           <!--Icon to wish list-->
           <router-link to='wishlist'>
-            <i class="pi pi-heart-fill" @click="goToWishlist"></i>
+            <i class="pi pi-heart-fill" ></i>
           </router-link>
           <!--Icon to cart-->
           <router-link to='shopping-cart'>
