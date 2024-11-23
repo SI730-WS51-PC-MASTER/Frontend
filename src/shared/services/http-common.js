@@ -4,7 +4,8 @@ import {authenticationInterceptor} from "@/iam/services/authentication.intercept
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const http = axios.create({
-    baseURL: 'https://pcmasterapi-chbjdfexdsgpcua2.eastus-01.azurewebsites.net/api/v1'
+    //baseURL: 'https://pcmasterapi-chbjdfexdsgpcua2.eastus-01.azurewebsites.net/api/v1'
+    baseURL: 'http://localhost:5175/api/v1'
 })
 
 http.defaults.headers.common["Content-Type"] = "application/json";
